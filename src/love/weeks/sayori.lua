@@ -95,7 +95,8 @@ return {
 			elseif song == 2 then
 				if s == 480 and countNum == 0 then
                     camera.zooming = false
-                    camera.x, camera.y = girlfriend.x, girlfriend.y - 185
+                    --camera.x, camera.y = girlfriend.x, girlfriend.y - 185
+                    Timer.tween(beatHandler.calcSectionLength(0.2), camera, {x = girlfriend.x, y = girlfriend.y - 185})
                     -- one
                     audio.playSound(sounds.countdown.three)
                     girlfriend:animate("three")
@@ -131,13 +132,17 @@ return {
                     if costumes.sayori ~= "grace" then
                         enemy:animate("nara")
                     end
-
+                    stageImages.vignette.visible = true
+                    stageImages.staticshock.alpha = 0.45
+                    stageImages.staticshock.visible = true
                     camera.zooming = false
                     camTimer = Timer.tween(beatHandler.calcSectionLength(0.1), camera, {zoom = 2})
                     camera.y = camera.y + 35
                     countNum = 6
                 elseif s == 768 then
                     camera.zoom = 0.85
+                    stageImages.vignette.visible = false
+                    stageImages.staticshock.visible = false
                 elseif s == 774 then
                     camera.zooming = true
                 end
@@ -192,6 +197,20 @@ return {
 
             stages["clubroom"]:draw()
 		love.graphics.pop()
+
+        love.graphics.push()
+            love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
+            if stageImages.staticshock.visible then
+                graphics.setColor(1,1,1,stageImages.staticshock.alpha)
+                stageImages.staticshock:draw()
+                graphics.setColor(1,1,1,1)
+            end
+            if stageImages.vignette.visible then
+                graphics.setColor(1,1,1,stageImages.vignette.alpha)
+                stageImages.vignette:draw()
+                graphics.setColor(1,1,1,1)
+            end
+        love.graphics.pop()
 
 		if inCutscene then 
 			dialogue.draw()

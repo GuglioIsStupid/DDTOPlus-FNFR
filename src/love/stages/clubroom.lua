@@ -27,10 +27,6 @@ return {
         elseif enemyChar == "natsuki" then
             enemy = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
 
-            stageImages.bakaOverlay = love.filesystem.load("sprites/clubroom/baka.lua")()
-            stageImages.bakaOverlay.visible = false
-            stageImages.bakaOverlay.alpha = 0
-
             stageImages.dokis.yuri.x = -475
             stageImages.dokis.sayori.x = 500
 
@@ -41,16 +37,6 @@ return {
         elseif enemyChar == "yuri" then 
             enemy = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
 
-            stageImages.sparkleBG = graphics.newImage(graphics.imagePath("clubroom/YuriSparkleBG"))
-            stageImages.sparkleBG.visible = false
-            stageImages.sparkleBG.alpha = 1
-            stageImages.sparkleFG = graphics.newImage(graphics.imagePath("clubroom/YuriSparkleFG"))
-            stageImages.sparkleFG.visible = false
-            stageImages.sparkleFG.alpha = 1
-            stageImages.pinkOverlay = {}
-            stageImages.pinkOverlay.visible = false
-            stageImages.pinkOverlay.alpha = 0.2
-
             stageImages.dokis.natsuki.x = -475
             stageImages.dokis.sayori.x = 500
 
@@ -58,7 +44,49 @@ return {
             stageImages.dokis.sayori.y = 220
 
             enemy.x, enemy.y = -380, 215
+        elseif enemyChar == "monika" then
+            enemy = love.filesystem.load("sprites/characters/monika/monika.lua")()
+
+            stageImages.dokis.yuri.x = -550
+            stageImages.dokis.natsuki.x = 500
+            stageImages.dokis.sayori.x = -350
+
+            stageImages.dokis.yuri.y = 200
+            stageImages.dokis.natsuki.y = 250
+            stageImages.dokis.sayori.y = 230
+
+            enemy.x, enemy.y = -275, 210
         end
+
+        stageImages.bakaOverlay = love.filesystem.load("sprites/clubroom/baka.lua")()
+        stageImages.bakaOverlay.visible = false
+        stageImages.bakaOverlay.alpha = 0
+
+        stageImages.sparkleBG = graphics.newImage(graphics.imagePath("clubroom/YuriSparkleBG"))
+        stageImages.sparkleBG.visible = false
+        stageImages.sparkleBG.alpha = 1
+        stageImages.sparkleFG = graphics.newImage(graphics.imagePath("clubroom/YuriSparkleFG"))
+        stageImages.sparkleFG.visible = false
+        stageImages.sparkleFG.alpha = 1
+        stageImages.pinkOverlay = {}
+        stageImages.pinkOverlay.visible = false
+        stageImages.pinkOverlay.alpha = 0.2
+
+        stageImages.blackScreenBG = {}
+        stageImages.blackScreenBG.visible = true
+        stageImages.blackScreenBG.alpha = 0
+
+        stageImages.blackScreen = {}
+        stageImages.blackScreen.visible = false
+        stageImages.blackScreen.alpha = 0
+
+        stageImages.staticshock = love.filesystem.load("sprites/clubroom/static.lua")()
+        stageImages.staticshock.visible = false
+        stageImages.staticshock.alpha = 0
+
+        stageImages.vignette.visible = false
+        stageImages.vignette.alpha = 1
+
         girlfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriend.lua")()
 
         stageImages.desks.visible = true
@@ -100,8 +128,6 @@ return {
 
             stageImages.clubroom:udraw(1.6, 1.6)
 
-            girlfriend:draw()
-
             -- draw dokis here
             if showDokis then
                 if curEnemy ~= "sayori" then
@@ -114,6 +140,9 @@ return {
                     stageImages.dokis.yuri:udraw(0.7, 0.7)
                 end
             end
+
+            girlfriend:draw()
+
             if stageImages.blackScreenBG.visible then 
                 graphics.setColor(0,0,0,stageImages.blackScreenBG.alpha)
                 love.graphics.rectangle("fill", -2000, -2000, 10000, 10000)

@@ -339,7 +339,8 @@ function love.load()
 	-- Load stages
 	stages = {
 		["bigroom"] = require "stages.bigroom",
-		["clubroom"] = require "stages.clubroom"
+		["clubroom"] = require "stages.clubroom",
+		["clubroom-festival"] = require "stages.clubroom-festival"
 	}
 
 	-- Load Menus
@@ -366,6 +367,8 @@ function love.load()
 		require "weeks.sayori",
 		require "weeks.natsuki",
 		require "weeks.yuri",
+		require "weeks.monika",
+		require "weeks.festival",
 	}
 
 	weekDesc = { -- Add your week description here
@@ -401,14 +404,47 @@ function love.load()
 				"Deep Breaths",
 				"Obsession"
 			}
+		},
+		{
+			"Monika",
+			{
+				"Reconsiliation",
+			}
+		},
+		{
+			"Festival",
+			{
+				"Crucify (Yuri Mix)",
+				"beathoven (Natsuki Mix)",
+				"It's Complicated (Sayori Mix)",
+				"Glitcher (Monika Mix)",
+			}
 		}
 	}
+
+	glitchy = love.graphics.newShader [[
+            extern number time;
+            extern number strength;
+            extern vec2 resolution;
+            vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
+            {
+                vec2 pixel_count = max(floor(resolution.xy * vec2((cos(strength) + 1.0) / 2.0)), 1.0);
+                vec2 pixel_size = vec2(love_ScreenSize.x, love_ScreenSize.y) / pixel_count;
+                vec2 pixel = (pixel_size * floor(vec2(screen_coords.x, screen_coords.y) / pixel_size)) + (pixel_size / 1.0);
+                vec2 uv = pixel.xy / vec2(love_ScreenSize.x, love_ScreenSize.y);
+                vec4 pixel_color = Texel(texture, uv);
+                return pixel_color;
+            }
+        ]]
 
 	costumes = {
 		sayori = "default",
 		natsuki = "default",
 		yuri = "default",
-		monika = "default"
+		monika = "default",
+		protag = "default",
+		boyfriend = "default",
+		girlfriend = "default",
 	}
 
 	-- LÖVE init

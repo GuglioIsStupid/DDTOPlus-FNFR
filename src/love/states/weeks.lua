@@ -215,6 +215,7 @@ return {
 		end
 		if enemy2 then enemy2:animate("idle") end
 		boyfriend:animate("idle")
+		if boyfriend2 then boyfriend2:animate("idle") end
 
 		if not camera.points["boyfriend"] then camera:addPoint("boyfriend", -boyfriend.x + 100, -boyfriend.y + 75) end
 		if not camera.points["enemy"] then camera:addPoint("enemy", -enemy.x - 100, -enemy.y + 75) end
@@ -917,14 +918,18 @@ return {
 		end
 
 		girlfriend:update(dt)
+		if girlfriend2 then girlfriend2:update(dt) end
 		enemy:update(dt)
 		if enemy2 then enemy2:update(dt) end
 		boyfriend:update(dt)
+		if boyfriend2 then boyfriend2:update(dt) end
 
 		boyfriend:beat(beatHandler.getBeat())
+		if boyfriend2 then boyfriend2:beat(beatHandler.getBeat()) end
 		enemy:beat(beatHandler.getBeat())
 		if enemy2 then enemy2:beat(beatHandler.getBeat()) end
 		girlfriend:beat(beatHandler.getBeat())
+		if girlfriend2 then girlfriend2:beat(beatHandler.getBeat()) end
 	end,
 
 	updateUI = function(self, dt)
@@ -1050,8 +1055,10 @@ return {
 
 						if boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end" then
 							if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then boyfriend:animate(curAnim, false) end
+							if boyfriend2 then if (not boyfriend2:isAnimated()) or boyfriend2:getAnimName() == "idle" then boyfriend2:animate(curAnim, false) end end
 						else
 							boyfriend:animate(curAnim, false)
+							if boyfriend2 then boyfriend2:animate(curAnim, false) end
 						end
 
 						boyfriend.lastHit = musicTime
@@ -1174,6 +1181,7 @@ return {
 									boyfriendArrow:animate("confirm", false)
 
 									boyfriend:animate(curAnim, false)
+									if boyfriend2 then boyfriend2:animate(curAnim, false) end
 
 									if boyfriendNote[j]:getAnimName() ~= "hold" and boyfriendNote[j]:getAnimName() ~= "end" then
 										health = health + 0.095
@@ -1210,6 +1218,7 @@ return {
 					if combo >= 5 then girlfriend:animate("sad", false) end
 
 					boyfriend:animate("miss " .. curAnim, false)
+					if boyfriend2 then boyfriend2:animate("miss " .. curAnim, false) end
 
 					score = score - 10
 					combo = 0
@@ -1226,6 +1235,7 @@ return {
 				health = health + 0.0125
 
 				if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then boyfriend:animate(curAnim, false) end
+				if boyfriend2 and (not boyfriend2:isAnimated()) or boyfriend2:getAnimName() == "idle" then boyfriend2:animate(curAnim, false) end
 
 				table.remove(boyfriendNote, 1)
 			end

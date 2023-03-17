@@ -58,17 +58,6 @@ return {
             camera:addPoint("boyfriend", -boyfriend.x + 100, -boyfriend.y + 75)
             camera:moveToPoint(0.1, "enemy")
         end
-        stageImages.blackScreenBG = {}
-        stageImages.blackScreenBG.visible = true
-        stageImages.blackScreenBG.alpha = 0
-
-        stageImages.blackScreen = {}
-        stageImages.blackScreen.visible = false
-        stageImages.blackScreen.alpha = 0
-
-        stageImages.staticshock = love.filesystem.load("sprites/clubroom/static.lua")()
-        stageImages.staticshock.visible = false
-        stageImages.staticshock.alpha = 0
 	end,
 
 	load = function(self)
