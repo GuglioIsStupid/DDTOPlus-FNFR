@@ -129,7 +129,7 @@ function beatHandler.onStepNumber(stepNumber)
 end
 
 function beatHandler.calcSectionLength(multiplier)
-    return (beatHandler.stepCrochet / (64 / multiplier))
+    return (beatHandler.stepCrochet / (64 / (multiplier or 1)))
 end
 
 return beatHandler

@@ -20,6 +20,8 @@ camera.points = {}
 
 camera.mustHit = true
 
+camera.timer = 0
+
 -- e stands for extra
 
 function camera:moveToMain(time, x, y)
@@ -52,6 +54,25 @@ function camera:flash(time, x, col)
         Timer.cancel(camTimer)
     end
     camTimer = Timer.tween(time, camera, {flash = x}, "in-bounce")
+end
+
+function camera:shake(intensity, time)
+    --camera.x, camera.y = camera.x + math.random(-intensity, intensity), camera.y + math.random(-intensity, intensity)
+    camera.shaking = true
+    camera.shakeTimer = time
+    camera.shakeIntensity = intensity
+end
+
+function camera:update(dt)
+    if camera.shaking then 
+        camera.timer = camera.timer + dt
+        if camera.timer >= camera.shakeTimer then 
+            camera.shaking = false
+            camera.timer = 0
+        else
+            camera.x, camera.y = camera.x + math.random(-camera.shakeIntensity, camera.shakeIntensity), camera.y + math.random(-camera.shakeIntensity, camera.shakeIntensity)
+        end
+    end
 end
 
 function camera:removePoint(name)

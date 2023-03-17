@@ -364,6 +364,8 @@ function love.load()
 	weekData = {
 		require "weeks.week6",
 		require "weeks.sayori",
+		require "weeks.natsuki",
+		require "weeks.yuri",
 	}
 
 	weekDesc = { -- Add your week description here
@@ -384,6 +386,20 @@ function love.load()
 			{
 				"Rain Clouds",
 				"My Confession"
+			}
+		},
+		{
+			"Natsuki",
+			{
+				"My Sweets",
+				"Baka"
+			}
+		},
+		{
+			"Yuri",
+			{
+				"Deep Breaths",
+				"Obsession"
 			}
 		}
 	}

@@ -42,12 +42,12 @@ return {
 		weeks:load()
         stages["clubroom"]:load()
 
-		if song == 2 then
-			inst = love.audio.newSource("songs/natsuki/my confession/Inst.ogg", "stream")
-			voices = love.audio.newSource("songs/natsuki/my confession/Voices.ogg", "stream")
+		if song == 1 then
+			inst = love.audio.newSource("songs/natsuki/my sweets/Inst.ogg", "stream")
+			voices = love.audio.newSource("songs/natsuki/my sweets/Voices.ogg", "stream")
 		else
-			inst = love.audio.newSource("songs/natsuki/rain clouds/Inst.ogg", "stream")
-			voices = love.audio.newSource("songs/natsuki/rain clouds/Voices.ogg", "stream")
+			inst = love.audio.newSource("songs/natsuki/baka/Inst.ogg", "stream")
+			voices = love.audio.newSource("songs/natsuki/baka/Voices.ogg", "stream")
 		end
 
 		self:initUI()
@@ -58,15 +58,15 @@ return {
 	initUI = function(self)
 		weeks:initUI()
 
-		if song == 2 then
-			weeks:generateNotes("data/natsuki/my confession/my confession.json")
+		if song == 1 then
+			weeks:generateNotes("data/natsuki/my sweets/my sweets.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
 		else
-			weeks:generateNotes("data/natsuki/rain clouds/rain clouds.json")
+			weeks:generateNotes("data/natsuki/baka/baka.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else
@@ -78,6 +78,8 @@ return {
 	update = function(self, dt)
 		weeks:update(dt)
         stages["clubroom"]:update(dt)
+
+        stageImages.bakaOverlay:update(dt)
 
 		if not countingDown and not inCutscene then
 		else
@@ -99,9 +101,30 @@ return {
         if beatHandler.onBeat() then
             local b = beatHandler.curBeat
             if song == 2 then
-
+                if b == 16 and countNum == 0 then
+                    stageImages.bakaOverlay.visible = true
+                    Timer.tween(beatHandler.calcSectionLength(2), stageImages.bakaOverlay, {alpha = 1}, "in-sine")
+                    countNum = 1
+                elseif b == 32 then
+                    camera:shake(0.002, beatHandler.calcSectionLength(2))
+                    stageImages.bakaOverlay:animate("party rock is", true)
+                    camera.defaultZoom = 1.2
+                elseif b == 40 then
+                    
+                elseif b == 48 then
+                    camera.defaultZoom = 0.85
+                elseif b == 112 or b == 264 then
+                    Timer.tween(beatHandler.calcSectionLength(2), stageImages.bakaOverlay, {alpha = 0}, "out-sine")
+                elseif b == 144 then
+                    stageImages.bakaOverlay:animate("normal", true)
+                    Timer.tween(beatHandler.calcSectionLength(2), stageImages.bakaOverlay, {alpha = 1}, "in-sine")
+                elseif b == 176 then
+                    stageImages.bakaOverlay:animate("party rock is", true)
+                end
             elseif song == 1 then
-                
+                if b == 260 then 
+                    enemy:animate("hmmph")
+                end
             end
         end
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
@@ -141,6 +164,15 @@ return {
 
             stages["clubroom"]:draw()
 		love.graphics.pop()
+
+        love.graphics.push()
+            love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
+            if stageImages.bakaOverlay.visible then 
+                graphics.setColor(1,1,1,stageImages.bakaOverlay.alpha)
+                stageImages.bakaOverlay:draw()
+                graphics.setColor(1,1,1,1)
+            end
+        love.graphics.pop()
 
 		if inCutscene then 
 			dialogue.draw()

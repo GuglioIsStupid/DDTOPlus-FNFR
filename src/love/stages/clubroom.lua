@@ -9,8 +9,10 @@ return {
                 natsuki = love.filesystem.load("sprites/clubroom/natsuki.lua")(),
                 yuri = love.filesystem.load("sprites/clubroom/yuri.lua")(),
                 monika = love.filesystem.load("sprites/clubroom/monika.lua")()
-            }
+            },
+            vignette = graphics.newImage(graphics.imagePath("clubroom/vignette")),
         }
+        showDokis = true
         curEnemy = enemyChar
         if enemyChar == "sayori" then
             enemy = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
@@ -20,17 +22,53 @@ return {
 
             stageImages.dokis.yuri.y = 200
             stageImages.dokis.natsuki.y = 250
-        else
+
+            enemy.x, enemy.y = -380, 225
+        elseif enemyChar == "natsuki" then
+            enemy = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
+
+            stageImages.bakaOverlay = love.filesystem.load("sprites/clubroom/baka.lua")()
+            stageImages.bakaOverlay.visible = false
+            stageImages.bakaOverlay.alpha = 0
+
+            stageImages.dokis.yuri.x = -475
+            stageImages.dokis.sayori.x = 500
+
+            stageImages.dokis.yuri.y = 200
+            stageImages.dokis.sayori.y = 220
+
+            enemy.x, enemy.y = -380, 265
+        elseif enemyChar == "yuri" then 
+            enemy = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
+
+            stageImages.sparkleBG = graphics.newImage(graphics.imagePath("clubroom/YuriSparkleBG"))
+            stageImages.sparkleBG.visible = false
+            stageImages.sparkleBG.alpha = 1
+            stageImages.sparkleFG = graphics.newImage(graphics.imagePath("clubroom/YuriSparkleFG"))
+            stageImages.sparkleFG.visible = false
+            stageImages.sparkleFG.alpha = 1
+            stageImages.pinkOverlay = {}
+            stageImages.pinkOverlay.visible = false
+            stageImages.pinkOverlay.alpha = 0.2
+
+            stageImages.dokis.natsuki.x = -475
+            stageImages.dokis.sayori.x = 500
+
+            stageImages.dokis.natsuki.y = 250
+            stageImages.dokis.sayori.y = 220
+
+            enemy.x, enemy.y = -380, 215
         end
         girlfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriend.lua")()
 
+        stageImages.desks.visible = true
+
         girlfriend.x, girlfriend.y = 30, 175
-        enemy.x, enemy.y = -380, 225
         boyfriend.x, boyfriend.y = 260, 390
     end,
 
     load = function()
-
+        showDokis = true
     end,
 
     update = function(self, dt)
@@ -38,6 +76,8 @@ return {
         stageImages.dokis.natsuki:update(dt)
         stageImages.dokis.yuri:update(dt)
         stageImages.dokis.monika:update(dt)
+
+        camera:update(dt)
 
         if beatHandler.onBeat() and beatHandler.curBeat % 2 == 0 then
             stageImages.dokis.sayori:animate("anim")
@@ -63,18 +103,28 @@ return {
             girlfriend:draw()
 
             -- draw dokis here
-            if curEnemy ~= "sayori" then
-                stageImages.dokis.sayori:udraw(0.7, 0.7)
+            if showDokis then
+                if curEnemy ~= "sayori" then
+                    stageImages.dokis.sayori:udraw(0.7, 0.7)
+                end
+                if curEnemy ~= "natsuki" then
+                    stageImages.dokis.natsuki:udraw(0.7, 0.7)
+                end
+                if curEnemy ~= "yuri" then
+                    stageImages.dokis.yuri:udraw(0.7, 0.7)
+                end
             end
-            if curEnemy ~= "natsuki" then
-                stageImages.dokis.natsuki:udraw(0.7, 0.7)
+            if stageImages.blackScreenBG.visible then 
+                graphics.setColor(0,0,0,stageImages.blackScreenBG.alpha)
+                love.graphics.rectangle("fill", -2000, -2000, 10000, 10000)
+                graphics.setColor(1,1,1,1)
             end
-            if curEnemy ~= "yuri" then
-                stageImages.dokis.yuri:udraw(0.7, 0.7)
-            end
-
-			enemy:draw()
 			boyfriend:draw()
+            if not yuriGoneCrazy then
+			    enemy:draw()
+            else
+                enemy2:draw()
+            end
             
 		love.graphics.pop()
 		love.graphics.push()

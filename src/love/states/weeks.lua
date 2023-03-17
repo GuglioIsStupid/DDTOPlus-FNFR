@@ -90,7 +90,7 @@ return {
 
 			images = {
 				icons = love.graphics.newImage(graphics.imagePath("icons")),
-				notes = love.graphics.newImage(graphics.imagePath("notes")),
+				notes = love.graphics.newImage(graphics.imagePath("notesM")),
 				numbers = love.graphics.newImage(graphics.imagePath("numbers")),
 				notesplashes = love.graphics.newImage(graphics.imagePath("noteSplashes"))
 			}
@@ -244,10 +244,15 @@ return {
 		noteCounter = 0
 
 		if not pixel then
-			sprites.leftArrow = love.filesystem.load("sprites/left-arrow.lua")
-			sprites.downArrow = love.filesystem.load("sprites/down-arrow.lua")
-			sprites.upArrow = love.filesystem.load("sprites/up-arrow.lua")
-			sprites.rightArrow = love.filesystem.load("sprites/right-arrow.lua")
+			sprites.leftArrow = love.filesystem.load("sprites/left-arrowM.lua")
+			sprites.downArrow = love.filesystem.load("sprites/down-arrowM.lua")
+			sprites.upArrow = love.filesystem.load("sprites/up-arrowM.lua")
+			sprites.rightArrow = love.filesystem.load("sprites/right-arrowM.lua")
+
+			sprites.leftArrowDeath = love.filesystem.load("sprites/left-arrowD.lua")
+			sprites.downArrowDeath = love.filesystem.load("sprites/down-arrowD.lua")
+			sprites.upArrowDeath = love.filesystem.load("sprites/up-arrowD.lua")
+			sprites.rightArrowDeath = love.filesystem.load("sprites/right-arrowD.lua")
 
 			sprites.receptors = love.filesystem.load("sprites/receptor.lua")
 		else
@@ -265,16 +270,16 @@ return {
 		end
 
 		enemyArrows = {
-			sprites.receptors(),
-			sprites.receptors(),
-			sprites.receptors(),
-			sprites.receptors()
+			sprites.leftArrow(),
+			sprites.downArrow(),
+			sprites.upArrow(),
+			sprites.rightArrow()
 		}
 		boyfriendArrows= {
-			sprites.receptors(),
-			sprites.receptors(),
-			sprites.receptors(),
-			sprites.receptors()
+			sprites.leftArrow(),
+			sprites.downArrow(),
+			sprites.upArrow(),
+			sprites.rightArrow()
 		}
 
 		boyfriendSplashes = {
@@ -303,8 +308,8 @@ return {
 			boyfriendArrows[i].y = -400
 			boyfriendSplashes[i].y = -400
 
-			enemyArrows[i]:animate(tostring(i))
-			boyfriendArrows[i]:animate(tostring(i))
+			enemyArrows[i]:animate("off")
+			boyfriendArrows[i]:animate("off")
 
 			if settings.downscroll then 
 				enemyArrows[i].sizeY = -1
@@ -325,17 +330,10 @@ return {
 		chart = chart["song"]
 		curSong = chart["song"]
 
-		for i = 1, #chart["notes"] do
-			bpm = chart["notes"][i]["bpm"]
-
-			if bpm then
-				break
-			end
-		end
 		if not bpm then
 			bpm = chart["bpm"]
 		end
-		if not bpm then
+		if not bpm or bpm == 0 then
 			bpm = 100
 		end
 		beatHandler.setBPM(bpm)
@@ -357,9 +355,14 @@ return {
 				local noteTime = sectionNotes[j][1]
 				local noteVer = sectionNotes[j][4] or "0"
 
+				eventBpm = chart.notes[i].bpm
+				if eventBpm == 0 or eventBpm == nil then
+					eventBpm = bpm
+				end
+
 				noteVer = tostring(noteVer) or "0"
 				if j == 1 then
-					table.insert(events, {eventTime = sectionNotes[1][1], mustHitSection = mustHitSection, bpm = bpm, altAnim = altAnim})
+					table.insert(events, {eventTime = sectionNotes[1][1], mustHitSection = mustHitSection, bpm = eventBpm, altAnim = altAnim})
 				end
 
 				if noteType == 0 or noteType == 4 then
@@ -540,7 +543,7 @@ return {
 								enemyNotesDeath[id][c].sizeY = -1
 							end
 					
-							enemyNotesDeath[id][c]:animate("on", false)
+							enemyNotesDeath[id][c]:animate("on", true)
 					
 							if sectionNotes[j][3] > 0 then
 								local c
@@ -575,7 +578,7 @@ return {
 								boyfriendNotesDeath[id][c].sizeY = -1
 							end
 					
-							boyfriendNotesDeath[id][c]:animate("on", false)
+							boyfriendNotesDeath[id][c]:animate("on", true)
 					
 							if sectionNotes[j][3] > 0 then
 								local c
@@ -612,7 +615,7 @@ return {
 								boyfriendNotesDeath[id][c].sizeY = -1
 							end
 					
-							boyfriendNotesDeath[id][c]:animate("on", false)
+							boyfriendNotesDeath[id][c]:animate("on", true)
 					
 							if sectionNotes[j][3] > 0 then
 								local c
@@ -646,7 +649,7 @@ return {
 								enemyNotesDeath[id][c].sizeY = -1
 							end
 					
-							enemyNotesDeath[id][c]:animate("on", false)
+							enemyNotesDeath[id][c]:animate("on", true)
 					
 							if sectionNotes[j][3] > 0 then
 								local c
@@ -879,12 +882,6 @@ return {
 			if events[i].eventTime <= absMusicTime then
 				local oldBpm = bpm
 
-				if events[i].bpm then
-					bpm = events[i].bpm
-					if not bpm then bpm = oldBpm end
-					beatHandler.setBPM(bpm)
-				end
-
 				if camera.mustHit then
 					if events[i].mustHitSection then
 						mustHitSection = true
@@ -951,13 +948,19 @@ return {
 			enemyArrow:update(dt)
 			boyfriendArrow:update(dt)
 			boyfriendSplash:update(dt)
+			for j = 1, #enemyNoteDeath do
+				enemyNoteDeath[j]:update(dt)
+			end
+			for j = 1, #boyfriendNoteDeath do
+				boyfriendNoteDeath[j]:update(dt)
+			end
 
 			if not enemyArrow:isAnimated() then
-				enemyArrow:animate(tostring(i), false)
+				enemyArrow:animate("off", false)
 			end
 			if settings.botPlay then
 				if not boyfriendArrow:isAnimated() then
-					boyfriendArrow:animate(tostring(i), false)
+					boyfriendArrow:animate("off", false)
 				end
 			end
 
@@ -965,7 +968,7 @@ return {
 				if (enemyNote[1].y - musicPos <= -410) then
 					voices:setVolume(1)
 
-					enemyArrow:animate(tostring(i) .. " confirm", false)
+					enemyArrow:animate("confirm", false)
 
 					if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
 						if useAltAnims then
@@ -997,7 +1000,15 @@ return {
 
 			if #enemyNoteDeath > 0 then
 				if (enemyNoteDeath[1].y - musicPos <= -410) then
-					enemyArrow:animate(tostring(i) .. " confirm", false)
+					enemyArrow:animate("confirm", false)
+
+					if song == 2 and not yuriGoneCrazy then
+						enemy:animate(curAnim, false)
+
+						if not mustHitSection then 
+							noteCamTweens[i]()
+						end
+					end
 
 					table.remove(enemyNoteDeath, 1)
 				end
@@ -1035,7 +1046,7 @@ return {
 					if (boyfriendNote[1].y - musicPos <= -400) then
 						voices:setVolume(1)
 
-						boyfriendArrow:animate(tostring(i) .. " confirm", false)
+						boyfriendArrow:animate("confirm", false)
 
 						if boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end" then
 							if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then boyfriend:animate(curAnim, false) end
@@ -1097,7 +1108,7 @@ return {
 					success = true
 				end
 
-				boyfriendArrow:animate(tostring(i) .. " press", false)
+				boyfriendArrow:animate("press", false)
 
 				if #boyfriendNote > 0 then
 					for j = 1, #boyfriendNote do
@@ -1160,7 +1171,7 @@ return {
 								ratingTimers[5] = Timer.tween(2, numbers[3], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
 
 								if not settings.ghostTapping or success then
-									boyfriendArrow:animate(tostring(i) .. " confirm", false)
+									boyfriendArrow:animate("confirm", false)
 
 									boyfriend:animate(curAnim, false)
 
@@ -1210,7 +1221,7 @@ return {
 			if #boyfriendNote > 0 and input:down(curInput) and ((boyfriendNote[1].y - musicPos <= -400)) and (boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end") then
 				voices:setVolume(1)
 
-				boyfriendArrow:animate(tostring(i) .. " confirm", false)
+				boyfriendArrow:animate("confirm", false)
 
 				health = health + 0.0125
 
@@ -1220,7 +1231,7 @@ return {
 			end
 
 			if input:released(curInput) then
-				boyfriendArrow:animate(tostring(i), false)
+				boyfriendArrow:animate("off", false)
 			end
 		end
 
