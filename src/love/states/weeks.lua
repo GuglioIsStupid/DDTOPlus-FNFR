@@ -1473,9 +1473,16 @@ return {
 								noteCounter = noteCounter + 1
 
 								rating:animate(ratingAnim, false)
+								if ratingP then
+									ratingP:animate(ratingAnim, false)
+								end
 								numbers[1]:animate(tostring(math.floor(combo / 100 % 10)), false)
 								numbers[2]:animate(tostring(math.floor(combo / 10 % 10)), false)
 								numbers[3]:animate(tostring(math.floor(combo % 10)), false)
+
+								numbersP[1]:animate(tostring(math.floor(combo / 100 % 10)), false)
+								numbersP[2]:animate(tostring(math.floor(combo / 10 % 10)), false)
+								numbersP[3]:animate(tostring(math.floor(combo % 10)), false)
 
 								for i = 1, 10 do
 									if ratingTimers[i] then Timer.cancel(ratingTimers[i]) end
