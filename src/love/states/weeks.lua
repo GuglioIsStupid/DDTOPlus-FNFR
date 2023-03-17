@@ -909,12 +909,12 @@ return {
 			end
 		end
 
-		if (beatHandler.onBeat() and beatHandler.getBeat() % camera.camBopInterval == 0 and camera.zooming and camera.zoom < 1.35 and not camera.locked) then 
+		if (beatHandler.onBeat() and beatHandler.getBeat() % camera.camBopInterval == 0 and camera.zooming and camera.zoom < 1.35) then 
 			camera.zoom = camera.zoom + 0.015 * camera.camBopIntensity
 			uiScale.zoom = uiScale.zoom + 0.03 * camera.camBopIntensity
 		end
 
-		if camera.zooming and not camera.locked then 
+		if camera.zooming then 
 			camera.zoom = util.lerp(camera.defaultZoom, camera.zoom, util.clamp(1 - (dt * 3.125), 0, 1))
 			uiScale.zoom = util.lerp(1, uiScale.zoom, util.clamp(1 - (dt * 3.125), 0, 1))
 		end

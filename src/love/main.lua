@@ -338,15 +338,8 @@ function love.load()
 
 	-- Load stages
 	stages = {
-		["stage"] = require "stages.stage",
-		["hauntedHouse"] = require "stages.hauntedHouse",
-		["city"] = require "stages.city",
-		["sunset"] = require "stages.sunset",
-		["mall"] = require "stages.mall",
-		["school"] = require "stages.school",
-		["evilSchool"] = require "stages.evilSchool",
-		["tank"] = require "stages.tank",
-		["bigroom"] = require "stages.bigroom"
+		["bigroom"] = require "stages.bigroom",
+		["clubroom"] = require "stages.clubroom"
 	}
 
 	-- Load Menus
@@ -369,101 +362,37 @@ function love.load()
 
 	-- Load week data
 	weekData = {
-		require "weeks.tutorial",
-		require "weeks.week1",
-		require "weeks.week2",
-		require "weeks.week3",
-		require "weeks.week4",
-		require "weeks.week5",
 		require "weeks.week6",
-		require "weeks.week7"
+		require "weeks.sayori",
 	}
 
 	weekDesc = { -- Add your week description here
-		"LEARN TO FUNK",
-		"DADDY DEAREST",
-		"SPOOKY MONTH",
-		"PICO",
-		"MOMMY MUST MURDER",
-		"RED SNOW",
 		"HATING SIMULATOR FT. MOAWLING",
-		"TANKMAN"
 	}
 
-	weekDesc = { -- Add your week description here
-		"LEARN TO FUNK",
-		"DADDY DEAREST",
-		"SPOOKY MONTH",
-		"PICO",
-		"MOMMY MUST MURDER",
-		"RED SNOW",
-		"HATING SIMULATOR FT. MOAWLING",
-		"TANKMAN"
-	}
 	weekMeta = { -- Add/remove weeks here
 		{
-			"Tutorial",
+			"Pixel Monika",
 			{
-				"Tutorial"
-			}
-		},
-		{
-			"Week 1",
-			{
-				"Bopeebo",
-				"Fresh",
-				"Dadbattle",
-				"Balls"
-			}
-		},
-		{
-			"Week 2",
-			{
-				"Spookeez",
-				"South",
-				"Monster"
-			}
-		},
-		{
-			"Week 3",
-			{
-				"Pico",
-				"Philly Nice",
-				"Blammed"
-			}
-		},
-		{
-			"Week 4",
-			{
-				"Satin Panties",
-				"High",
-				"M.I.L.F"
-			}
-		},
-		{
-			"Week 5",
-			{
-				"Cocoa",
-				"Eggnog",
-				"Winter Horrorland"
-			}
-		},
-		{
-			"Week 6",
-			{
-				"Senpai",
-				"Roses",
-				"Thorns"
+				"High School Conflict",
+				"Bara No Yume",
+				"Your Demise"
 			},
 		},
 		{
-			"Week 7",
+			"Sayori",
 			{
-				"Ugh",
-				"Guns",
-				"Stress"
+				"Rain Clouds",
+				"My Confession"
 			}
 		}
+	}
+
+	costumes = {
+		sayori = "default",
+		natsuki = "default",
+		yuri = "default",
+		monika = "default"
 	}
 
 	-- LÖVE init

@@ -366,7 +366,6 @@ return {
 							if beat % self.danceSpeed == 0 then 
 								if (not self:isAnimated() and util.startsWith(self:getAnimName(), "sing")) or (self:getAnimName() == "danceLeft" or self:getAnimName() == "danceRight" or (not self:isAnimated() and self:getAnimName() == "sad")) then
 									self.danced = not self.danced
-									print("dance")
 									if self.danced then
 										self:animate("danceLeft", false)
 									else

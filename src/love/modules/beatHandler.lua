@@ -83,13 +83,13 @@ function beatHandler.update(dt)
     end
 
     if math.floor((musicTime / 1000) * (beatHandler.bpm / 60) * 4) > 0 then
-        if beatHandler.curStep > beatHandler.lastStep then
+        if beatHandler.curStep ~= beatHandler.lastStep then
             beatHandler.isStepHit = true
             beatHandler.step = beatHandler.step + 1
             beatHandler.lastStep = beatHandler.curStep
         end
     else
-        if beatHandler.curStep < beatHandler.lastStep then
+        if beatHandler.curStep ~= beatHandler.lastStep then
             beatHandler.isStepHit = true
             beatHandler.step = beatHandler.step + 1
             beatHandler.lastStep = beatHandler.curStep
@@ -126,6 +126,10 @@ end
 
 function beatHandler.onStepNumber(stepNumber)
     return beatHandler.beatTime % (beatHandler.stepCrochet * stepNumber) == 0 and beatHandler.onStep()
+end
+
+function beatHandler.calcSectionLength(multiplier)
+    return (beatHandler.stepCrochet / (64 / multiplier))
 end
 
 return beatHandler
