@@ -190,7 +190,7 @@ return {
 			end
         end
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
-			if storyMode and song < 2 then
+			if storyMode and song < 4 then
 				song = song + 1
 
 				self:load()

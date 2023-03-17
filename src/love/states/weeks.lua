@@ -1543,7 +1543,7 @@ return {
 								end
 
 								table.remove(boyfriendNote, j)
-								if #boyfriendNoteP > 0 then
+								if hasPixelNotes then
 									table.remove(boyfriendNoteP, 1)
 								end
 
@@ -1588,7 +1588,7 @@ return {
 				health = health + 0.0125
 
 				if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then boyfriend:animate(curAnim, false) end
-				if boyfriend2 and (not boyfriend2:isAnimated()) or boyfriend2:getAnimName() == "idle" then boyfriend2:animate(curAnim, false) end
+				if boyfriend2 then if (not boyfriend2:isAnimated()) or boyfriend2:getAnimName() == "idle" then boyfriend2:animate(curAnim, false) end end
 
 				table.remove(boyfriendNote, 1)
 				if hasPixelNotes then

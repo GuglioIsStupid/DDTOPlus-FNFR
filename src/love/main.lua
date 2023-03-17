@@ -17,7 +17,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 if love.filesystem.isFused() then function print() end end -- print functions tend the make the game lag when in update functions, so we do this to prevent that
-
+function math.randomI(min, max, ignore)
+	local val = love.math.random(min, max)
+	--while loop to prevent the same value from being returned twice in a row
+	while val == ignore do
+		val = love.math.random(min, max)
+	end
+	return val
+end
 function uitextflarge(text,x,y,limit,align,hovered,r,sx,sy,ox,oy,kx,ky)
 	local x = x or 0
 	local y = y or 0
@@ -340,7 +347,8 @@ function love.load()
 	stages = {
 		["bigroom"] = require "stages.bigroom",
 		["clubroom"] = require "stages.clubroom",
-		["clubroom-festival"] = require "stages.clubroom-festival"
+		["clubroom-festival"] = require "stages.clubroom-festival",
+		["musicroom"]  = require "stages.musicroom",
 	}
 
 	-- Load Menus
@@ -369,6 +377,7 @@ function love.load()
 		require "weeks.yuri",
 		require "weeks.monika",
 		require "weeks.festival",
+		require "weeks.encore"
 	}
 
 	weekDesc = { -- Add your week description here
@@ -418,6 +427,15 @@ function love.load()
 				"beathoven (Natsuki Mix)",
 				"It's Complicated (Sayori Mix)",
 				"Glitcher (Monika Mix)",
+			}
+		},
+		{
+			"Encore",
+			{
+				"Hot Air Balloon",
+				"Shrinking Violet",
+				"Joyride",
+				"Our Harmony"
 			}
 		}
 	}
