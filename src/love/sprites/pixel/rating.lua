@@ -33,7 +33,7 @@ return graphics.newSprite(
     },
 	"sick",
 	false,
-    {
-		floored = true
+	{
+		filter = "nearest"
 	}
 )

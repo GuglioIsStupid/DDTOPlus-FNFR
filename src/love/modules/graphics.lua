@@ -89,6 +89,8 @@ return {
 			shearX = 0,
 			shearY = 0,
 
+			filter = optionsTable and optionsTable.filter,
+
 			scrollX = 1,
 			scrollY = 1,
 
@@ -96,6 +98,12 @@ return {
 				image = image
 				width = image:getWidth()
 				height = image:getHeight()
+
+				-- set image filter
+				if self.filter then
+					print(self.filter)
+					image:setFilter(self.filter, self.filter)
+				end
 			end,
 
 			getImage = function(self)
@@ -218,6 +226,7 @@ return {
 			danceSpeed = optionsTable and optionsTable.danceSpeed or 2,
 			danceIdle = optionsTable and optionsTable.danceIdle or false,
 			altIdle = optionsTable and optionsTable.altIdle or false,
+			filter = optionsTable and optionsTable.filter,
 
 			danced = false,
 
@@ -225,6 +234,10 @@ return {
 				sheet = imageData
 				sheetWidth = sheet:getWidth()
 				sheetHeight = sheet:getHeight()
+
+				if self.filter then
+					sheet:setFilter(self.filter, self.filter)
+				end
 			end,
 
 			getSheet = function(self)

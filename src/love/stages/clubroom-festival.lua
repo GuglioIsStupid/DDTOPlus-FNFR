@@ -1,9 +1,9 @@
 return {
     enter = function(self, enemyChar)
         stageImages = {
-            closet = graphics.newImage(graphics.imagePath("clubroom/DDLCfarbg")),
-            clubroom = graphics.newImage(graphics.imagePath("clubroom/DDLCbg")),
-            desks = graphics.newImage(graphics.imagePath("clubroom/DesksFront")),
+            closet = graphics.newImage(graphics.imagePath("festival/FarBack")),
+            clubroom = graphics.newImage(graphics.imagePath("festival/MainBG")),
+            desks = graphics.newImage(graphics.imagePath("festival/DesksFestival")),
             dokis = {
                 sayori = love.filesystem.load("sprites/clubroom/sayori.lua")(),
                 natsuki = love.filesystem.load("sprites/clubroom/natsuki.lua")(),
@@ -11,8 +11,9 @@ return {
                 monika = love.filesystem.load("sprites/clubroom/monika.lua")()
             },
             vignette = graphics.newImage(graphics.imagePath("clubroom/vignette")),
+            banner = graphics.newImage(graphics.imagePath("festival/FestivalBanner")),
 
-            
+            lights = love.filesystem.load("sprites/festival/lights.lua")(),
         }
         love.graphics.setDefaultFilter("nearest", "nearest")
         -- School images
@@ -25,31 +26,6 @@ return {
 
         showDokis = true
         curEnemy = enemyChar
-
-        -- conver this shader to love2d
-        --[[
-#pragma header
-    vec2 uv = openfl_TextureCoordv.xy;
-    vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-    vec2 iResolution = openfl_TextureSize;
-    uniform float iTime;
-    uniform float strength;
-    #define iChannel0 bitmap
-    #define texture flixel_texture2D
-    #define fragColor gl_FragColor
-    #define mainImage main
-
-    void mainImage()
-    {
-        vec2 pixel_count = max(floor(iResolution.xy * vec2((cos(strength) + 1.0) / 2.0)), 1.0);
-        vec2 pixel_size = iResolution.xy / pixel_count;
-        vec2 pixel = (pixel_size * floor(fragCoord / pixel_size)) + (pixel_size / 1.0);
-        vec2 uv = pixel.xy / iResolution.xy;
-    
-        
-        fragColor = vec4(texture(iChannel0, uv).xyz, 1.0);
-    }
-        ]]
 
         stageImages.blackScreenBG = {}
         stageImages.blackScreenBG.visible = true
@@ -73,11 +49,14 @@ return {
         girlfriend.x, girlfriend.y = 30, 175
         boyfriend.x, boyfriend.y = 260, 390
 
-        canvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
+        shaderCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
 
         resolution = {x = 1280, y = 720}
         glitchy:send("resolution", {resolution.x, resolution.y})
         glitchyAmount = {0}
+
+        stageImages.banner.y = -400
+        stageImages.lights.y = 50
     end,
 
     load = function()
@@ -143,6 +122,7 @@ return {
         stageImages.dokis.natsuki:update(dt)
         stageImages.dokis.yuri:update(dt)
         stageImages.dokis.monika:update(dt)
+        stageImages.lights:update(dt)
 
         camera:update(dt)
 
@@ -160,13 +140,12 @@ return {
     end,
 
     draw = function()
-        love.graphics.setCanvas(canvas)
+        love.graphics.setCanvas(shaderCanvas)
             love.graphics.clear()
             love.graphics.push()
                 love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
                 love.graphics.scale(camera.zoom, camera.zoom)
                 if (song == 4 and curEnemy == "monika") or song ~= 4 then
-                    graphics.setColor(0.5,0.5,0.5)
                     love.graphics.push()
                         love.graphics.translate(camera.x * 0.9, camera.y * 0.9)
                         love.graphics.translate(camera.ex * 0.9, camera.ey * 0.9)
@@ -178,7 +157,9 @@ return {
                         love.graphics.translate(camera.ex, camera.ey)
 
                         stageImages.clubroom:udraw(1.6, 1.6)
+                        stageImages.lights:udraw(1.6, 1.6)
 
+                        graphics.setColor(0.4,0.4,0.4)
                         -- draw dokis here
                         if showDokis then
                             if curEnemy ~= "sayori" then
@@ -204,6 +185,8 @@ return {
                         end
                         boyfriend:draw()
                         enemy:draw()
+
+                        graphics.setColor(1,1,1,1)
                         
                     love.graphics.pop()
                     love.graphics.push()
@@ -247,7 +230,7 @@ return {
             if glitchyAmount[1] ~= 0 then
                 love.graphics.setShader(glitchy)
             end
-            love.graphics.draw(canvas, 0, 0, 0, graphics.getWidth() / canvas:getWidth(), graphics.getHeight() / canvas:getHeight())
+            love.graphics.draw(shaderCanvas, 0, 0, 0, graphics.getWidth() / shaderCanvas:getWidth(), graphics.getHeight() / shaderCanvas:getHeight())
             love.graphics.setShader()
         love.graphics.pop()
     end,

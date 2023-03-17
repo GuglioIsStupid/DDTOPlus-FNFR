@@ -492,6 +492,9 @@ function love.load()
 end
 
 function love.resize(width, height)
+	if shaderCanvas then
+		shaderCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
+	end
 	lovesize.resize(width, height)
 
 	scissorScale = height / 720

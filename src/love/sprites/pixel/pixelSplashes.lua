@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	images.notesplashes,
+	images.notesplashesp,
 	-- Automatically generated from splash.xml
 	{
 		{x = 0, y = 0, width = 29, height = 29, offsetX = 0, offsetY = 0, offsetWidth = 29, offsetHeight = 29}, -- 1: splash blue0000
@@ -35,5 +35,8 @@ return graphics.newSprite(
         ["none"] = {start = 20, stop = 20, speed = 24, offsetX = 0, offsetY = 0}
     },
     "none",
-    false
+    false,
+	{
+		filter = "nearest"
+	}
 )

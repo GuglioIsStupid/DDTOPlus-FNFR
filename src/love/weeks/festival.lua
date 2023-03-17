@@ -34,6 +34,7 @@ return {
 		enemyIcon:animate("senpai", false)
 
         function gopixel(v)
+            showPixelNotes = true
             curEnemy = "pmonika"
             camera:addPoint("boyfriend", -boyfriend2.x + 100, -boyfriend2.y + 75)
             camera:addPoint("enemy", -enemy2.x - 100, -enemy2.y + 75)
@@ -46,6 +47,7 @@ return {
         end
 
         function becomefumo(v)
+            showPixelNotes = false
             curEnemy = "monika"
             camera:addPoint("boyfriend", -boyfriend.x + 100, -boyfriend.y + 75)
             camera:addPoint("enemy", -enemy.x - 100, -enemy.y + 75)
@@ -56,6 +58,8 @@ return {
                 camera:moveToPoint(0.1, "enemy")
             end
         end
+
+        status.setNoResize(true)
 
 		self:load()
 
@@ -79,6 +83,7 @@ return {
             inst = love.audio.newSource("songs/festival/glitcher (monika mix)/Inst.ogg", "stream")
             voices = love.audio.newSource("songs/festival/glitcher (monika mix)/Voices.ogg", "stream")
             curEnemy = "monika"
+            hasPixelNotes = true
         end
 
         stages["clubroom-festival"]:load()
@@ -214,17 +219,6 @@ return {
 		weeks:updateUI(dt)
 	end,
 
-    keypressed = function(self, key)
-        if key == "p" then 
-            print("???")
-            if curEnemy == "monika" then
-                gopixel()
-            else
-                becomefumo()
-            end
-        end
-    end,
-
 	draw = function(self)
 		love.graphics.push()
             stages["clubroom-festival"]:draw()
@@ -244,7 +238,7 @@ return {
 
 	leave = function(self)
 		graphics.clearCache()
-
+        status.setNoResize(false)
 		weeks:leave()
 	end
 }
