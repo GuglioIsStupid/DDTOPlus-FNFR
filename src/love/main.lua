@@ -350,6 +350,7 @@ function love.load()
 		["clubroom"] = require "stages.clubroom",
 		["clubroom-festival"] = require "stages.clubroom-festival",
 		["musicroom"]  = require "stages.musicroom",
+		["ynm"] = require "stages.ynm"
 	}
 
 	-- Load Menus
@@ -378,7 +379,8 @@ function love.load()
 		require "weeks.yuri",
 		require "weeks.monika",
 		require "weeks.festival",
-		require "weeks.encore"
+		require "weeks.encore",
+		require "weeks.mc",
 	}
 
 	weekDesc = { -- Add your week description here
@@ -437,6 +439,13 @@ function love.load()
 				"Shrinking Violet",
 				"Joyride",
 				"Our Harmony"
+			}
+		},
+		{
+			"MC",
+			{
+				"NEET",
+				"You and Me",
 			}
 		}
 	}

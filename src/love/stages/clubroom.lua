@@ -11,6 +11,8 @@ return {
                 monika = love.filesystem.load("sprites/clubroom/monika.lua")()
             },
             vignette = graphics.newImage(graphics.imagePath("clubroom/vignette")),
+
+            spotlight = graphics.newImage(graphics.imagePath("clubroom/NEETspotlight")),
         }
         showDokis = true
         curEnemy = enemyChar
@@ -56,6 +58,10 @@ return {
             stageImages.dokis.sayori.y = 230
 
             enemy.x, enemy.y = -275, 210
+        elseif enemyChar == "mc" then
+            enemy = love.filesystem.load("sprites/characters/mc/mc.lua")()
+
+            enemy.x, enemy.y = -380, 225
         end
 
         stageImages.bakaOverlay = love.filesystem.load("sprites/clubroom/baka.lua")()
@@ -88,6 +94,10 @@ return {
         stageImages.vignette.alpha = 1
 
         girlfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriend.lua")()
+
+        stageImages.desks.alpha = 0
+        stageImages.spotlight.alpha = 0
+        girlfriend.alpha = 1
 
         stageImages.desks.visible = true
 
@@ -141,7 +151,13 @@ return {
                 end
             end
 
+            love.graphics.setColor(1,1,1,girlfriend.alpha)
             girlfriend:draw()
+            love.graphics.setColor(1,1,1,1)
+
+            love.graphics.setColor(1,1,1,stageImages.spotlight.alpha)
+            stageImages.spotlight:udraw(1.6, 1.6)
+            love.graphics.setColor(1,1,1,1)
 
             if stageImages.blackScreenBG.visible then 
                 graphics.setColor(0,0,0,stageImages.blackScreenBG.alpha)
@@ -154,13 +170,14 @@ return {
             else
                 enemy2:draw()
             end
-            
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(camera.x * 1.1, camera.y * 1.1)
             love.graphics.translate(camera.ex * 1.1, camera.ey * 1.1)
 
+            love.graphics.setColor(1,1,1,stageImages.desks.alpha)
             stageImages.desks:udraw(1.6, 1.6)
+            love.graphics.setColor(1,1,1,1)
 		love.graphics.pop()
     end,
 

@@ -186,6 +186,16 @@ return {
 
 		countdownFade = {}
 		countdown = love.filesystem.load("sprites/countdown.lua")()
+
+		bars = {}
+		bars[1] = {
+			y = -95,
+			height = 95,
+		}
+		bars[2] = {
+			y = 815,
+			height = 95,
+		}
 	end,
 
 	load = function(self)
@@ -1190,6 +1200,9 @@ return {
 
 										if inst then inst:play() end
 										voices:play()
+
+										voices:seek(98)
+										inst:seek(98)
 									end
 								)
 							end
@@ -1208,6 +1221,10 @@ return {
 				if paused then 
 					if inst then inst:pause() end
 					voices:pause()
+					if voices_Monika and voices_Monika:isPlaying() then voices_Monika:pause() end
+					if voices_Natsuki and voices_Natsuki:isPlaying() then voices_Natsuki:pause() end
+					if voices_Sayori and voices_Sayori:isPlaying() then voices_Sayori:pause() end
+					if voices_Yuri and voices_Yuri:isPlaying() then voices_Yuri:pause() end
 					love.audio.play(sounds.breakfast)
 					sounds.breakfast:setLooping(true) 
 				end
@@ -1237,6 +1254,10 @@ return {
 				if pauseMenuSelection == 1 then
 					if inst then inst:play() end
 					voices:play()
+					if voices_Monika and choosen == "monika" then voices_Monika:play() end
+					if voices_Natsuki and choosen == "natsuki" then voices_Natsuki:play() end
+					if voices_Sayori and choosen == "sayori" then voices_Sayori:play() end
+					if voices_Yuri and choosen == "yuri" then voices_Yuri:play() end
 					paused = false 
 				elseif pauseMenuSelection == 2 then
 					pauseRestart = true
@@ -1866,7 +1887,26 @@ return {
 		love.graphics.pop()
 	end,
 
+	blackBars = function(self, t)
+		if t then
+			-- tween in both bars
+			Timer.tween(1.2, bars[1], {y = 0}, "out-sine")
+			Timer.tween(1.2, bars[2], {y = 625}, "out-sine")
+		else
+			-- tween out both bars
+			Timer.tween(1.2, bars[1], {y = -95}, "out-sine")
+			Timer.tween(1.2, bars[2], {y = 815}, "out-sine")
+		end
+	end,
+
 	drawUI = function(self)
+		love.graphics.push()
+				graphics.setColor(0,0,0,1)
+				-- draw the bars, 50 height at bars[1].y and bars[2].y
+				love.graphics.rectangle("fill", 0, bars[1].y, 1280, 95)
+				love.graphics.rectangle("fill", 0, bars[2].y, 1280, 95)
+				graphics.setColor(1,1,1)
+			love.graphics.pop()
 		if paused then 
 			love.graphics.push()
 				love.graphics.setFont(pauseFont)
