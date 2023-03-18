@@ -92,6 +92,7 @@ return {
 		self:initUI()
 
         countNum = 0
+        FORCEP2NOMATTERWHAT = true
 	end,
 
 	initUI = function(self)

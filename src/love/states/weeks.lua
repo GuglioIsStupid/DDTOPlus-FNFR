@@ -427,9 +427,7 @@ return {
 		chart = chart["song"]
 		curSong = chart["song"]
 
-		if not bpm then
-			bpm = chart["bpm"]
-		end
+		bpm = chart["bpm"]
 		if not bpm or bpm == 0 then
 			bpm = 100
 		end
@@ -1433,6 +1431,9 @@ return {
 								if (not enemy:isAnimated() or enemy:getAnimName() == "idle") then enemy:animate(curAnim .. " alt", false) end
 							else
 								if (not char:isAnimated() or char:getAnimName() == "idle") then char:animate(curAnim .. " alt", false) end
+								if FORCEP2NOMATTERWHAT then
+									if (not enemy2:isAnimated() or enemy2:getAnimName() == "idle") then enemy2:animate(curAnim .. " alt", false) end
+								end
 							end
 						else
 							if enemyNote[1].ver == "5" then
@@ -1441,6 +1442,9 @@ return {
 								if (not enemy:isAnimated() or enemy:getAnimName() == "idle") then enemy:animate(curAnim, false) end
 							else
 								if (not char:isAnimated() or char:getAnimName() == "idle") then char:animate(curAnim, false) end
+								if FORCEP2NOMATTERWHAT then
+									if (not enemy2:isAnimated() or enemy2:getAnimName() == "idle") then enemy2:animate(curAnim, false) end
+								end
 							end
 						end
 					else
@@ -1451,6 +1455,9 @@ return {
 								enemy:animate(curAnim .. " alt", false)
 							else
 								char:animate(curAnim .. " alt", false)
+								if FORCEP2NOMATTERWHAT then
+									enemy2:animate(curAnim .. " alt", false)
+								end
 							end
 						else
 							if enemyNote[1].ver == "5" then
@@ -1459,6 +1466,9 @@ return {
 								enemy:animate(curAnim, false)
 							else
 								char:animate(curAnim, false)
+								if FORCEP2NOMATTERWHAT then
+									enemy2:animate(curAnim, false)
+								end
 							end
 						end
 					end

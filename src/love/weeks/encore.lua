@@ -119,6 +119,7 @@ return {
 		self:initUI()
 
         countNum = 0
+        encoreTime = 0
 	end,
 
 	initUI = function(self)
