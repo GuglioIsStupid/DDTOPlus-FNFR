@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("characters/girlfriend/DDLCGF_ass_sets")),
+	love.graphics.newImage(graphics.imagePath("characters/DDLCGF_ass_sets")),
 	-- Automatically generated from DDLCGF_ass_sets.xml
 	{
         {x = 5714, y = 668, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: GF Dancing Beat0029

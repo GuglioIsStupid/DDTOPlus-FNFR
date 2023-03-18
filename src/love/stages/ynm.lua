@@ -19,19 +19,20 @@ return {
         local posX, posY = 0, -795 
 
         stageImages.skybox.x, stageImages.skybox.y = posX, posY + 275
-        stageImages.bg3.x, stageImages.bg3.y = posX, posY + 275
-        stageImages.bg2.x, stageImages.bg2.y = posX, posY + 170
-        stageImages.bg.x, stageImages.bg.y = posX, posY + 115
+        stageImages.bg3.x, stageImages.bg3.y = posX, posY + 375
+        stageImages.bg2.x, stageImages.bg2.y = posX, posY + 270
+        stageImages.bg.x, stageImages.bg.y = posX, posY + 215
         camera.mustHit = false
         camera:addPoint("center", 0, 300)
     end,
 
     load = function()
-        camera.x, camera.y = 0, 300
+        camera.x, camera.y = 0, 4250
         --set back to 4250
     end,
 
     update = function(self, dt)
+        scrollingBG:update(dt)
     end,
 
     draw = function()
@@ -58,6 +59,10 @@ return {
 		love.graphics.push()
 			love.graphics.translate(camera.x, camera.y)
             love.graphics.translate(camera.ex, camera.ey)
+            love.graphics.setColor(1,1,1,scrollingBG.alpha)
+            scrollingBG:draw()
+            love.graphics.setColor(1,1,1,1)
+
             if showEnemy then
 			    enemy:draw()
             end

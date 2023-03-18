@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("characters/mc/protag")),
+	love.graphics.newImage(graphics.imagePath("characters/protag")),
     	-- Automatically generated from protag.xml
 	{
 		{x = 5, y = 5, width = 313, height = 758, offsetX = -2, offsetY = -2, offsetWidth = 315, offsetHeight = 760}, -- 1: Protag Down0000

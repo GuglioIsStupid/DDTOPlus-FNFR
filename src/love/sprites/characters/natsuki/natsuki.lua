@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("characters/natsuki/Doki_Nat_Assets")),
+	love.graphics.newImage(graphics.imagePath("characters/Doki_Nat_Assets")),
 	-- Automatically generated from Doki_Nat_Assets.xml
 	{
 		{x = 10, y = 10, width = 338, height = 561, offsetX = -1, offsetY = -8, offsetWidth = 372, offsetHeight = 569}, -- 1: Nat Idle0000

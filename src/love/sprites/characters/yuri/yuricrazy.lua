@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("characters/yuri/Doki_Crazy_Yuri_Assets")),
+	love.graphics.newImage(graphics.imagePath("characters/Doki_Crazy_Yuri_Assets")),
 	-- Automatically generated from Doki_Crazy_Yuri_Assets.xml
 	{
 		{x = 10, y = 10, width = 327, height = 602, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: Yuri Crazy Down0000

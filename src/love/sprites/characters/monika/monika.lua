@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("characters/monika/Doki_MonikaNonPixel_Assets")),
+	love.graphics.newImage(graphics.imagePath("characters/Doki_MonikaNonPixel_Assets")),
 	-- Automatically generated from Doki_MonikaNonPixel_Assets.xml
 	{
 		{x = 10, y = 10, width = 518, height = 744, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: Monika Returns Down0000

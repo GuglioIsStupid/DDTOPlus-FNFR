@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("characters/girlfriend/SPEAKER_ass_sets")),
+	love.graphics.newImage(graphics.imagePath("characters/SPEAKER_ass_sets")),
     	-- Automatically generated from SPEAKER_ass_sets.xml
 	{
         {x = 0, y = 0, width = 699, height = 352, offsetX = -2, offsetY = 0, offsetWidth = 703, offsetHeight = 352}, -- 30: GF Dancing Beat0029

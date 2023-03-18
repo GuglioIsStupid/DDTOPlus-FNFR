@@ -144,6 +144,8 @@ return {
         freeplay:update(dt)
         credits:update(dt)
 
+        scrollingBG:update(dt)
+
         selectBG.y = math.sin(love.timer.getTime() * 1.5) * 0.9
 
 		if not graphics.isFading() then
@@ -193,8 +195,10 @@ return {
                 credits:draw()
             love.graphics.pop()
             love.graphics.setFont(font)
+
+            
 		love.graphics.pop()
-        
+
 	end,
 
 	leave = function(self)

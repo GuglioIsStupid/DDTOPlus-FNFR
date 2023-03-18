@@ -191,6 +191,8 @@ function saveSettings()
             end
         )
     end
+
+	
 end
 --[[
 
@@ -228,6 +230,38 @@ function love.load()
 	lyrics = require "modules.lyrics"
 
 	playMenuMusic = true
+
+	scrollingBG = {
+		vx = -25,
+		vy = -25,
+		x = 0,
+		y = 0,
+		alpha = 0,
+		img = graphics.newImage(graphics.imagePath("scrollingBG")),
+
+		update = function(self, dt)
+			self.x = self.x + self.vx * dt
+			self.y = self.y + self.vy * dt
+			-- at a certain point, reset the position
+			if self.x < -self.img:getWidth() then
+				self.x = 0
+			end
+			if self.y < -self.img:getHeight() then
+				self.y = 0
+			end
+		end,
+
+		draw = function(self)
+			graphics.setColor(1, 1, 1, self.alpha)
+			for x = -5, 20 do
+				for y = -5, 20 do
+					self.img.x = self.x + (self.img:getWidth() * (x - 1))
+					self.img.y = self.y + (self.img:getHeight() * (y - 1))
+					self.img:draw()
+				end
+			end
+		end
+	}
 
 	if love.filesystem.getInfo("settings") then 
 		settingdata = love.filesystem.read("settings")

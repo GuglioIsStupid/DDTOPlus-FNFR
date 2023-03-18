@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("characters/yuri/Doki_Yuri_Assets")),
+	love.graphics.newImage(graphics.imagePath("characters/Doki_Yuri_Assets")),
     	-- Automatically generated from Doki_Yuri_Assets.xml
 	{
 		{x = 0, y = 0, width = 353, height = 780, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: Yuri Breath0000

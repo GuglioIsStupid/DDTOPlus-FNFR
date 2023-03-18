@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("characters/sayori/Doki_Sayo_Assets")),
+	love.graphics.newImage(graphics.imagePath("characters/Doki_Sayo_Assets")),
 	-- Automatically generated from Doki_Sayo_Assets.xml
 	{
         {x = 1950, y = 10, width = 378, height = 679, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: Sayo Idle nrw test0025
