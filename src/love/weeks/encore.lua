@@ -44,6 +44,8 @@ return {
 
 		enemyIcon:animate("senpai", false)
 
+        whiteflash = {alpha=0}
+
 		self:load()
 
         function doEncore(v)
@@ -51,7 +53,6 @@ return {
                 if beatHandler.onBeat() and beatHandler.curBeat % 2 == 0 then
                     curDokiLight = math.randomI(1, 4, pastDokiLight)
                     pastDokiLight = curDokiLight
-                    print(curDokiLight, pastDokiLight)
 
                     border = "encore"
 
@@ -131,6 +132,7 @@ return {
             weeks:generateNotes("data/encore/joyride/joyride.json")
         elseif song == 4 then
             weeks:generateNotes("data/encore/our harmony/our harmony.json")
+            lyrics.set("data/encore/our harmony/lyrics.txt")
         end
 		
 		if storyMode and not died then
@@ -218,7 +220,50 @@ return {
                     countNum = 6
                 end
             elseif song == 4 then
-                
+                if s == 2420 and countNum == 0 then
+                    Timer.tween(2, uiAlpha, {0}, "in-sine")
+                    Timer.tween(2, whiteflash, {alpha = 1}, "in-sine")
+                    countNum = 1
+                elseif s == 2432 and countNum == 1 then
+                    for i = 1, 4 do
+                        Timer.after(0.5, function()
+                            Timer.tween(1, boyfriendArrows[i], {offsetY = -10, alpha = 0}, "out-circ")
+                            Timer.tween(1, enemyArrows[i], {offsetY = -10, alpha=0}, "in-circ")
+                        end)
+                    end
+                    countNum = 2
+                elseif s == 2448 and countNum == 2 then
+                    stageImages.cg1.alpha = 1
+                    voices:setVolume(1)
+                    Timer.tween(5, stageImages.cg1, {sizeX = 0.67, sizeY = 0.67}, "in-sine")
+                    camera.zooming = false
+                    countNum = 3
+                elseif s == 2456 and countNum == 3 then
+                    Timer.tween(2, whiteflash, {alpha = 0}, "in-sine")
+                    countNum = 4
+                elseif s == 2568 and countNum == 4 then
+                    Timer.tween(0.57, whiteflash, {alpha = 1}, "in-sine")
+                    countNum = 5
+                elseif s == 2578 and countNum == 5 then
+                    stageImages.cg1.alpha = 0
+                    stageImages.cg2.alpha = 1
+                    Timer.tween(1, whiteflash, {alpha = 0}, "in-sine")
+                    Timer.tween(9, stageImages.cg2, {x = -100}, "in-sine")
+                    countNum = 6
+                elseif s == 2674 and countNum == 6 then
+                    Timer.tween(1, whiteflash, {alpha = 1}, "in-sine")
+                    countNum = 7
+                elseif s == 2694 and countNum == 7 then
+                    stageImages.cg2.alpha = 0
+                    stageImages.cg2group.alpha = 1
+                    Timer.tween(17 + (1 * stageImages.cg2group.bg.ID), stageImages.cg2group.bg, {x=-250/2}, "in-sine")
+                    Timer.tween(17 + (1 * stageImages.cg2group.sayo.ID), stageImages.cg2group.sayo, {x=-250/2}, "in-sine")
+                    Timer.tween(17 + (1 * stageImages.cg2group.yuri.ID), stageImages.cg2group.yuri, {x=-250/2}, "in-sine")
+                    Timer.tween(17 + (1 * stageImages.cg2group.natsu.ID), stageImages.cg2group.natsu, {x=-250/2}, "in-sine")
+                    Timer.tween(17 + (1 * stageImages.cg2group.moni.ID), stageImages.cg2group.moni, {x=-250/2}, "in-sine")
+                    Timer.tween(1, whiteflash, {alpha = 0}, "in-sine")
+                    countNum = 8
+                end
 			end
 		end
         if beatHandler.onBeat() then
@@ -260,6 +305,10 @@ return {
 			end
 		end
 
+        if beatHandler.curStep >= 2456 then
+            lyrics.dolyrics(dt)
+        end
+
 		weeks:updateUI(dt)
 	end,
 
@@ -294,6 +343,22 @@ return {
                 stageImages.sunshine:draw()
                 graphics.setColor(1,1,1)
             end
+
+            graphics.setColor(1,1,1,stageImages.cg1.alpha)
+            stageImages.cg1:draw()
+            graphics.setColor(1,1,1)
+
+            graphics.setColor(1,1,1,stageImages.cg2.alpha)
+            stageImages.cg2:draw()
+            graphics.setColor(1,1,1)
+
+            graphics.setColor(1,1,1,stageImages.cg2group.alpha)
+            stageImages.cg2group:draw()
+            graphics.setColor(1,1,1)
+
+            love.graphics.setColor(1,1,1,whiteflash.alpha)
+            love.graphics.rectangle("fill", -2000, -2000, 10000, 10000)
+            love.graphics.setColor(1,1,1,1)
         love.graphics.pop()
 
 		if inCutscene then 
@@ -301,6 +366,11 @@ return {
 		else
 			weeks:drawUI()
 		end
+
+        if beatHandler.curStep >= 2456 then
+            love.graphics.setColor(1,1,1,1)
+            lyrics.draw()
+        end
 	end,
 
 	leave = function(self)

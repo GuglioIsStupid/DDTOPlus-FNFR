@@ -225,6 +225,7 @@ function love.load()
 	cutscene = require "modules.cutscene"
 	dialogue = require "modules.dialogue"
 	settings = require "settings"
+	lyrics = require "modules.lyrics"
 
 	playMenuMusic = true
 
