@@ -38,7 +38,7 @@ return {
 		fakeBoyfriend.x, fakeBoyfriend.y = 300, 190
 
 		boyfriendIcon:animate("boyfriend (pixel)", false)
-		enemyIcon:animate("senpai", false)
+		enemyIcon:animate("monika pixel", false)
 
 		pixelFont = love.graphics.newFont("fonts/pixel.fnt")
 
@@ -53,12 +53,12 @@ return {
 			school = love.filesystem.load("sprites/week6/evil-school.lua")()
 			enemy = love.filesystem.load("sprites/week6/spirit.lua")()
 			stages["school"]:leave()
-			enemyIcon:animate("spirit", false)
+			enemyIcon:animate("demise", false)
 			stages["bigroom"]:enter()
 			stages["bigroom"]:load()
 		elseif song == 2 then
 			enemy = love.filesystem.load("sprites/week6/senpai-angry.lua")()
-
+			enemyIcon:animate("duet")
 			stages["school"]:load()
 		else
 			enemy = love.filesystem.load("sprites/characters/pixel/monika.lua")()
@@ -68,6 +68,8 @@ return {
 		if song == 3 then
 			inst = love.audio.newSource("songs/monika-pixel/your demise/Inst.ogg", "stream")
 			voices = love.audio.newSource("songs/monika-pixel/your demise/Voices.ogg", "stream")
+
+			FORCEP2NOMATTERWHAT = true
 		elseif song == 2 then
 			inst = love.audio.newSource("songs/monika-pixel/bara no yume/Inst.ogg", "stream")
 			voices = love.audio.newSource("songs/monika-pixel/bara no yume/Voices.ogg", "stream")
@@ -207,6 +209,31 @@ return {
 			end
 		end
 
+		if health >= 1.595 then
+			if enemyIcon:getAnimName() == "monika pixel" then
+				enemyIcon:animate("monika pixel losing")
+			elseif enemyIcon:getAnimName() == "duet" then
+				enemyIcon:animate("duet losing")
+			elseif enemyIcon:getAnimName() == "demise" then 
+				enemyIcon:animate("demise losing")
+			end
+		elseif health < 0.325 then
+			if enemyIcon:getAnimName() == "monika pixel" then
+				enemyIcon:animate("monika pixel winning")
+			elseif enemyIcon:getAnimName() == "duet" then
+				enemyIcon:animate("duet winning")
+			elseif enemyIcon:getAnimName() == "demise" then	
+				enemyIcon:animate("demise winning")
+			end
+		else
+			if enemyIcon:getAnimName() == "monika pixel losing" or enemyIcon:getAnimName() == "monika pixel winning" then
+				enemyIcon:animate("monika pixel")
+			elseif enemyIcon:getAnimName() == "duet losing" or enemyIcon:getAnimName() == "duet winning" then
+				enemyIcon:animate("duet")
+			elseif enemyIcon:getAnimName() == "demise losing" or enemyIcon:getAnimName() == "demise winning" then
+				enemyIcon:animate("demise")
+			end
+		end
 		weeks:updateUI(dt)
 	end,
 

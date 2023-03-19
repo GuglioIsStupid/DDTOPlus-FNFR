@@ -160,13 +160,6 @@ return {
 				numbers[i].sizeX, numbers[i].sizeY = 0.5, 0.5
 			end
 		end
-		for i = 1, 3 do
-			numbersP[i] = sprites.numbersP()
-
-			if option ~= "pixel" then
-				numbersP[i].sizeX, numbersP[i].sizeY = 0.5, 0.5
-			end
-		end
 
 		if settings.downscroll then
 			downscrollOffset = -750
@@ -235,7 +228,7 @@ return {
 				numbers[i].x = -100 + 58 * i
 			end
 		end
-		if numbersP then
+		if numbersP[1] then
 			for i = 1, 3 do
 				numbersP[i].x = -100 + 58 * i
 			end
@@ -257,6 +250,17 @@ return {
 
 		if not camera.points["boyfriend"] then camera:addPoint("boyfriend", -boyfriend.x + 100, -boyfriend.y + 75) end
 		if not camera.points["enemy"] then camera:addPoint("enemy", -enemy.x - 100, -enemy.y + 75) end
+
+		if hasPixelNotes then
+			for i = 1, 3 do
+				numbersP[i] = sprites.numbersP()
+				if option ~= "pixel" then
+					numbersP[i].sizeX, numbersP[i].sizeY = 0.5, 0.5
+				end
+
+				numbersP[i].x = -100 + 58 * i
+			end
+		end
 
 		graphics:fadeInWipe(0.6)
 	end,
@@ -1433,7 +1437,7 @@ return {
 						else
 							char = girlfriend
 						end
-					elseif enemyNote[1].ver == "4" then
+					elseif enemyNote[1].ver == "4" or enemyNote[1].ver == "GF Sing" then
 						if numOfChar >= 4 then
 							char = enemy3
 						else
@@ -1496,7 +1500,7 @@ return {
 						end
 					end
 
-					enemy.lastHit = musicTime
+					char.lastHit = musicTime
 
 					if not mustHitSection then 
 						noteCamTweens[i]()
@@ -1707,10 +1711,11 @@ return {
 								numbers[2]:animate(tostring(math.floor(combo / 10 % 10)), false)
 								numbers[3]:animate(tostring(math.floor(combo % 10)), false)
 
-								numbersP[1]:animate(tostring(math.floor(combo / 100 % 10)), false)
-								numbersP[2]:animate(tostring(math.floor(combo / 10 % 10)), false)
-								numbersP[3]:animate(tostring(math.floor(combo % 10)), false)
-
+								if numbersP[1] then
+									numbersP[1]:animate(tostring(math.floor(combo / 100 % 10)), false)
+									numbersP[2]:animate(tostring(math.floor(combo / 10 % 10)), false)
+									numbersP[3]:animate(tostring(math.floor(combo % 10)), false)
+								end
 								for i = 1, 10 do
 									if ratingTimers[i] then Timer.cancel(ratingTimers[i]) end
 								end
@@ -1722,7 +1727,7 @@ return {
 								for i = 1, 3 do
 									numbers[i].y = 300 + 50 + (settings.downscroll and 0 or -490)
 								end
-								if numbersP then
+								if numbersP[1] then
 									for i = 1, 3 do
 										numbersP[i].y = 300 + 50 + (settings.downscroll and 0 or -490)
 									end
@@ -1740,7 +1745,7 @@ return {
 								ratingTimers[4] = Timer.tween(2, numbers[2], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
 								ratingTimers[5] = Timer.tween(2, numbers[3], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
 	
-								if ratingVisibilityP then
+								if numbersP[1] then
 									ratingVisibilityP[1] = 1
 	
 									ratingTimers[6] = Timer.tween(2, ratingVisibilityP, {0}, "linear")

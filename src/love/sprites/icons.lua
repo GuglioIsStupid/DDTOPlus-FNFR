@@ -99,6 +99,10 @@ return graphics.newSprite(
 		["yuri losing"] = {start = 14, stop = 14, speed = 0, offsetX = 0, offsetY = 0},
 		["yuri winning"] = {start = 15, stop = 15, speed = 0, offsetX = 0, offsetY = 0},
 
+		["yuri insane"] = {start = 16, stop = 16, speed = 0, offsetX = 0, offsetY = 0},
+		["yuri insane losing"] = {start = 17, stop = 17, speed = 0, offsetX = 0, offsetY = 0},
+		["yuri insane winning"] = {start = 18, stop = 18, speed = 0, offsetX = 0, offsetY = 0},
+
 		["monika"] = {start = 19, stop = 19, speed = 0, offsetX = 0, offsetY = 0},
 		["monika losing"] = {start = 20, stop = 20, speed = 0, offsetX = 0, offsetY = 0},
 		["monika winning"] = {start = 21, stop = 21, speed = 0, offsetX = 0, offsetY = 0},

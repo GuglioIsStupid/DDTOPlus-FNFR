@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	love.graphics.newImage(graphics.imagePath("clubroom/HomeStatic")),
+	love.graphics.newImage(graphics.imagePath("HomeStatic")),
 	-- Automatically generated from HomeStatic.xml
 	{
 		{x = 5, y = 5, width = 1920, height = 1080, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: HomeStatic0000

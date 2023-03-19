@@ -31,7 +31,7 @@ return {
 
 		camera.defaultZoom = 0.85
 
-		enemyIcon:animate("senpai", false)
+		enemyIcon:animate("monika", false)
 
 		self:load()
 
@@ -99,22 +99,16 @@ return {
             end
         end
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
-			if storyMode and song < 4 then
-				song = song + 1
+			status.setLoading(true)
 
-				self:load()
-			else
-				status.setLoading(true)
+			graphics:fadeOutWipe(
+				0.7,
+				function()
+					Gamestate.switch(menu)
 
-				graphics:fadeOutWipe(
-					0.7,
-					function()
-						Gamestate.switch(menu)
-
-						status.setLoading(false)
-					end
-				)
-			end
+					status.setLoading(false)
+				end
+			)
 		end
 
 		if inCutscene then
@@ -122,6 +116,20 @@ return {
 
 			if input:pressed("confirm") then
 				dialogue.next()
+			end
+		end
+
+		if health >= 1.595 then
+			if enemyIcon:getAnimName() == "monika" then
+				enemyIcon:animate("monika losing")
+			end
+		elseif health < 0.325 then
+			if enemyIcon:getAnimName() == "monika" then
+				enemyIcon:animate("monika winning")
+			end
+		else
+			if enemyIcon:getAnimName() == "monika losing" or enemyIcon:getAnimName() == "monika winning" then
+				enemyIcon:animate("monika")
 			end
 		end
 
@@ -133,7 +141,7 @@ return {
 			love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
 			love.graphics.scale(camera.zoom, camera.zoom)
 
-            stages["clubroom-festival"]:draw()
+            stages["clubroom"]:draw()
 		love.graphics.pop()
 
         love.graphics.push()

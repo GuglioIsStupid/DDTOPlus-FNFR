@@ -40,20 +40,25 @@ return {
 		local debugStr
 		local stats = love.graphics.getStats()
 		if type == "detailed" then
+			-- Performance Specifics
 			debugStr = "FPS: " .. tostring(love.timer.getFPS()) ..
 			"\nLUA MEM USAGE (KB): " .. tostring(math.floor(collectgarbage("count"))) ..
 			"\nGRAPHICS MEM USAGE (MB): " .. tostring(math.floor(stats.texturememory / 1048576)) ..
 			"\nLoaded Images: " .. tostring(stats.images) ..
 			"\nLoaded Fonts: " .. tostring(stats.fonts) ..
 			"\nDraw Calls: " .. tostring(stats.drawcalls) ..
-
+			
+			-- Settings Specifics
 			"\n\nsettings.hardwareCompression: " .. tostring(settings.hardwareCompression) ..
 			"\ngraphics.getImageType(): " .. tostring(graphics.getImageType()) ..
 
+			-- Music Specifics
 			"\n\nmusicTime: " .. tostring(math.floor(musicTime)) ..  -- Floored for readability
 			"\ncurBeat: " .. tostring(beatHandler.curBeat) ..
 			"\ncurStep: " .. tostring(beatHandler.curStep) ..
-			"\nhealth: " .. tostring(health)
+
+			-- Game Specifics
+			"\n\nhealth: " .. tostring(health)
 		else
 			debugStr = "FPS: " .. tostring(love.timer.getFPS())
 		end

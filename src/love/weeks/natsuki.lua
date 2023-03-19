@@ -31,7 +31,7 @@ return {
 
 		camera.defaultZoom = 0.85
 
-		enemyIcon:animate("senpai", false)
+		enemyIcon:animate("natsuki", false)
 
 		self:load()
 
@@ -151,6 +151,20 @@ return {
 
 			if input:pressed("confirm") then
 				dialogue.next()
+			end
+		end
+
+		if health >= 1.595 then
+			if enemyIcon:getAnimName() == "natsuki" then
+				enemyIcon:animate("natsuki losing")
+			end
+		elseif health < 0.325 then
+			if enemyIcon:getAnimName() == "natsuki" then
+				enemyIcon:animate("natsuki winning")
+			end
+		else
+			if enemyIcon:getAnimName() == "natsuki losing" or enemyIcon:getAnimName() == "natsuki winning" then
+				enemyIcon:animate("natsuki")
 			end
 		end
 
