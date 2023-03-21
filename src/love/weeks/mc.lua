@@ -837,6 +837,8 @@ return {
             if song == 1 then
                 stages["clubroom"]:draw()
             elseif song == 2 then
+                stages["ynm"]:draw()
+            else
                 love.graphics.push()
                     stageImages.scanlines:udraw(1.25, 1.25)
                 love.graphics.pop()
@@ -845,8 +847,6 @@ return {
                     love.graphics.translate(camera.ex * 0.1, camera.ey * 0.1)
                     stageImages.gradient:udraw(1.25,1.25)
                 love.graphics.pop()
-                stages["ynm"]:draw()
-            else
                 stages["medley"]:draw()
             end
 

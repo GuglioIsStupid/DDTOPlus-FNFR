@@ -96,10 +96,10 @@ return {
         stages["clubroom-festival"]:load()
         weeks:load()
 
-		self:initUI()
-
         countNum = 0
         FORCEP2NOMATTERWHAT = false
+        
+		self:initUI()
 	end,
 
 	initUI = function(self)
@@ -113,6 +113,7 @@ return {
             weeks:generateNotes("data/festival/it's complicated (sayori mix)/it's complicated (sayori mix).json")
         elseif song == 4 then
             weeks:generateNotes("data/festival/glitcher (monika mix)/glitcher (monika mix).json")
+            FORCEP2NOMATTERWHAT = true
         end
 		
 		if storyMode and not died then
@@ -286,5 +287,6 @@ return {
 		graphics.clearCache()
         status.setNoResize(false)
 		weeks:leave()
+        FORCEP2NOMATTERWHAT = false
 	end
 }
