@@ -1,5 +1,6 @@
+gf = ""
 return {
-    enter = function()
+    enter = function(self, v)
         stageImages = {
             BG = graphics.newImage(graphics.imagePath("musicroom/Music_Room")),
             FG = graphics.newImage(graphics.imagePath("musicroom/Music_Room_FG")),
@@ -32,7 +33,6 @@ return {
                 end,
             }
         }
-
         -- Natsuki stuff
         stageImages.bakaOverlay = love.filesystem.load("sprites/clubroom/baka.lua")()
         stageImages.bakaOverlay.visible = false
@@ -69,6 +69,8 @@ return {
 
         -- Other
 
+        gf = v
+
         stageImages.encore = graphics.newImage(graphics.imagePath("musicroom/ENCOREBORDER"))
         stageImages.encore.visible = true
         stageImages.encore.alpha = 0
@@ -79,33 +81,66 @@ return {
 
         boyfriend.flipX = true
 
-        stageImages.FG.x, stageImages.FG.y = -250, -100
+        stageImages.FG.x, stageImages.FG.y = 0, -100
 
         girlfriend.x, girlfriend.y = 30, 145
         enemy.x, enemy.y = -380, 100
         boyfriend.x, boyfriend.y = 320, 70
+
+        camera.defaultZoom = 1
     end,
 
     load = function()
-        if song == 1 then
-            enemy = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
-            enemy.x, enemy.y = -380, 100
-        elseif song == 2 then
-            enemy = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
-            enemy.x, enemy.y = -380, 80
-        elseif song == 3 then
-            enemy = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
-            enemy.x, enemy.y = -380, 80
+        if gf ~= "gf" then
+            if song == 1 then
+                enemy = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
+                enemy.x, enemy.y = -380, 100
+            elseif song == 2 then
+                enemy = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
+                enemy.x, enemy.y = -380, 80
+            elseif song == 3 then
+                enemy = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
+                enemy.x, enemy.y = -380, 80
+            else
+                enemy = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
+                enemy2 = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
+                enemy3 = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
+
+                enemy.x, enemy.y = -380, 100
+                enemy2.x, enemy2.y = -600, 100
+                enemy3.x, enemy3.y = -175, 100
+
+                numOfChar = 4
+            end
         else
+            boyfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriendPlayer.lua")()
             enemy = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
             enemy2 = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
             enemy3 = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
+            girlfriend = love.filesystem.load("sprites/characters/monika/monika.lua")()
 
             enemy.x, enemy.y = -380, 100
             enemy2.x, enemy2.y = -600, 100
             enemy3.x, enemy3.y = -175, 100
+            girlfriend.x, girlfriend.y = 100, 50
+            boyfriend.x, boyfriend.y = 500, 125
 
-            numOfChar = 4
+            numOfChar = 5
+
+            charPos = {
+                enemy = {
+                    x = enemy.x, y = enemy.y
+                },
+                enemy2 = {
+                    x = enemy2.x, y = enemy2.y
+                },
+                enemy3 = {
+                    x = enemy3.x, y = enemy3.y
+                },
+                girlfriend = {
+                    x = girlfriend.x, y = girlfriend.y
+                },
+            }
         end
     end,
 
@@ -124,7 +159,7 @@ return {
             love.graphics.translate(camera.ex * 0.9, camera.ey * 0.9)
 
             stageImages.BG:udraw(1.5, 1.5)
-            girlfriend:draw()
+            if gf ~= "gf" then girlfriend:draw() end
 		love.graphics.pop()
 		love.graphics.push()
 			love.graphics.translate(camera.x, camera.y)
@@ -139,11 +174,14 @@ return {
                     end
                 love.graphics.pop()
             end
-            if song == 4 then
+            if gf == "gf" then
+                girlfriend:draw()
+            end
+            if song == 4 or gf == "gf" then
                 enemy3:draw()
             end
 			enemy:draw()
-            if song == 4 then
+            if song == 4 or gf == "gf" then
                 enemy2:draw()
             end
 			boyfriend:draw()
@@ -163,5 +201,10 @@ return {
 
     leave = function()
         numOfChar = 2
+        gf = ""
+
+        for i, v in pairs(stageImages) do
+            v = nil
+        end
     end
 }

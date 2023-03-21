@@ -212,7 +212,7 @@ return {
             love.graphics.setColor(1,1,1,1)
         love.graphics.pop()
         love.graphics.push()
-            --love.graphics.setColor(1,1,1,stageImages.cg3.alpha)
+            love.graphics.setColor(1,1,1,stageImages.cg3.alpha)
             stageImages.cg3:udraw(1.2,1.2)
             love.graphics.setColor(1,1,1,1)
         love.graphics.pop()
@@ -227,6 +227,9 @@ return {
     end,
 
     leave = function()
-
+        numOfChar = 2
+        for i, v in pairs(stageImages) do
+            v = nil
+        end
     end
 }

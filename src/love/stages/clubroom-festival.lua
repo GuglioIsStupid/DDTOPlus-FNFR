@@ -236,6 +236,8 @@ return {
     end,
 
     leave = function()
-
+        for i, v in pairs(stageImages) do
+            v = nil
+        end
     end
 }

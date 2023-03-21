@@ -1443,6 +1443,8 @@ return {
 						else
 							char = girlfriend
 						end
+					elseif enemyNote[1].ver == "6" then
+						char = girlfriend
 					end
 
 					if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then

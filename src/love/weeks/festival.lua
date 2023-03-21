@@ -99,7 +99,7 @@ return {
 		self:initUI()
 
         countNum = 0
-        FORCEP2NOMATTERWHAT = true
+        FORCEP2NOMATTERWHAT = false
 	end,
 
 	initUI = function(self)
@@ -108,7 +108,7 @@ return {
         if song == 1 then
             weeks:generateNotes("data/festival/crucify (yuri mix)/crucify (yuri mix).json")
         elseif song == 2 then
-            weeks:generateNotes("data/festival/beathoven (natsuki mix)/monikas theme.json")
+            weeks:generateNotes("data/festival/beathoven (natsuki mix)/beathoven (natsuki mix).json")
         elseif song == 3 then
             weeks:generateNotes("data/festival/it's complicated (sayori mix)/it's complicated (sayori mix).json")
         elseif song == 4 then
