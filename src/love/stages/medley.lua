@@ -182,9 +182,6 @@ return {
             end
             stageImages.windowBoxes.p1:draw(1.2, 1.2)
 
-            stageImages.windowBoxes.windowTopRight:draw(1.2, 1.2)
-            stageImages.windowBoxes.windowTopLeft:draw(1.2, 1.2)
-
             love.graphics.setColor(1,1,1,enemy.alpha)
             if enemy ~= monikap then
                 enemy:udraw(0.8, 0.8)
@@ -196,6 +193,13 @@ return {
             love.graphics.setColor(1,1,1,1)
             girlfriend:udraw(5,5)
             love.graphics.setColor(1,1,1,boyfriend.alpha)
+
+            love.graphics.setColor(flashLol.color[1], flashLol.color[2], flashLol.color[3], flashLol.alpha)
+            love.graphics.rectangle("fill", -690, -350, 600, 700)
+            love.graphics.setColor(1,1,1,1)
+            stageImages.windowBoxes.windowTopRight:draw(1.2, 1.2)
+            stageImages.windowBoxes.windowTopLeft:draw(1.2, 1.2)
+
 			boyfriend:udraw(0.8, 0.8)
             love.graphics.setColor(1,1,1,1)
 

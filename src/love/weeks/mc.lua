@@ -93,6 +93,11 @@ return {
 
             show = true
         }
+
+        flashLol = {
+            alpha = 0,
+            color = {1,1,1}
+        }
 	end,
 
 	load = function(self)
@@ -116,6 +121,7 @@ return {
             stages["medley"]:load()
 
             changeIcons = true
+            showEnemyIcon = false
         end
 
 		if song == 1 then
@@ -208,9 +214,11 @@ return {
         end
 
         function creditsCharSwap(char, unhide)
+            flashLol.alpha = 1
+           Timer.tween(beatHandler.calcSectionLength(0.1), flashLol, {alpha = 0}, "out-sine")
             curEnemy = char
-
-            if char == "monikap" then enemyIcon:animate("monika pixel")
+            showEnemyIcon = true
+            if char == "pmonika" then enemyIcon:animate("monika pixel")
             else enemyIcon:animate(char) end
             if curEnemy == "pmonika" then
                 enemy = monikap
@@ -841,6 +849,7 @@ return {
             else
                 stages["medley"]:draw()
             end
+
 		love.graphics.pop()
 
         love.graphics.push()
