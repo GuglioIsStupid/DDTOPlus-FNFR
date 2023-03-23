@@ -417,7 +417,8 @@ function love.load()
 		require "weeks.festival",
 		require "weeks.encore",
 		require "weeks.mc",
-		require "weeks.girlfriend"
+		require "weeks.girlfriend",
+		require "weeks.zipper",
 	}
 
 	weekDesc = { -- Add your week description here
@@ -490,6 +491,12 @@ function love.load()
 			"Girlfriend",
 			{
 				"Love N Funkin",
+			}
+		},
+		{
+			"Zipper",
+			{
+				"Constricted"
 			}
 		}
 	}

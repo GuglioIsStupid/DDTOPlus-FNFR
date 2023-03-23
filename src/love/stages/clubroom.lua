@@ -62,6 +62,14 @@ return {
             enemy = love.filesystem.load("sprites/characters/mc/mc.lua")()
 
             enemy.x, enemy.y = -380, 225
+        elseif enemyChar == "zipper" then
+            enemy = love.filesystem.load("sprites/characters/extra/zipper.lua")()
+            girlfriend = love.filesystem.load("sprites/characters/girlfriend/speaker.lua")()
+            boyfriend = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
+            
+            enemy.x, enemy.y = -380, 225
+            boyfriend.x, boyfriend.y = 380, 225
+            showDokis = false
         end
 
         stageImages.bakaOverlay = love.filesystem.load("sprites/clubroom/baka.lua")()
@@ -93,16 +101,20 @@ return {
         stageImages.vignette.visible = false
         stageImages.vignette.alpha = 1
 
-        girlfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriend.lua")()
-
         stageImages.desks.alpha = 0
         stageImages.spotlight.alpha = 0
         girlfriend.alpha = 1
 
         stageImages.desks.visible = true
 
+        if enemyChar ~= "zipper" then
+            girlfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriend.lua")()
+            boyfriend.x, boyfriend.y = 260, 390
+
+            print("enemyChar: " .. enemyChar)
+        end
         girlfriend.x, girlfriend.y = 30, 175
-        boyfriend.x, boyfriend.y = 260, 390
+        
     end,
 
     load = function()
@@ -152,7 +164,9 @@ return {
             end
 
             love.graphics.setColor(1,1,1,girlfriend.alpha)
-            girlfriend:draw()
+            if drawGF then
+                girlfriend:draw()
+            end
             love.graphics.setColor(1,1,1,1)
 
             love.graphics.setColor(1,1,1,stageImages.spotlight.alpha)
