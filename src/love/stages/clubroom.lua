@@ -66,9 +66,17 @@ return {
             enemy = love.filesystem.load("sprites/characters/extra/zipper.lua")()
             girlfriend = love.filesystem.load("sprites/characters/girlfriend/speaker.lua")()
             boyfriend = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
-            
+
             enemy.x, enemy.y = -380, 225
             boyfriend.x, boyfriend.y = 380, 225
+            showDokis = false
+        elseif enemyChar == "catfight" then
+            enemy = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
+            boyfriend = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
+            girlfriend = love.filesystem.load("sprites/characters/girlfriend/speaker.lua")()
+
+            enemy.x, enemy.y = -380, 225
+            boyfriend.x, boyfriend.y = 380, 265
             showDokis = false
         end
 
@@ -107,7 +115,7 @@ return {
 
         stageImages.desks.visible = true
 
-        if enemyChar ~= "zipper" then
+        if enemyChar ~= "zipper" and enemyChar ~= "catfight" then
             girlfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriend.lua")()
             boyfriend.x, boyfriend.y = 260, 390
 
@@ -164,9 +172,7 @@ return {
             end
 
             love.graphics.setColor(1,1,1,girlfriend.alpha)
-            if drawGF then
-                girlfriend:draw()
-            end
+            girlfriend:draw()
             love.graphics.setColor(1,1,1,1)
 
             love.graphics.setColor(1,1,1,stageImages.spotlight.alpha)

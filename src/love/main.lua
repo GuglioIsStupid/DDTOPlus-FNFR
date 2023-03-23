@@ -133,12 +133,14 @@ function saveSettings()
             hitsoundVol = settings.hitsoundVol,
             noteSkins = settings.noteSkins,
             flashinglights = settings.flashinglights,
-			colourByQuantization = settings.colourByQuantization,
             window = settings.window,
             customBindDown = customBindDown,
             customBindUp = customBindUp,
             customBindLeft = customBindLeft,
             customBindRight = customBindRight,
+
+			mirrorMode = settings.mirrorMode,
+
             settingsVer = settingsVer
         }
         serialized = lume.serialize(settingdata)
@@ -173,7 +175,8 @@ function saveSettings()
             hitsoundVol = settings.hitsoundVol,
             noteSkins = settings.noteSkins,
             flashinglights = settings.flashinglights,
-			colourByQuantization = settings.colourByQuantization,
+
+			mirrorMode = settings.mirrorMode,
 
             customBindDown = customBindDown,
             customBindUp = customBindUp,
@@ -280,11 +283,12 @@ function love.load()
 		settings.customScrollSpeed = settingdata.saveSettingsMoment.customScrollSpeed
 		settings.scrollUnderlayTrans = settingdata.saveSettingsMoment.scrollUnderlayTrans
 		settings.noteSkins = settingdata.saveSettingsMoment.noteSkins
-		settings.colourByQuantization = settingdata.saveSettingsMoment.colourByQuantization
 		customBindDown = settingdata.saveSettingsMoment.customBindDown
 		customBindUp = settingdata.saveSettingsMoment.customBindUp
 		customBindLeft = settingdata.saveSettingsMoment.customBindLeft
 		customBindRight = settingdata.saveSettingsMoment.customBindRight
+
+		settings.mirrorMode = settingdata.saveSettingsMoment.mirrorMode
 	
 		settingsVer = settingdata.saveSettingsMoment.settingsVer
 	
@@ -306,7 +310,7 @@ function love.load()
 			customBindUp = customBindUp,
 			customBindLeft = customBindLeft,
 			customBindRight = customBindRight,
-			colourByQuantization = settings.colourByQuantization,
+			mirrorMode = settings.mirrorMode,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(settingdata)
@@ -330,7 +334,7 @@ function love.load()
 		settings.customScrollSpeed = 1
 		settings.keystrokes = false
 		settings.scrollUnderlayTrans = 0
-		settings.colourByQuantization = false
+		settings.mirrorMode = false
 		--settings.noteSkins = 1
 		customBindLeft = "a"
 		customBindRight = "d"
@@ -354,7 +358,7 @@ function love.load()
 			customScrollSpeed = settings.customScrollSpeed,
 			keystrokes = settings.keystrokes,
 			scrollUnderlayTrans = settings.scrollUnderlayTrans,
-			colourByQuantization = settings.colourByQuantization,
+			mirrorMode = settings.mirrorMode,
 			customBindLeft = customBindLeft,
 			customBindRight = customBindRight,
 			customBindUp = customBindUp,
@@ -397,6 +401,8 @@ function love.load()
 	menuSettings = require "states.menu.menuSettings"
 	menuCredits = require "states.menu.menuCredits"
 	menuSelect = require "states.menu.menuSelect"
+	
+	chooseDoki = require "states.misc.chooseDoki"
 
 	firstStartup = true
 
@@ -419,6 +425,7 @@ function love.load()
 		require "weeks.mc",
 		require "weeks.girlfriend",
 		require "weeks.zipper",
+		require "states.misc.chooseDoki",
 	}
 
 	weekDesc = { -- Add your week description here
@@ -498,8 +505,16 @@ function love.load()
 			{
 				"Constricted"
 			}
+		},
+		{
+			"Catfight",
+			{
+				"Catfight"
+			}
 		}
 	}
+
+	catfight = require "weeks.catfight"
 
 	glitchy = love.graphics.newShader [[
             extern number time;

@@ -39,7 +39,6 @@ return {
 		stageImages.zippergoo.sizeX = 0.666
 		stageImages.zippergoo.sizeY = 0.666
 
-
 		stageImages.zippergoo.visible = false
 		stageImages.zippergoo.alpha = 0
 

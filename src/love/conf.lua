@@ -18,9 +18,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 
 function love.conf(t)
-	t.identity = "ve-rewrite"
+	t.identity = "ddto-ve"
 	t.version = "11.4"
 	t.console = not love.filesystem.isFused() -- lmao i just found out you can use this function in love.conf
 
-	t.window.title = "Friday Night Funkin' Vanilla Engine v1.0.0"
+	t.window.title = "Friday Night Funkin' Vanilla Engine v1.0.0 - Doki Doki Takeover Plus"
 end

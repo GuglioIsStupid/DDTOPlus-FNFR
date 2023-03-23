@@ -56,6 +56,7 @@ return {
 			"\n\nmusicTime: " .. tostring(math.floor(musicTime)) ..  -- Floored for readability
 			"\ncurBeat: " .. tostring(beatHandler.curBeat) ..
 			"\ncurStep: " .. tostring(beatHandler.curStep) ..
+			"\nBPM: " .. tostring(bpm or 0) ..
 
 			-- Game Specifics
 			"\n\nhealth: " .. tostring(health)

@@ -189,6 +189,8 @@ return {
 			y = 815,
 			height = 95,
 		}
+
+		mirrorMode = settings.mirrorMode
 	end,
 
 	load = function(self)
@@ -513,6 +515,7 @@ return {
 							enemyNotes[id][c].x = x
 							enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
 							enemyNotes[id][c].ver = noteVer
+							enemyNotes[id][c].time = noteTime
 							if hasPixelNotes then
 								table.insert(enemyNotesP[id], spriteP())
 								enemyNotesP[id][c].x = x
@@ -703,6 +706,7 @@ return {
 							enemyNotes[id][c].x = x
 							enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
 							enemyNotes[id][c].ver = noteVer
+							enemyNotes[id][c].time = noteTime
 
 							if settings.downscroll then
 								enemyNotes[id][c].sizeY = -1
@@ -779,6 +783,7 @@ return {
 							table.insert(enemyNotesDeath[id], spriteD())
 							enemyNotesDeath[id][c].x = x
 							enemyNotesDeath[id][c].y = -400 + noteTime * 0.6 * speed
+							enemyNotesDeath[id][c].time = noteTime
 
 							if settings.downscroll then
 								enemyNotesDeath[id][c].sizeY = -1
@@ -885,6 +890,7 @@ return {
 							table.insert(enemyNotesDeath[id], spriteD())
 							enemyNotesDeath[id][c].x = x
 							enemyNotesDeath[id][c].y = -400 + noteTime * 0.6 * speed
+							enemyNotesDeath[id][c].time = noteTime
 
 							if settings.downscroll then
 								enemyNotesDeath[id][c].sizeY = -1
@@ -1400,20 +1406,20 @@ return {
 				boyfriendNoteDeath[j]:update(dt)
 			end
 
-			if not enemyArrow:isAnimated() then
+			if not enemyArrow:isAnimated() and not mirrorMode then
 				enemyArrow:animate("off", false)
 			end
-			if settings.botPlay then
+			if settings.botPlay or mirrorMode then
 				if not boyfriendArrow:isAnimated() then
 					boyfriendArrow:animate("off", false)
 				end
 			end
 
 			if hasPixelNotes then
-				if not enemyArrowP:isAnimated() then
+				if not enemyArrowP:isAnimated() and not mirrorMode then
 					enemyArrowP:animate("off", false)
 				end
-				if settings.botPlay then
+				if settings.botPlay or mirrorMode then
 					if not boyfriendArrowP:isAnimated() then
 						boyfriendArrowP:animate("off", false)
 					end
@@ -1421,7 +1427,7 @@ return {
 			end
 
 			if #enemyNote > 0 then
-				if (enemyNote[1].y - musicPos <= -410) then
+				if ((enemyNote[1].y - musicPos <= -410) and not mirrorMode) or (mirrorMode and settings.botPlay) then
 					voices:setVolume(1)
 
 					enemyArrow:animate("confirm", false)
@@ -1513,6 +1519,187 @@ return {
 						table.remove(enemyNoteP, 1)
 					end
 				end
+
+				if input:pressed(curInput) and mirrorMode then
+
+					enemyArrow:animate("press", false)
+					if hasPixelNotes then
+						enemyArrowP:animate("press", false)
+					end
+					local char = enemy
+						if mirrorMode and not settings.botPlay then 
+							-- if settings.botPlay is true, break our the if statement
+						if settings.botPlay then break end
+						success = false
+		
+						if settings.ghostTapping then
+							success = true
+						end
+						
+						for j = 1, #enemyNote do
+							if enemyNote[j] and enemyNote[j]:getAnimName() == "on" then
+								if (enemyNote[j].time - musicTime <= 150) then
+									local notePos
+									local ratingAnim
+	
+									notMissed[noteNum] = true
+									success = true
+	
+									notePos = math.abs(enemyNote[j].time - musicTime)
+	
+									voices:setVolume(1)
+	
+									boyfriend.lastHit = musicTime
+	
+									if notePos <= 55 then -- "Sick"
+										score = score + 350
+										ratingAnim = "sick"
+	
+										boyfriendSplash:animate(tostring(i) .. love.math.random(1,2), false)
+										if hasPixelNotes then
+											boyfriendSplashP:animate(tostring(i) .. love.math.random(1,2), false)
+										end
+									elseif notePos <= 90 then -- "Good"
+										score = score + 200
+										ratingAnim = "good"
+									elseif notePos <= 120 then -- "Bad"
+										score = score + 100
+										ratingAnim = "bad"
+									else -- "Shit"
+										if settings.ghostTapping then
+											success = false
+										end
+										ratingAnim = "shit"
+									end
+									combo = combo + 1
+									noteCounter = noteCounter + 1
+	
+									rating:animate(ratingAnim, false)
+									if ratingP then
+										ratingP:animate(ratingAnim, false)
+									end
+									numbers[1]:animate(tostring(math.floor(combo / 100 % 10)), false)
+									numbers[2]:animate(tostring(math.floor(combo / 10 % 10)), false)
+									numbers[3]:animate(tostring(math.floor(combo % 10)), false)
+	
+									if numbersP[1] then
+										numbersP[1]:animate(tostring(math.floor(combo / 100 % 10)), false)
+										numbersP[2]:animate(tostring(math.floor(combo / 10 % 10)), false)
+										numbersP[3]:animate(tostring(math.floor(combo % 10)), false)
+									end
+									for i = 1, 10 do
+										if ratingTimers[i] then Timer.cancel(ratingTimers[i]) end
+									end
+		
+									rating.y = 300 - 50 + (settings.downscroll and 0 or -490)
+									if ratingP then
+										ratingP.y = 300 - 50 + (settings.downscroll and 0 or -490)
+									end
+									for i = 1, 3 do
+										numbers[i].y = 300 + 50 + (settings.downscroll and 0 or -490)
+									end
+									if numbersP[1] then
+										for i = 1, 3 do
+											numbersP[i].y = 300 + 50 + (settings.downscroll and 0 or -490)
+										end
+									end
+		
+									if mustHitSection then 
+										noteCamTweens[i]()
+									end
+		
+									ratingVisibility[1] = 1
+									ratingTimers[1] = Timer.tween(2, ratingVisibility, {0}, "linear")
+									ratingTimers[2] = Timer.tween(2, rating, {y = 300 + (settings.downscroll and 0 or -490) - 100}, "out-elastic")
+		
+									ratingTimers[3] = Timer.tween(2, numbers[1], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
+									ratingTimers[4] = Timer.tween(2, numbers[2], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
+									ratingTimers[5] = Timer.tween(2, numbers[3], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
+		
+									if numbersP[1] then
+										ratingVisibilityP[1] = 1
+		
+										ratingTimers[6] = Timer.tween(2, ratingVisibilityP, {0}, "linear")
+										ratingTimers[7] = Timer.tween(2, ratingP, {y = 300 + (settings.downscroll and 0 or -490) - 100}, "out-elastic")
+		
+										ratingTimers[8] = Timer.tween(2, numbersP[1], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
+										ratingTimers[9] = Timer.tween(2, numbersP[2], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
+										ratingTimers[10] = Timer.tween(2, numbersP[3], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
+									end
+	
+									if not settings.ghostTapping or success then
+										enemyArrow:animate("confirm", false)
+										if hasPixelNotes then
+											enemyArrowP:animate("confirm", false)
+										end
+
+										if enemyNote[j].ver == "3" then
+											if numOfChar >= 3 then
+												char = enemy2
+											else
+												char = girlfriend
+											end
+										elseif enemyNote[1].ver == "4" or enemyNote[1].ver == "GF Sing" then
+											if numOfChar >= 4 then
+												char = enemy3
+											else
+												char = girlfriend
+											end
+										elseif enemyNote[1].ver == "6" then
+											char = girlfriend
+										end
+	
+										char:animate(curAnim, false)
+	
+										if enemyNote[j]:getAnimName() ~= "hold" and enemyNote[j]:getAnimName() ~= "end" then
+											health = health + 0.095
+										else
+											health = health + 0.0125
+										end
+	
+										success = true
+									end
+	
+									table.remove(enemyNote, j)
+									if hasPixelNotes then
+										table.remove(enemyNoteP, 1)
+									end
+	
+									self:calculateRating()
+								else
+									break
+								end
+							end
+						end
+					end
+
+					if #enemyNoteDeath > 0 then
+						for j = 1, #enemyNoteDeath do
+							if enemyNoteDeath[j].time - musicTime <= 100 then
+								health = health + 0.095
+
+								table.remove(enemyNoteDeath, j)
+								break
+							end
+						end
+					end
+
+					if not success then
+						audio.playSound(sounds.miss[love.math.random(3)])
+	
+						notMissed[noteNum] = false
+	
+						if combo >= 5 then girlfriend:animate("sad", false) end
+	
+						enemy:animate("miss " .. curAnim, false)
+						if boyfriend2 then boyfriend2:animate("miss " .. curAnim, false) end
+	
+						score = score - 10
+						combo = 0
+						health = health - 0.135
+						misses = misses + 1
+					end
+				end
 			end
 
 			if #enemyNoteDeath > 0 then
@@ -1531,7 +1718,7 @@ return {
 				end
 			end
 
-			if #boyfriendNote > 0 then
+			if #boyfriendNote > 0 and not mirrorMode then
 				if (boyfriendNote[1].y - musicPos < -600) then
 					if inst then voices:setVolume(0) end
 
@@ -1561,7 +1748,7 @@ return {
 				end
 			end
 
-			if settings.botPlay then 
+			if settings.botPlay and not mirrorMode then
 				if #boyfriendNote > 0 then
 					if (boyfriendNote[1].y - musicPos <= -400) then
 						voices:setVolume(1)
@@ -1653,7 +1840,7 @@ return {
 				end
 			end
 
-			if input:pressed(curInput) then
+			if input:pressed(curInput) and not mirrorMode then
 				-- if settings.botPlay is true, break our the if statement
 				if settings.botPlay then break end
 				local success = false
@@ -1662,9 +1849,11 @@ return {
 					success = true
 				end
 
-				boyfriendArrow:animate("press", false)
-				if hasPixelNotes then
-					boyfriendArrowP:animate("press", false)
+				if not mirrorMode then
+					boyfriendArrow:animate("press", false)
+					if hasPixelNotes then
+						boyfriendArrowP:animate("press", false)
+					end
 				end
 
 				if #boyfriendNote > 0 then
@@ -1814,26 +2003,75 @@ return {
 				end
 			end
 
-			if #boyfriendNote > 0 and input:down(curInput) and ((boyfriendNote[1].y - musicPos <= -400)) and (boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end") then
-				voices:setVolume(1)
+			if not mirrorMode then
+				if #boyfriendNote > 0 and input:down(curInput) and ((boyfriendNote[1].y - musicPos <= -400)) and (boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end") then
+					voices:setVolume(1)
 
-				boyfriendArrow:animate("confirm", false)
+					boyfriendArrow:animate("confirm", false)
 
-				health = health + 0.0125
+					health = health + 0.0125
 
-				if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then boyfriend:animate(curAnim, false) end
-				if boyfriend2 then if (not boyfriend2:isAnimated()) or boyfriend2:getAnimName() == "idle" then boyfriend2:animate(curAnim, false) end end
+					if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then boyfriend:animate(curAnim, false) end
+					if boyfriend2 then if (not boyfriend2:isAnimated()) or boyfriend2:getAnimName() == "idle" then boyfriend2:animate(curAnim, false) end end
 
-				table.remove(boyfriendNote, 1)
-				if hasPixelNotes then
-					table.remove(boyfriendNoteP, 1)
+					table.remove(boyfriendNote, 1)
+					if hasPixelNotes then
+						table.remove(boyfriendNoteP, 1)
+					end
 				end
-			end
 
-			if input:released(curInput) then
-				boyfriendArrow:animate("off", false)
-				if hasPixelNotes then
-					boyfriendArrowP:animate("off", false)
+				if input:released(curInput) then
+					boyfriendArrow:animate("off", false)
+					if hasPixelNotes then
+						boyfriendArrowP:animate("off", false)
+					end
+				end
+			else
+				if #enemyNote > 0 and input:down(curInput) and ((enemyNote[1].y - musicPos <= -400)) and (enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end") then
+					voices:setVolume(1)
+					local char = enemy
+
+					boyfriendArrow:animate("confirm", false)
+
+					health = health + 0.0125
+
+					if enemyNote[1].ver == "3" then
+						if numOfChar >= 3 then
+							char = enemy2
+						else
+							char = girlfriend
+						end
+					elseif enemyNote[1].ver == "4" or enemyNote[1].ver == "GF Sing" then
+						if numOfChar >= 4 then
+							char = enemy3
+						else
+							char = girlfriend
+						end
+					elseif enemyNote[1].ver == "6" then
+						char = girlfriend
+					end
+
+					if not useAltAnims then
+						if (not char:isAnimated()) or char:getAnimName() == "idle" then char:animate(curAnim, false) end
+						if FORCEP2NOMATTERWHAT then
+							if (not enemy2:isAnimated()) or enemy2:getAnimName() == "idle" then enemy2:animate(curAnim, false) end
+						end
+					else
+						if (not char:isAnimated()) or char:getAnimName() == "idle" then char:animate(curAnim .. " alt", false) end
+						if (not enemy2:isAnimated()) or enemy2:getAnimName() == "idle" then enemy2:animate(curAnim .. " alt", false) end
+					end
+
+					table.remove(enemyNote, 1)
+					if hasPixelNotes then
+						table.remove(enemyNote, 1)
+					end
+				end
+
+				if input:released(curInput) then
+					enemyArrow:animate("off", false)
+					if hasPixelNotes then
+						enemyArrowP:animate("off", false)
+					end
 				end
 			end
 		end
