@@ -1521,7 +1521,6 @@ return {
 				end
 
 				if input:pressed(curInput) and mirrorMode then
-
 					enemyArrow:animate("press", false)
 					if hasPixelNotes then
 						enemyArrowP:animate("press", false)
@@ -1652,9 +1651,9 @@ return {
 										char:animate(curAnim, false)
 	
 										if enemyNote[j]:getAnimName() ~= "hold" and enemyNote[j]:getAnimName() ~= "end" then
-											health = health + 0.095
+											health = health - 0.095
 										else
-											health = health + 0.0125
+											health = health - 0.0125
 										end
 	
 										success = true
@@ -1676,7 +1675,7 @@ return {
 					if #enemyNoteDeath > 0 then
 						for j = 1, #enemyNoteDeath do
 							if enemyNoteDeath[j].time - musicTime <= 100 then
-								health = health + 0.095
+								health = health - 0.095
 
 								table.remove(enemyNoteDeath, j)
 								break
@@ -1699,6 +1698,28 @@ return {
 						health = health - 0.135
 						misses = misses + 1
 					end
+				end
+			end
+
+			if #enemyNote > 0 and mirrorMode then
+				if (enemyNote[1].y - musicPos < -600) then
+					if inst then voices:setVolume(0) end
+
+					notMissed[noteNum] = false
+
+					if enemyNote[1]:getAnimName() ~= "hold" and enemyNote[1]:getAnimName() ~= "end" then 
+						health = health + 0.095
+						misses = misses - 1
+					else
+						health = health + 0.0125
+					end
+
+					table.remove(enemyNote, 1)
+					if hasPixelNotes then
+						table.remove(enemyNoteP, 1)
+					end
+
+					combo = 0
 				end
 			end
 
@@ -1747,8 +1768,10 @@ return {
 					table.remove(boyfriendNoteDeath, 1)
 				end
 			end
+		
+			print(mirrorMode)
 
-			if settings.botPlay and not mirrorMode then
+			if settings.botPlay or mirrorMode then
 				if #boyfriendNote > 0 then
 					if (boyfriendNote[1].y - musicPos <= -400) then
 						voices:setVolume(1)
@@ -1768,68 +1791,74 @@ return {
 
 						boyfriend.lastHit = musicTime
 
-						if boyfriendNote[1]:getAnimName() ~= "hold" and boyfriendNote[1]:getAnimName() ~= "end" then 
-							noteCounter = noteCounter + 1
-							combo = combo + 1
+						if not mirrorMode then
+							if boyfriendNote[1]:getAnimName() ~= "hold" and boyfriendNote[1]:getAnimName() ~= "end" then 
+								noteCounter = noteCounter + 1
+								combo = combo + 1
 
-							numbers[1]:animate(tostring(math.floor(combo / 100 % 10)), false)
-							numbers[2]:animate(tostring(math.floor(combo / 10 % 10)), false)
-							numbers[3]:animate(tostring(math.floor(combo % 10)), false)
+								numbers[1]:animate(tostring(math.floor(combo / 100 % 10)), false)
+								numbers[2]:animate(tostring(math.floor(combo / 10 % 10)), false)
+								numbers[3]:animate(tostring(math.floor(combo % 10)), false)
 
-							numbersP[1]:animate(tostring(math.floor(combo / 100 % 10)), false)
-							numbersP[2]:animate(tostring(math.floor(combo / 10 % 10)), false)
-							numbersP[3]:animate(tostring(math.floor(combo % 10)), false)
-
-							for i = 1, 10 do
-								if ratingTimers[i] then Timer.cancel(ratingTimers[i]) end
-							end
-
-							rating.y = 300 - 50 + (settings.downscroll and 0 or -490)
-							if ratingP then
-								ratingP.y = 300 - 50 + (settings.downscroll and 0 or -490)
-							end
-							for i = 1, 3 do
-								numbers[i].y = 300 + 50 + (settings.downscroll and 0 or -490)
-							end
-							if numbersP then
-								for i = 1, 3 do
-									numbersP[i].y = 300 + 50 + (settings.downscroll and 0 or -490)
+								if numbersP[1] then
+									numbersP[1]:animate(tostring(math.floor(combo / 100 % 10)), false)
+									numbersP[2]:animate(tostring(math.floor(combo / 10 % 10)), false)
+									numbersP[3]:animate(tostring(math.floor(combo % 10)), false)
 								end
+
+								for i = 1, 10 do
+									if ratingTimers[i] then Timer.cancel(ratingTimers[i]) end
+								end
+
+								rating.y = 300 - 50 + (settings.downscroll and 0 or -490)
+								if ratingP then
+									ratingP.y = 300 - 50 + (settings.downscroll and 0 or -490)
+								end
+								for i = 1, 3 do
+									numbers[i].y = 300 + 50 + (settings.downscroll and 0 or -490)
+								end
+								if numbersP[1] then
+									for i = 1, 3 do
+										numbersP[i].y = 300 + 50 + (settings.downscroll and 0 or -490)
+									end
+								end
+
+								if mustHitSection then 
+									noteCamTweens[i]()
+								end
+
+								ratingVisibility[1] = 1
+								ratingTimers[1] = Timer.tween(2, ratingVisibility, {0}, "linear")
+								ratingTimers[2] = Timer.tween(2, rating, {y = 300 + (settings.downscroll and 0 or -490) - 100}, "out-elastic")
+
+								ratingTimers[3] = Timer.tween(2, numbers[1], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
+								ratingTimers[4] = Timer.tween(2, numbers[2], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
+								ratingTimers[5] = Timer.tween(2, numbers[3], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
+
+								if ratingVisibilityP then
+									ratingVisibilityP[1] = 1
+
+									ratingTimers[6] = Timer.tween(2, ratingVisibilityP, {0}, "linear")
+									ratingTimers[7] = Timer.tween(2, ratingP, {y = 300 + (settings.downscroll and 0 or -490) - 100}, "out-elastic")
+
+									if numbersP[1] then
+										ratingTimers[8] = Timer.tween(2, numbersP[1], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
+										ratingTimers[9] = Timer.tween(2, numbersP[2], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
+										ratingTimers[10] = Timer.tween(2, numbersP[3], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
+									end
+								end
+								health = health + 0.095
+								score = score + 350
+
+								boyfriendSplash:animate(tostring(i) .. love.math.random(1,2), false)
+								if hasPixelNotes then
+									boyfriendSplashP:animate(tostring(i) .. love.math.random(1,2), false)
+								end
+
+								self:calculateRating()
+							else
+								health = health + 0.0125
 							end
-
-							if mustHitSection then 
-								noteCamTweens[i]()
-							end
-
-							ratingVisibility[1] = 1
-							ratingTimers[1] = Timer.tween(2, ratingVisibility, {0}, "linear")
-							ratingTimers[2] = Timer.tween(2, rating, {y = 300 + (settings.downscroll and 0 or -490) - 100}, "out-elastic")
-
-							ratingTimers[3] = Timer.tween(2, numbers[1], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
-							ratingTimers[4] = Timer.tween(2, numbers[2], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
-							ratingTimers[5] = Timer.tween(2, numbers[3], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
-
-							if ratingVisibilityP then
-								ratingVisibilityP[1] = 1
-
-								ratingTimers[6] = Timer.tween(2, ratingVisibilityP, {0}, "linear")
-								ratingTimers[7] = Timer.tween(2, ratingP, {y = 300 + (settings.downscroll and 0 or -490) - 100}, "out-elastic")
-
-								ratingTimers[8] = Timer.tween(2, numbersP[1], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
-								ratingTimers[9] = Timer.tween(2, numbersP[2], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
-								ratingTimers[10] = Timer.tween(2, numbersP[3], {y = 300 + (settings.downscroll and 0 or -490) + love.math.random(-10, 10)}, "out-elastic")
-							end
-							health = health + 0.095
-							score = score + 350
-
-							boyfriendSplash:animate(tostring(i) .. love.math.random(1,2), false)
-							if hasPixelNotes then
-								boyfriendSplashP:animate(tostring(i) .. love.math.random(1,2), false)
-							end
-
-							self:calculateRating()
-						else
-							health = health + 0.0125
 						end
 
 						table.remove(boyfriendNote, 1)
@@ -2031,9 +2060,9 @@ return {
 					voices:setVolume(1)
 					local char = enemy
 
-					boyfriendArrow:animate("confirm", false)
+					enemyArrow:animate("confirm", false)
 
-					health = health + 0.0125
+					health = health - 0.0125
 
 					if enemyNote[1].ver == "3" then
 						if numOfChar >= 3 then
@@ -2058,7 +2087,9 @@ return {
 						end
 					else
 						if (not char:isAnimated()) or char:getAnimName() == "idle" then char:animate(curAnim .. " alt", false) end
-						if (not enemy2:isAnimated()) or enemy2:getAnimName() == "idle" then enemy2:animate(curAnim .. " alt", false) end
+						if FORCEP2NOMATTERWHAT then
+							if (not enemy2:isAnimated()) or enemy2:getAnimName() == "idle" then enemy2:animate(curAnim .. " alt", false) end
+						end
 					end
 
 					table.remove(enemyNote, 1)
