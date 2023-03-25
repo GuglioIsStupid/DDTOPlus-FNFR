@@ -56,7 +56,7 @@ return {
 
 		self:initUI()
 
-        countNum = 3
+        countNum = 0
 		showDokis = false
 	end,
 
