@@ -73,7 +73,7 @@ return {
         elseif enemyChar == "catfight" then
             enemy = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
             boyfriend = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
-            girlfriend = love.filesystem.load("sprites/characters/girlfriend/speaker.lua")()
+            girlfriend = love.filesystem.load("sprites/characters/girlfriend/sayo.lua")()
 
             enemy.x, enemy.y = -380, 225
             boyfriend.x, boyfriend.y = 380, 265

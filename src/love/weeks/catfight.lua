@@ -56,7 +56,7 @@ return {
 
 		self:initUI()
 
-        countNum = 0
+        countNum = 3
 		showDokis = false
 	end,
 
@@ -96,9 +96,12 @@ return {
                 elseif s == 640 and countNum == 2 then
                     camera.defaultZoom = 0.9
                     countNum = 3
+
+				--[[
                 elseif s == 1120 and countNum == 3 then
                     camera.defaultZoom = 0.95
                     countNum = 4
+				
                 elseif s == 1136 and countNum == 4 then
                     camera.defaultZoom = 1
                     countNum = 5
@@ -126,6 +129,9 @@ return {
                 elseif s == 1712 and countNum == 10 then
                     camera.defaultZoom = 1.2
                     countNum = 11
+				--]]
+					-- im too dumb to make beat handling proper, so it can't handle bpm changes
+					-- rest of the events are done via musicTime
 				end
             end
 		end
@@ -135,6 +141,25 @@ return {
                 
             end
         end
+
+		if musicTime >= 111180 and countNum == 3 then
+			camera.mustHit = false
+			camera.zooming = false
+			camera:moveToMain(0.25, girlfriend.x, girlfriend.y -150)
+			Timer.tween(0.45, camera, {zoom=1.55}, "out-sine")
+			girlfriend:animate("popout")
+			girlfriend.danceIdle = true
+
+			countNum = 4
+		elseif musicTime >= 113310 and countNum == 4 then
+			girlfriend:animate("scared", false, function() girlfriend:animate("danceLeft") girlfriend.danced = false end)
+			camera.mustHit = true
+			camera.zooming = true
+
+			countNum = 5
+		end
+
+
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
 			status.setLoading(true)
 

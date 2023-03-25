@@ -1308,6 +1308,14 @@ return {
 		absMusicTime = math.abs(musicTime)
 		musicThres = math.floor(absMusicTime / 100) -- Since "musicTime" isn't precise, this is needed
 
+		if input:pressed("debugZoomIn") then
+			inst:seek(inst:tell() + 15)
+			voices:seek(voices:tell() + 15)
+		elseif input:pressed("debugZoomOut") then
+			inst:seek(inst:tell() - 15)
+			voices:seek(voices:tell() - 15)
+		end
+
 		for i = 1, #events do
 			if events[i].eventTime <= absMusicTime then
 				local oldBpm = bpm
@@ -1768,9 +1776,7 @@ return {
 					table.remove(boyfriendNoteDeath, 1)
 				end
 			end
-		
-			print(mirrorMode)
-
+	
 			if settings.botPlay or mirrorMode then
 				if #boyfriendNote > 0 then
 					if (boyfriendNote[1].y - musicPos <= -400) then
