@@ -109,7 +109,9 @@ function beatHandler.reset()
 end
 
 function beatHandler.onBeat()
-    return beatHandler.isBeatHit
+    local beatHit = beatHandler.isBeatHit
+    beatHandler.isBeatHit = false
+    return beatHit
 end
 
 function beatHandler.setBeat(beat)
@@ -117,7 +119,9 @@ function beatHandler.setBeat(beat)
 end
 
 function beatHandler.onStep()
-    return beatHandler.isStepHit
+    local stepHit = beatHandler.isStepHit
+    beatHandler.isStepHit = false
+    return stepHit
 end
 
 function beatHandler.onBeatNumber(beatNumber)
