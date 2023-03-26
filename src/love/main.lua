@@ -428,7 +428,8 @@ function love.load()
 		require "weeks.girlfriend",
 		require "weeks.zipper",
 		require "states.misc.chooseDoki",
-		require "weeks.wilted"
+		require "weeks.wilted",
+		require "weeks.drinks",
 	}
 
 	weekDesc = { -- Add your week description here
@@ -519,6 +520,12 @@ function love.load()
 			"Wilted",
 			{
 				"Wilted"
+			}
+		},
+		{
+			"Drinks On Me",
+			{
+				"Drinks On Me"
 			}
 		}
 	}

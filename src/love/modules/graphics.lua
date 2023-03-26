@@ -228,6 +228,8 @@ return {
 			altIdle = optionsTable and optionsTable.altIdle or false,
 			filter = optionsTable and optionsTable.filter,
 
+			alpha = 1,
+
 			danced = false,
 
 			setSheet = function(self, imageData)

@@ -293,6 +293,7 @@ return {
 		ratingPercent = 0.0
 		noteCounter = 0
 		showPixelNotes = false
+		useUIAlphaForNotes = false
 
 		if not pixel then
 			sprites.leftArrow = love.filesystem.load("sprites/left-arrowM.lua")
@@ -1406,12 +1407,24 @@ return {
 				enemyArrowP:update(dt)
 				boyfriendArrowP:update(dt)
 				boyfriendSplashP:update(dt)
+
+				if mirrorMode then
+					boyfriendSplashP.x = enemyArrowP.x
+				else
+					boyfriendSplashP.x = boyfriendArrowP.x
+				end
 			end
 			for j = 1, #enemyNoteDeath do
 				enemyNoteDeath[j]:update(dt)
 			end
 			for j = 1, #boyfriendNoteDeath do
 				boyfriendNoteDeath[j]:update(dt)
+			end
+
+			if mirrorMode then 
+				boyfriendSplash.x = enemyArrow.x
+			else
+				boyfriendSplash.x = boyfriendArrow.x
 			end
 
 			if not enemyArrow:isAnimated() and not mirrorMode then
@@ -1432,6 +1445,13 @@ return {
 						boyfriendArrowP:animate("off", false)
 					end
 				end
+			end
+
+			for j = 1, #boyfriendNote do
+				boyfriendNote[j].x = boyfriendArrow.x
+			end
+			for j = 1, #enemyNote do
+				enemyNote[j].x = enemyArrow.x
 			end
 
 			if #enemyNote > 0 then
@@ -2262,9 +2282,9 @@ return {
 				if (whoHasPixelNotes ~= "enemy") then
 						if enemyArrows[i]:getAnimName() == "off" then
 							if not settings.middleScroll then
-								graphics.setColor(0.6, 0.6, 0.6, enemyArrows[i].alpha)
+								graphics.setColor(0.6, 0.6, 0.6, (useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
 							else
-								graphics.setColor(0.6, 0.6, 0.6, enemyArrows[i].alpha * 0.6)
+								graphics.setColor(0.6, 0.6, 0.6, (useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha) * 0.6)
 							end
 						end
 						if not pixel then
@@ -2282,14 +2302,14 @@ return {
 							if not pixel then 
 								boyfriendArrows[i]:draw()
 								if boyfriendSplashes[i]:isAnimated() then
-									graphics.setColor(1,1,1,0.5*uiAlpha[1])
+									graphics.setColor(1,1,1,0.5*(useUIAlphaForNotes and uiAlpha[1] or boyfriendArrows[i].alpha))
 									boyfriendSplashes[i]:draw()
 								end
 							else
 								if not settings.downscroll then
 									boyfriendArrows[i]:udraw(8, 8)
 									if boyfriendSplashes[i]:isAnimated() then
-										graphics.setColor(1,1,1,0.5*uiAlpha[1])
+										graphics.setColor(1,1,1,0.5*(useUIAlphaForNotes and uiAlpha[1] or boyfriendArrows[i].alpha))
 										boyfriendSplashes[i]:udraw(8, 8)
 									end
 								else
@@ -2308,9 +2328,9 @@ return {
 					if (whoHasPixelNotes ~= "boyfriend") then
 						if enemyArrowsP[i]:getAnimName() == "off" then
 							if not settings.middleScroll then
-								graphics.setColor(0.6, 0.6, 0.6,uiAlpha[1])
+								graphics.setColor(0.6, 0.6, 0.6,(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
 							else
-								graphics.setColor(0.6, 0.6, 0.6, 0.6*uiAlpha[1])
+								graphics.setColor(0.6, 0.6, 0.6, 0.6*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
 							end
 						else
 							graphics.setColor(1, 1, 1, uiAlpha[1])
@@ -2354,16 +2374,16 @@ return {
 
 											if animName == "hold" or animName == "end" then
 												if settings.middleScroll then
-													graphics.setColor(1, 1, 1, 0.3*uiAlpha[1])
+													graphics.setColor(1, 1, 1, 0.3*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha)*enemyNotes[i][j].alpha)
 												else
-													graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
+													graphics.setColor(1, 1, 1, 0.5*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha)*enemyNotes[i][j].alpha)
 												end
 
 											else
 												if settings.middleScroll then
-													graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
+													graphics.setColor(1, 1, 1, 0.5*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha)*enemyNotes[i][j].alpha)
 												else
-													graphics.setColor(1, 1, 1, uiAlpha[1])
+													graphics.setColor(1, 1, 1, (useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha)*enemyNotes[i][j].alpha)
 												end
 											end
 
@@ -2393,16 +2413,16 @@ return {
 
 											if animName == "hold" or animName == "end" then
 												if settings.middleScroll then
-													graphics.setColor(1, 1, 1, 0.3*uiAlpha[1])
+													graphics.setColor(1, 1, 1, 0.3*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
 												else
-													graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
+													graphics.setColor(1, 1, 1, 0.5*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
 												end
 
 											else
 												if settings.middleScroll then
-													graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
+													graphics.setColor(1, 1, 1, 0.5*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
 												else
-													graphics.setColor(1, 1, 1, uiAlpha[1])
+													graphics.setColor(1, 1, 1, (useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
 												end
 											end
 
@@ -2427,16 +2447,16 @@ return {
 
 								if animName == "hold" or animName == "end" then
 									if settings.middleScroll then
-										graphics.setColor(1, 1, 1, 0.3*uiAlpha[1])
+										graphics.setColor(1, 1, 1, 0.3*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
 									else
-										graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
+										graphics.setColor(1, 1, 1, 0.5*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
 									end
 
 								else
 									if settings.middleScroll then
-										graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
+										graphics.setColor(1, 1, 1, 0.5*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
 									else
-										graphics.setColor(1, 1, 1, 1*uiAlpha[1])
+										graphics.setColor(1, 1, 1, 1*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
 									end
 								end
 
@@ -2464,9 +2484,9 @@ return {
 									local animName = boyfriendNotes[i][j]:getAnimName()
 
 									if animName == "hold" or animName == "end" then
-										graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotes[i][j].y - musicPos)) / 150) * uiAlpha[1])
+										graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotes[i][j].y - musicPos)) / 150) * (useUIAlphaForNotes and uiAlpha[1] or boyfriendArrows[i].alpha))
 									else
-										graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75) * uiAlpha[1])
+										graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotes[i][j].y - musicPos)) / 75) * (useUIAlphaForNotes and uiAlpha[1] or boyfriendArrows[i].alpha))
 									end
 									if not pixel then 
 										boyfriendNotes[i][j]:draw()
@@ -2492,9 +2512,9 @@ return {
 										local animName = boyfriendNotesP[i][j]:getAnimName()
 		
 										if animName == "hold" or animName == "end" then
-											graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotesP[i][j].y - musicPos)) / 150) * uiAlpha[1])
+											graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotesP[i][j].y - musicPos)) / 150) * (useUIAlphaForNotes and uiAlpha[1] or boyfriendArrows[i].alpha))
 										else
-											graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotesP[i][j].y - musicPos)) / 75) * uiAlpha[1])
+											graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotesP[i][j].y - musicPos)) / 75) * (useUIAlphaForNotes and uiAlpha[1] or boyfriendArrows[i].alpha))
 										end
 										if not settings.downscroll then
 											boyfriendNotesP[i][j]:udraw(8, 8)
@@ -2515,9 +2535,9 @@ return {
 								local animName = boyfriendNotesDeath[i][j]:getAnimName()
 
 								if animName == "hold" or animName == "end" then
-									graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotesDeath[i][j].y - musicPos)) / 150) * uiAlpha[1])
+									graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotesDeath[i][j].y - musicPos)) / 150) * (useUIAlphaForNotes and uiAlpha[1] or boyfriendArrows[i].alpha))
 								else
-									graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotesDeath[i][j].y - musicPos)) / 75) * uiAlpha[1])
+									graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotesDeath[i][j].y - musicPos)) / 75) * (useUIAlphaForNotes and uiAlpha[1] or boyfriendArrows[i].alpha))
 								end
 								if not pixel then 
 									boyfriendNotesDeath[i][j]:draw()
