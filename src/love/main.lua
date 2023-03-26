@@ -392,6 +392,7 @@ function love.load()
 		["medley"] = require "stages.medley",
 		["school"] = require "stages.school",
 		["wilted"] = require "stages.wilted",
+		["drinks"] = require "stages.drinks",
 	}
 
 	-- Load Menus
