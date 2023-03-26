@@ -24,7 +24,7 @@ return {
         stageImages.dana.x, stageImages.dana.y = 43, -247
         stageImages.dana.visible = false
         stageImages.barAds.x, stageImages.barAds.y = 497, -336
-        stageImages.barAds.visible = false
+        stageImages.barAds.visible = true
         stageImages.bg2.x, stageImages.bg2.y = 0, -37
         stageImages.dorth.x, stageImages.dorth.y = -713, -33
         stageImages.dorth.visible = false
@@ -46,7 +46,6 @@ return {
         stageImages.dorth:update(dt)
 
         if beatHandler.onBeat() and beatHandler.curBeat % 2 == 0 then
-            stageImages.anna:animate("anim", false)
             stageImages.dana:animate("anim", false)
             stageImages.alma:animate("anim", false)
         end

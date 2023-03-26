@@ -28,6 +28,9 @@ return {
         monika = love.filesystem.load("sprites/characters/monika/monika.lua")()
         monikapixel = love.filesystem.load("sprites/characters/pixel/monika.lua")()
 
+        monika.flipX = true
+        monikapixel.flipX = true
+
         camera.defaultZoom = 0.8
         love.graphics.setBackgroundColor(1,1,1)
 
@@ -43,6 +46,8 @@ return {
         monika.x, monika.y = 500, -20
         monikapixel.x, monikapixel.y = 480, 10
         boyfriend.x, boyfriend.y = 480, 10
+        boyfriend.flipX = true
+    
 
         stageImages.hoii_senpai.x = -405
         stageImages.hoii_senpai.y = -7
@@ -199,10 +204,10 @@ return {
             if isShitVisible then
                 if enemyIsPixel then
                     enemy:udraw(4.8, 4.8)
-                    boyfriend:udraw(0.7, 0.7)
+                    boyfriend:udraw(-0.7, 0.7)
                 else
                     enemy:udraw(0.7, 0.7)
-                    boyfriend:udraw(4.8, 4.8)
+                    boyfriend:udraw(-4.8, 4.8)
                 end
             end
 

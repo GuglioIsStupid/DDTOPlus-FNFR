@@ -51,6 +51,7 @@ return {
                 -- monika becoems pixel
                 enemy = senpaiNonpixel
                 boyfriend = monikapixel
+                boyfriend.flipX = true
                 enemyIsPixel = false
                 curBG = "bg2"
                 whoHasPixelNotes = "boyfriend" 
@@ -58,6 +59,7 @@ return {
                 -- monika becomes non pixel
                 enemy = senpai
                 boyfriend = monika
+                boyfriend.flipX = true
                 enemyIsPixel = true
                 curBG = "bg1"
                 whoHasPixelNotes = "enemy"
@@ -211,6 +213,8 @@ return {
 				dialogue.next()
 			end
 		end
+
+        print(boyfriend.flipX)
 
 		if health >= 1.595 then
 			if enemyIcon:getAnimName() == "yuri" then
