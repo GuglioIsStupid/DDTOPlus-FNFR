@@ -391,6 +391,7 @@ function love.load()
 		["ynm"] = require "stages.ynm",
 		["medley"] = require "stages.medley",
 		["school"] = require "stages.school",
+		["wilted"] = require "stages.wilted",
 	}
 
 	-- Load Menus
@@ -426,6 +427,7 @@ function love.load()
 		require "weeks.girlfriend",
 		require "weeks.zipper",
 		require "states.misc.chooseDoki",
+		require "weeks.wilted"
 	}
 
 	weekDesc = { -- Add your week description here
@@ -510,6 +512,12 @@ function love.load()
 			"Catfight",
 			{
 				"Catfight"
+			}
+		},
+		{
+			"Wilted",
+			{
+				"Wilted"
 			}
 		}
 	}

@@ -2100,7 +2100,7 @@ return {
 
 					table.remove(enemyNote, 1)
 					if hasPixelNotes then
-						table.remove(enemyNote, 1)
+						table.remove(enemyNoteP, 1)
 					end
 				end
 
@@ -2180,13 +2180,13 @@ return {
 					numbers[i]:udraw(5, 5)
 				end
 			else
-				if not showPixelNotes then
+				if hasPixelNotes and showPixelNotes and ((not mirrorMode and whoHasPixelNotes == "enemy") or (mirrorMode and whoHasPixelNotes == "boyfriend")) then
 					rating:draw()
 					for i = 1, 3 do
 						numbers[i]:draw()
 					end
 				end
-				if hasPixelNotes and showPixelNotes then
+				if not showPixelNotes or ((not mirrorMode and whoHasPixelNotes == "boyfriend") or (mirrorMode and whoHasPixelNotes == "enemy")) then
 					ratingP:udraw(5.25, 5.25)
 					for i = 1, 3 do
 						numbersP[i]:udraw(5.25, 5.25)
@@ -2259,78 +2259,84 @@ return {
 			love.graphics.scale(uiScale.zoom, uiScale.zoom)
 
 			for i = 1, 4 do
-				if not showPixelNotes then
-					if enemyArrows[i]:getAnimName() == "off" then
-						if not settings.middleScroll then
-							graphics.setColor(0.6, 0.6, 0.6, enemyArrows[i].alpha)
-						else
-							graphics.setColor(0.6, 0.6, 0.6, enemyArrows[i].alpha * 0.6)
+				if (whoHasPixelNotes ~= "enemy") then
+						if enemyArrows[i]:getAnimName() == "off" then
+							if not settings.middleScroll then
+								graphics.setColor(0.6, 0.6, 0.6, enemyArrows[i].alpha)
+							else
+								graphics.setColor(0.6, 0.6, 0.6, enemyArrows[i].alpha * 0.6)
+							end
 						end
-					end
-					if not pixel then
-						enemyArrows[i]:draw()
-					else
-						if not settings.downscroll then
-							enemyArrows[i]:udraw(8, 8)
+						if not pixel then
+							enemyArrows[i]:draw()
 						else
-							enemyArrows[i]:udraw(8, -8)
+							if not settings.downscroll then
+								enemyArrows[i]:udraw(8, 8)
+							else
+								enemyArrows[i]:udraw(8, -8)
+							end
 						end
 					end
 					graphics.setColor(1, 1, 1, 1*boyfriendArrows[i].alpha)
-					if not pixel then 
-						boyfriendArrows[i]:draw()
-						if boyfriendSplashes[i]:isAnimated() then
-							graphics.setColor(1,1,1,0.5*uiAlpha[1])
-							boyfriendSplashes[i]:draw()
-						end
-					else
-						if not settings.downscroll then
-							boyfriendArrows[i]:udraw(8, 8)
-							if boyfriendSplashes[i]:isAnimated() then
-								graphics.setColor(1,1,1,0.5*uiAlpha[1])
-								boyfriendSplashes[i]:udraw(8, 8)
+						if whoHasPixelNotes ~= "boyfriend" then
+							if not pixel then 
+								boyfriendArrows[i]:draw()
+								if boyfriendSplashes[i]:isAnimated() then
+									graphics.setColor(1,1,1,0.5*uiAlpha[1])
+									boyfriendSplashes[i]:draw()
+								end
+							else
+								if not settings.downscroll then
+									boyfriendArrows[i]:udraw(8, 8)
+									if boyfriendSplashes[i]:isAnimated() then
+										graphics.setColor(1,1,1,0.5*uiAlpha[1])
+										boyfriendSplashes[i]:udraw(8, 8)
+									end
+								else
+									boyfriendArrows[i]:udraw(8, -8)
+									if boyfriendSplashes[i]:isAnimated() then
+										graphics.setColor(1,1,1,0.5*uiAlpha[1])
+										boyfriendSplashes[i]:udraw(8, -8)
+									end
+								end
 							end
-						else
-							boyfriendArrows[i]:udraw(8, -8)
-							if boyfriendSplashes[i]:isAnimated() then
-								graphics.setColor(1,1,1,0.5*uiAlpha[1])
-								boyfriendSplashes[i]:udraw(8, -8)
-							end
 						end
-					end
-				end
 
 				graphics.setColor(1, 1, 1)
 
-				if hasPixelNotes and curEnemy == "pmonika" then 
-					if enemyArrowsP[i]:getAnimName() == "off" then
-						if not settings.middleScroll then
-							graphics.setColor(0.6, 0.6, 0.6,uiAlpha[1])
+				if hasPixelNotes then
+					if (whoHasPixelNotes ~= "boyfriend") then
+						if enemyArrowsP[i]:getAnimName() == "off" then
+							if not settings.middleScroll then
+								graphics.setColor(0.6, 0.6, 0.6,uiAlpha[1])
+							else
+								graphics.setColor(0.6, 0.6, 0.6, 0.6*uiAlpha[1])
+							end
 						else
-							graphics.setColor(0.6, 0.6, 0.6, 0.6*uiAlpha[1])
+							graphics.setColor(1, 1, 1, uiAlpha[1])
 						end
-					else
-						graphics.setColor(1, 1, 1, uiAlpha[1])
-					end
 
-					if not settings.downscroll then
-						enemyArrowsP[i]:udraw(8, 8)
-					else
-						enemyArrowsP[i]:udraw(8, -8)
+						if not settings.downscroll then
+							enemyArrowsP[i]:udraw(8, 8)
+						else
+							enemyArrowsP[i]:udraw(8, -8)
+						end
 					end
 
 					graphics.setColor(1,1,1)
-					if not settings.downscroll then
-						boyfriendArrowsP[i]:udraw(8, 8)
-						if boyfriendSplashesP[i]:isAnimated() then
-							graphics.setColor(1,1,1,0.5*uiAlpha[1])
-							boyfriendSplashesP[i]:udraw(8, 8)
-						end
-					else
-						boyfriendArrowsP[i]:udraw(8, -8)
-						if boyfriendSplashesP[i]:isAnimated() then
-							graphics.setColor(1,1,1,0.5*uiAlpha[1])
-							boyfriendSplashesP[i]:udraw(8, -8)
+					if (whoHasPixelNotes ~= "enemy") then
+						if not settings.downscroll then
+							boyfriendArrowsP[i]:udraw(8, 8)
+							if boyfriendSplashesP[i]:isAnimated() then
+								graphics.setColor(1,1,1,0.5*uiAlpha[1])
+								boyfriendSplashesP[i]:udraw(8, 8)
+							end
+						else
+							boyfriendArrowsP[i]:udraw(8, -8)
+							if boyfriendSplashesP[i]:isAnimated() then
+								graphics.setColor(1,1,1,0.5*uiAlpha[1])
+								boyfriendSplashesP[i]:udraw(8, -8)
+							end
 						end
 					end
 
@@ -2341,77 +2347,79 @@ return {
 					love.graphics.translate(0, -musicPos)
 
 					love.graphics.push()
-						if not showPixelNotes then
-							for j = #enemyNotes[i], 1, -1 do
-								if enemyNotes[i][j].y - musicPos <= 560 then
-									local animName = enemyNotes[i][j]:getAnimName()
+								if whoHasPixelNotes ~= "enemy" then
+									for j = #enemyNotes[i], 1, -1 do
+										if enemyNotes[i][j].y - musicPos <= 560 then
+											local animName = enemyNotes[i][j]:getAnimName()
 
-									if animName == "hold" or animName == "end" then
-										if settings.middleScroll then
-											graphics.setColor(1, 1, 1, 0.3*uiAlpha[1])
-										else
-											graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
-										end
+											if animName == "hold" or animName == "end" then
+												if settings.middleScroll then
+													graphics.setColor(1, 1, 1, 0.3*uiAlpha[1])
+												else
+													graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
+												end
 
-									else
-										if settings.middleScroll then
-											graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
-										else
-											graphics.setColor(1, 1, 1, uiAlpha[1])
-										end
-									end
-
-									if not pixel then
-										enemyNotes[i][j]:draw()
-									else
-										if not settings.downscroll then
-											enemyNotes[i][j]:udraw(8, 8)
-										else
-											if enemyNotes[i][j]:getAnimName() == "end" then
-												enemyNotes[i][j]:udraw(8, 8)
 											else
-												enemyNotes[i][j]:udraw(8, -8)
+												if settings.middleScroll then
+													graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
+												else
+													graphics.setColor(1, 1, 1, uiAlpha[1])
+												end
 											end
+
+											if not pixel then
+												enemyNotes[i][j]:draw()
+											else
+												if not settings.downscroll then
+													enemyNotes[i][j]:udraw(8, 8)
+												else
+													if enemyNotes[i][j]:getAnimName() == "end" then
+														enemyNotes[i][j]:udraw(8, 8)
+													else
+														enemyNotes[i][j]:udraw(8, -8)
+													end
+												end
+											end
+											graphics.setColor(1, 1, 1,uiAlpha[1])
 										end
 									end
-									graphics.setColor(1, 1, 1,uiAlpha[1])
+								end
+
+							if showPixelNotes then
+								if whoHasPixelNotes ~= "boyfriend" then
+									for j = #enemyNotesP[i], 1, -1 do
+										if enemyNotesP[i][j].y - musicPos <= 560 then
+											local animName = enemyNotesP[i][j]:getAnimName()
+
+											if animName == "hold" or animName == "end" then
+												if settings.middleScroll then
+													graphics.setColor(1, 1, 1, 0.3*uiAlpha[1])
+												else
+													graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
+												end
+
+											else
+												if settings.middleScroll then
+													graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
+												else
+													graphics.setColor(1, 1, 1, uiAlpha[1])
+												end
+											end
+
+											if not settings.downscroll then
+												enemyNotesP[i][j]:udraw(8, 8)
+											else
+												if enemyNotesP[i][j]:getAnimName() == "end" then
+													enemyNotesP[i][j]:udraw(8, 8)
+												else
+													enemyNotesP[i][j]:udraw(8, -8)
+												end
+											end
+											graphics.setColor(1, 1, 1,uiAlpha[1])
+										end
+									end
 								end
 							end
-						end
-
-						if showPixelNotes then
-							for j = #enemyNotesP[i], 1, -1 do
-								if enemyNotesP[i][j].y - musicPos <= 560 then
-									local animName = enemyNotesP[i][j]:getAnimName()
-
-									if animName == "hold" or animName == "end" then
-										if settings.middleScroll then
-											graphics.setColor(1, 1, 1, 0.3*uiAlpha[1])
-										else
-											graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
-										end
-
-									else
-										if settings.middleScroll then
-											graphics.setColor(1, 1, 1, 0.5*uiAlpha[1])
-										else
-											graphics.setColor(1, 1, 1, uiAlpha[1])
-										end
-									end
-
-									if not settings.downscroll then
-										enemyNotesP[i][j]:udraw(8, 8)
-									else
-										if enemyNotesP[i][j]:getAnimName() == "end" then
-											enemyNotesP[i][j]:udraw(8, 8)
-										else
-											enemyNotesP[i][j]:udraw(8, -8)
-										end
-									end
-									graphics.setColor(1, 1, 1,uiAlpha[1])
-								end
-							end
-						end
 
 						for j = #enemyNotesDeath[i], 1, -1 do
 							if enemyNotesDeath[i][j].y - musicPos <= 560 then
@@ -2450,7 +2458,7 @@ return {
 						end
 					love.graphics.pop()
 					love.graphics.push()
-						if not showPixelNotes then
+						if whoHasPixelNotes ~= "boyfriend" then
 							for j = #boyfriendNotes[i], 1, -1 do
 								if boyfriendNotes[i][j].y - musicPos <= 560 then
 									local animName = boyfriendNotes[i][j]:getAnimName()
@@ -2477,23 +2485,25 @@ return {
 							end
 						end
 
-						if showPixelNotes then 
-							for j = #boyfriendNotesP[i], 1, -1 do
-								if boyfriendNotesP[i][j].y - musicPos <= 560 then
-									local animName = boyfriendNotesP[i][j]:getAnimName()
-	
-									if animName == "hold" or animName == "end" then
-										graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotesP[i][j].y - musicPos)) / 150) * uiAlpha[1])
-									else
-										graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotesP[i][j].y - musicPos)) / 75) * uiAlpha[1])
-									end
-									if not settings.downscroll then
-										boyfriendNotesP[i][j]:udraw(8, 8)
-									else
-										if boyfriendNotesP[i][j]:getAnimName() == "end" then
+						if showPixelNotes then
+							if whoHasPixelNotes ~= "enemy" then
+								for j = #boyfriendNotesP[i], 1, -1 do
+									if boyfriendNotesP[i][j].y - musicPos <= 560 then
+										local animName = boyfriendNotesP[i][j]:getAnimName()
+		
+										if animName == "hold" or animName == "end" then
+											graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotesP[i][j].y - musicPos)) / 150) * uiAlpha[1])
+										else
+											graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotesP[i][j].y - musicPos)) / 75) * uiAlpha[1])
+										end
+										if not settings.downscroll then
 											boyfriendNotesP[i][j]:udraw(8, 8)
 										else
-											boyfriendNotesP[i][j]:udraw(8, -8)
+											if boyfriendNotesP[i][j]:getAnimName() == "end" then
+												boyfriendNotesP[i][j]:udraw(8, 8)
+											else
+												boyfriendNotesP[i][j]:udraw(8, -8)
+											end
 										end
 									end
 								end

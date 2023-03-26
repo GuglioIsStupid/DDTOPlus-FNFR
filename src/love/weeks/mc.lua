@@ -832,6 +832,7 @@ return {
                 love.graphics.pop()
             end
 			love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
+            stageImages.gradient:draw()
 			love.graphics.scale(camera.zoom, camera.zoom)
 
             if song == 1 then
