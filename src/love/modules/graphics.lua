@@ -526,7 +526,7 @@ return {
 						self.x,
 						self.y,
 						self.orientation,
-						sx,
+						sx * (self.flipX and -1 or 1),
 						sy,
 						width + anim.offsetX + self.offsetX,
 						height + anim.offsetY + self.offsetY,

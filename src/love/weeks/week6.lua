@@ -48,7 +48,17 @@ return {
 
 	load = function(self)
 		weeks:load()
-		if song == 3 then
+		if song == 4 then
+			stages["school"]:enter()
+			stages["school"]:load()
+			stages["bigroom"]:leave()
+
+			enemy = love.filesystem.load("sprites/characters/pixel/monika.lua")()
+			boyfriend = love.filesystem.load("sprites/week6/senpai.lua")()
+
+			enemy.x, enemy.y = -340, -20
+			boyfriend.x, boyfriend.y = 340, -20
+		elseif song == 3 then
 			school = love.filesystem.load("sprites/week6/evil-school.lua")()
 			enemy = love.filesystem.load("sprites/week6/spirit.lua")()
 			stages["school"]:leave()
@@ -64,7 +74,12 @@ return {
 			stages["school"]:load()
 		end
 
-		if song == 3 then
+		if song == 4 then
+			inst = love.audio.newSource("songs/monika-pixel/your reality/Inst.ogg", "stream")
+			voices = love.audio.newSource("songs/monika-pixel/your reality/Voices.ogg", "stream")
+
+			FORCEP2NOMATTERWHAT = false
+		elseif song == 3 then
 			inst = love.audio.newSource("songs/monika-pixel/your demise/Inst.ogg", "stream")
 			voices = love.audio.newSource("songs/monika-pixel/your demise/Voices.ogg", "stream")
 
@@ -100,7 +115,14 @@ return {
 	initUI = function(self)
 		weeks:initUI("pixel")
 
-		if song == 3 then
+		if song == 4 then
+			weeks:generateNotes("data/monika-pixel/your reality/your reality.json")
+			if storyMode and not died then
+				weeks:setupCountdown()
+			else
+				weeks:setupCountdown()
+			end
+		elseif song == 3 then
 			weeks:generateNotes("data/monika-pixel/your demise/your demise.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
@@ -182,7 +204,7 @@ return {
 			end
 		end
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
-			if storyMode and song < 3 then
+			if storyMode and song < 4 then
 				song = song + 1
 
 				self:load()

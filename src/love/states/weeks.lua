@@ -277,6 +277,7 @@ return {
 	end,
 
 	initUI = function(self, option)
+		whoHasPixelNotes = "both"
 		events = {}
 		enemyNotes = {}
 		boyfriendNotes = {}
@@ -293,7 +294,7 @@ return {
 		ratingPercent = 0.0
 		noteCounter = 0
 		showPixelNotes = false
-		useUIAlphaForNotes = false
+		useUIAlphaForNotes = true
 
 		if not pixel then
 			sprites.leftArrow = love.filesystem.load("sprites/left-arrowM.lua")
