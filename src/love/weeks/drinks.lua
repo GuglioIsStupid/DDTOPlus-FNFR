@@ -88,6 +88,9 @@ return {
             enemyArrows[i].alpha = 0
         end
         useUIAlphaForNotes = false
+        whoHasPixelNotes = "none"
+        hasPixelNotes = false
+        showPixelNotes = false
     end,
 
     update = function (self, dt)

@@ -277,7 +277,7 @@ return {
 	end,
 
 	initUI = function(self, option)
-		whoHasPixelNotes = "both"
+		whoHasPixelNotes = "none"
 		events = {}
 		enemyNotes = {}
 		boyfriendNotes = {}
