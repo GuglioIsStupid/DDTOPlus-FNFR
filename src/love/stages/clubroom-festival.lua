@@ -111,6 +111,20 @@ return {
 
             boyfriend2.x, boyfriend2.y = 300, 190
             girlfriend2.x, girlfriend2.y = 30, -50
+        elseif curEnemy == "protag" then
+            enemy = love.filesystem.load("sprites/characters/mc/mc.lua")()
+
+            stageImages.dokis.yuri.x = 500
+            stageImages.dokis.natsuki.x = 675
+            stageImages.dokis.sayori.x = -475
+            stageImages.dokis.monika.x = -350
+
+            stageImages.dokis.yuri.y = 200
+            stageImages.dokis.natsuki.y = 250
+            stageImages.dokis.sayori.y = 230
+            stageImages.dokis.monika.y = 200
+
+            enemy.x, enemy.y = -275, 210
         end
 
         stageImages.dokis.monika.x = 675

@@ -1521,6 +1521,7 @@ return {
 								char:animate(curAnim .. " alt", false)
 								if FORCEP2NOMATTERWHAT then
 									enemy2:animate(curAnim .. " alt", false)
+									print("animating enemy2 (alt)")
 								end
 							end
 						else
@@ -1532,6 +1533,7 @@ return {
 								char:animate(curAnim, false)
 								if FORCEP2NOMATTERWHAT then
 									enemy2:animate(curAnim, false)
+									print("animating enemy2")
 								end
 							end
 						end
@@ -1675,6 +1677,10 @@ return {
 											end
 										elseif enemyNote[1].ver == "6" then
 											char = girlfriend
+										end
+
+										if FORCEP2NOMATTERWHAT then
+											enemy2:animate(curAnim, false)
 										end
 	
 										char:animate(curAnim, false)
@@ -2207,7 +2213,7 @@ return {
 						numbers[i]:draw()
 					end
 				end
-				if not showPixelNotes or ((not mirrorMode and whoHasPixelNotes == "boyfriend") or (mirrorMode and whoHasPixelNotes == "enemy")) then
+				if not showPixelNotes and ((not mirrorMode and whoHasPixelNotes == "boyfriend") or (mirrorMode and whoHasPixelNotes == "enemy")) then
 					ratingP:udraw(5.25, 5.25)
 					for i = 1, 3 do
 						numbersP[i]:udraw(5.25, 5.25)
@@ -2280,7 +2286,7 @@ return {
 			love.graphics.scale(uiScale.zoom, uiScale.zoom)
 
 			for i = 1, 4 do
-				if (whoHasPixelNotes ~= "enemy") then
+					if (whoHasPixelNotes ~= "enemy") and whoHasPixelNotes ~= "both" then
 						if enemyArrows[i]:getAnimName() == "off" then
 							if not settings.middleScroll then
 								graphics.setColor(0.6, 0.6, 0.6, (useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
@@ -2299,7 +2305,7 @@ return {
 						end
 					end
 					graphics.setColor(1, 1, 1, 1*boyfriendArrows[i].alpha)
-						if whoHasPixelNotes ~= "boyfriend" then
+						if whoHasPixelNotes ~= "boyfriend" and whoHasPixelNotes ~= "both" then
 							if not pixel then 
 								boyfriendArrows[i]:draw()
 								if boyfriendSplashes[i]:isAnimated() then
@@ -2326,7 +2332,7 @@ return {
 				graphics.setColor(1, 1, 1)
 
 				if hasPixelNotes then
-					if (whoHasPixelNotes ~= "boyfriend") then
+					if (whoHasPixelNotes ~= "boyfriend") and whoHasPixelNotes ~= "none" then
 						if enemyArrowsP[i]:getAnimName() == "off" then
 							if not settings.middleScroll then
 								graphics.setColor(0.6, 0.6, 0.6,(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
@@ -2345,7 +2351,7 @@ return {
 					end
 
 					graphics.setColor(1,1,1)
-					if (whoHasPixelNotes ~= "enemy") then
+					if (whoHasPixelNotes ~= "enemy") and whoHasPixelNotes ~= "none" then
 						if not settings.downscroll then
 							boyfriendArrowsP[i]:udraw(8, 8)
 							if boyfriendSplashesP[i]:isAnimated() then
@@ -2368,7 +2374,7 @@ return {
 					love.graphics.translate(0, -musicPos)
 
 					love.graphics.push()
-								if whoHasPixelNotes ~= "enemy" then
+								if whoHasPixelNotes ~= "enemy" and whoHasPixelNotes ~= "both" then
 									for j = #enemyNotes[i], 1, -1 do
 										if enemyNotes[i][j].y - musicPos <= 560 then
 											local animName = enemyNotes[i][j]:getAnimName()
@@ -2407,7 +2413,7 @@ return {
 								end
 
 							if showPixelNotes then
-								if whoHasPixelNotes ~= "boyfriend" then
+								if whoHasPixelNotes ~= "boyfriend" and whoHasPixelNotes ~= "none" then
 									for j = #enemyNotesP[i], 1, -1 do
 										if enemyNotesP[i][j].y - musicPos <= 560 then
 											local animName = enemyNotesP[i][j]:getAnimName()
@@ -2479,7 +2485,7 @@ return {
 						end
 					love.graphics.pop()
 					love.graphics.push()
-						if whoHasPixelNotes ~= "boyfriend" then
+						if whoHasPixelNotes ~= "boyfriend" and whoHasPixelNotes ~= "both" then
 							for j = #boyfriendNotes[i], 1, -1 do
 								if boyfriendNotes[i][j].y - musicPos <= 560 then
 									local animName = boyfriendNotes[i][j]:getAnimName()
@@ -2507,7 +2513,7 @@ return {
 						end
 
 						if showPixelNotes then
-							if whoHasPixelNotes ~= "enemy" then
+							if whoHasPixelNotes ~= "enemy" and whoHasPixelNotes ~= "none" then
 								for j = #boyfriendNotesP[i], 1, -1 do
 									if boyfriendNotesP[i][j].y - musicPos <= 560 then
 										local animName = boyfriendNotesP[i][j]:getAnimName()

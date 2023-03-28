@@ -481,6 +481,7 @@ function love.load()
 				"beathoven (Natsuki Mix)",
 				"It's Complicated (Sayori Mix)",
 				"Glitcher (Monika Mix)",
+				"Titular (MC Mix)"
 			}
 		},
 		{

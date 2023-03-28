@@ -46,6 +46,7 @@ return {
             else
                 camera:moveToPoint(0.1, "enemy")
             end
+            whoHasPixelNotes = "both"
         end
 
         function becomefumo(v)
@@ -60,6 +61,7 @@ return {
             else
                 camera:moveToPoint(0.1, "enemy")
             end
+            whoHasPixelNotes = "none"
         end
 
         status.setNoResize(true)
@@ -90,7 +92,16 @@ return {
             voices = love.audio.newSource("songs/festival/glitcher (monika mix)/Voices.ogg", "stream")
             curEnemy = "monika"
             hasPixelNotes = true
+            whoHasPixelNotes = "none"
+            showPixelNotes = false
             enemyIcon:animate("monika", false)
+        elseif song == 5 then
+            -- titular
+            inst = love.audio.newSource("songs/festival/titular (mc mix)/Inst.ogg", "stream")
+            voices = love.audio.newSource("songs/festival/titular (mc mix)/Voices.ogg", "stream")
+            curEnemy = "protag"
+            hasPixelNotes = false
+            enemyIcon:animate("protag", false)
         end
 
         stages["clubroom-festival"]:load()
@@ -114,6 +125,12 @@ return {
         elseif song == 4 then
             weeks:generateNotes("data/festival/glitcher (monika mix)/glitcher (monika mix).json")
             FORCEP2NOMATTERWHAT = true
+            hasPixelNotes = true
+            whoHasPixelNotes = "none"
+            showPixelNotes = false
+        elseif song == 5 then
+            weeks:generateNotes("data/festival/titular (mc mix)/titular (mc mix).json")
+            FORCEP2NOMATTERWHAT = false
         end
 		
 		if storyMode and not died then
