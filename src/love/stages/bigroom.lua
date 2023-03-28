@@ -1,5 +1,6 @@
+local num
 return {
-    enter = function()
+    enter = function(self, l)
 		pixel = true
 		love.graphics.setDefaultFilter("nearest")
         stageImages = {
@@ -24,6 +25,7 @@ return {
 
         camera:addPoint("enemy", -enemy.x - 100, -enemy.y + 75)
         
+        num = l or 1
 
 		curEnemy = "monikaALT"
 		curPlayer = "pixelboyfriend"
@@ -33,6 +35,18 @@ return {
         enemy2.x, enemy2.y = 0, 20
 
         curStage = "haunted"
+
+        if num == 2 then
+            enemy = love.filesystem.load("sprites/characters/pixel/bigmonika.lua")()
+            enemy2 = love.filesystem.load("sprites/week6/spirit.lua")()
+
+            enemy.x, enemy.y = -100, 20
+            enemy2.x, enemy2.y = -520, 30
+
+            camera:addPoint("enemy", -enemy.x + 50, -enemy.y + 25)
+
+            curStage = "bigroom"
+        end
     end,
 
     load = function(self)
@@ -46,7 +60,6 @@ return {
     draw = function()
 		love.graphics.push()
             if curStage == "bigroom" then
-                print("bigroom")
                 love.graphics.push()
                     love.graphics.translate(camera.x * 0.4, camera.y * 0.4)
                     love.graphics.translate(camera.ex * 0.4, camera.ey * 0.4)
@@ -62,7 +75,12 @@ return {
                 love.graphics.translate(camera.x, camera.y)
                 love.graphics.translate(camera.ex, camera.ey)
                 stageImages.FG:udraw(2.5, 2.5)
-                enemy2:udraw(7.2,7.2)
+                if num == 2 then
+                    enemy:udraw(7.2,7.2)
+                    enemy2:udraw(6.9,6.9)
+                else
+                    enemy2:udraw(7.2,7.2)
+                end
                 boyfriend:udraw(6.5,6.5)
             elseif curStage == "haunted" then 
                 love.graphics.push()

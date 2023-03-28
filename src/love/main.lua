@@ -430,6 +430,7 @@ function love.load()
 		require "states.misc.chooseDoki",
 		require "weeks.wilted",
 		require "weeks.drinks",
+		require "weeks.dual-demise",
 	}
 
 	weekDesc = { -- Add your week description here
@@ -527,6 +528,12 @@ function love.load()
 			"Drinks On Me",
 			{
 				"Drinks On Me"
+			}
+		},
+		{
+			"Dual Demise",
+			{
+				"Dual Demise"
 			}
 		}
 	}
