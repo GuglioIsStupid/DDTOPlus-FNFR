@@ -393,6 +393,7 @@ function love.load()
 		["school"] = require "stages.school",
 		["wilted"] = require "stages.wilted",
 		["drinks"] = require "stages.drinks",
+		["epiphany"] = require "stages.epiphany",
 	}
 
 	-- Load Menus
@@ -431,6 +432,7 @@ function love.load()
 		require "weeks.wilted",
 		require "weeks.drinks",
 		require "weeks.dual-demise",
+		require "weeks.epiphany",
 	}
 
 	weekDesc = { -- Add your week description here
@@ -535,6 +537,12 @@ function love.load()
 			"Dual Demise",
 			{
 				"Dual Demise"
+			}
+		},
+		{
+			"Epiphany",
+			{
+				"Epiphany"
 			}
 		}
 	}

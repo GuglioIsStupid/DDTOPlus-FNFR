@@ -267,8 +267,8 @@ return {
 					love.graphics.print(stageImgNames[selection], 0, 0)
 					love.graphics.print("X: " .. stageImages[stageImgNames[selection]].x ..
 						"\nY:" .. stageImages[stageImgNames[selection]].y ..
-						"\nSizeX:" .. stageImages[stageImgNames[selection]].sizeX ..
-						"\nSizeY:" .. stageImages[stageImgNames[selection]].sizeY, 0, 40
+						"\nSizeX:" .. (stageImages[stageImgNames[selection]].sizeX or 1) ..
+						"\nSizeY:" .. (stageImages[stageImgNames[selection]].sizeY or 1), 0, 40
 					)
 				elseif curChanging == "boyfriend" then
 					love.graphics.print("Boyfriend", 0, 0)

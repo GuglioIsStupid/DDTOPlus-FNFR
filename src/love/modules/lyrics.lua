@@ -34,12 +34,15 @@ function lyrics.set(dia)
 2712::
             ]]
             -- use match to get the step and the text
-            local split = {line:match("([^:]+)::(.+)")}
+            -- sometimes itll be step:: 
+            local split = {line:match("^(%d+)%:%:(.*)$")}
             -- add the line to the list
             -- first one is step, second one is text
             table.insert(lyrics.list, {tonumber(split[1]) or 0, split[2] or ""})
         end
     end
+
+    table.sort(lyrics.list, function(a, b) return a[1] < b[1] end)
 
     lyrics.output = lyrics.list[lyrics.cur][2] or ""
 end
@@ -54,8 +57,10 @@ function lyrics.dolyrics(dt)
                 -- increment the current line
                 lyrics.cur = lyrics.cur + 1
                 -- check if we're done
+                print(lyrics.cur)
                 if lyrics.cur > #lyrics.list then
                     lyrics.isDone = true
+                    print("done")
                 end
             end
         end
