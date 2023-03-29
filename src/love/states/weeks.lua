@@ -281,8 +281,6 @@ return {
 		events = {}
 		enemyNotes = {}
 		boyfriendNotes = {}
-		enemyNotesDeath = {}
-		boyfriendNotesDeath = {}
 
 		if hasPixelNotes then
 			enemyNotesP = {}
@@ -431,8 +429,6 @@ return {
 
 			enemyNotes[i] = {}
 			boyfriendNotes[i] = {}
-			enemyNotesDeath[i] = {}
-			boyfriendNotesDeath[i] = {}
 			if hasPixelNotes then
 				enemyNotesP[i] = {}
 				boyfriendNotesP[i] = {}
@@ -779,151 +775,163 @@ return {
 					if mustHitSection then
 						if noteType >= 4 then
 							local id = noteType - 3
-							local c = #enemyNotesDeath[id] + 1
+							local c = #enemyNotes[id] + 1
 							local x = enemyArrows[id].x
 
-							table.insert(enemyNotesDeath[id], spriteD())
-							enemyNotesDeath[id][c].x = x
-							enemyNotesDeath[id][c].y = -400 + noteTime * 0.6 * speed
-							enemyNotesDeath[id][c].time = noteTime
+							table.insert(enemyNotes[id], spriteD())
+							enemyNotes[id][c].x = x
+							enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
+							enemyNotes[id][c].time = noteTime
 
 							if settings.downscroll then
-								enemyNotesDeath[id][c].sizeY = -1
+								enemyNotes[id][c].sizeY = -1
 							end
 					
-							enemyNotesDeath[id][c]:animate("on", true)
+							enemyNotes[id][c]:animate("on", true)
 					
 							if sectionNotes[j][3] > 0 then
 								local c
 					
 								for k = 71 / speed, sectionNotes[j][3], 71 / speed do
-									local c = #enemyNotesDeath[id] + 1
+									local c = #enemyNotes[id] + 1
 					
-									table.insert(enemyNotesDeath[id], spriteD())
-									enemyNotesDeath[id][c].x = x
-									enemyNotesDeath[id][c].y = -400 + (noteTime + k) * 0.6 * speed
+									table.insert(enemyNotes[id], spriteD())
+									enemyNotes[id][c].x = x
+									enemyNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
+									enemyNotes[id][c].type = "death"
 					
-									enemyNotesDeath[id][c]:animate("hold", false)
+									enemyNotes[id][c]:animate("hold", false)
 								end
 					
-								c = #enemyNotesDeath[id]
+								c = #enemyNotes[id]
 					
-								enemyNotesDeath[id][c].offsetY = not pixel and 10 or 2
+								enemyNotes[id][c].offsetY = not pixel and 10 or 2
 					
-								enemyNotesDeath[id][c]:animate("end", false)
+								enemyNotes[id][c]:animate("end", false)
 							end
+							enemyNotes[id][c].type = "death"
+							print("death")
 						elseif noteType < 4 and noteType >= 0 then
 							local id = noteType + 1
-							local c = #boyfriendNotesDeath[id] + 1
+							local c = #boyfriendNotes[id] + 1
 							local x = boyfriendArrows[id].x
 
-							table.insert(boyfriendNotesDeath[id], spriteD())
-							boyfriendNotesDeath[id][c].x = x
-							boyfriendNotesDeath[id][c].y = -400 + noteTime * 0.6 * speed
-							boyfriendNotesDeath[id][c].time = noteTime
+							table.insert(boyfriendNotes[id], spriteD())
+							boyfriendNotes[id][c].x = x
+							boyfriendNotes[id][c].y = -400 + noteTime * 0.6 * speed
+							boyfriendNotes[id][c].time = noteTime
 							
 							if settings.downscroll then
-								boyfriendNotesDeath[id][c].sizeY = -1
+								boyfriendNotes[id][c].sizeY = -1
 							end
 					
-							boyfriendNotesDeath[id][c]:animate("on", true)
+							boyfriendNotes[id][c]:animate("on", true)
 					
 							if sectionNotes[j][3] > 0 then
 								local c
 					
 								for k = 71 / speed, sectionNotes[j][3], 71 / speed do
-									local c = #boyfriendNotesDeath[id] + 1
+									local c = #boyfriendNotes[id] + 1
 					
-									table.insert(boyfriendNotesDeath[id], spriteD())
-									boyfriendNotesDeath[id][c].x = x
-									boyfriendNotesDeath[id][c].y = -400 + (noteTime + k) * 0.6 * speed
+									table.insert(boyfriendNotes[id], spriteD())
+									boyfriendNotes[id][c].x = x
+									boyfriendNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
+									boyfriendNotes[id][c].type = "death"
 					
-									boyfriendNotesDeath[id][c]:animate("hold", false)
+									boyfriendNotes[id][c]:animate("hold", false)
 								end
 					
-								c = #boyfriendNotesDeath[id]
+								c = #boyfriendNotes[id]
 					
-								boyfriendNotesDeath[id][c].offsetY = not pixel and 10 or 2
+								boyfriendNotes[id][c].offsetY = not pixel and 10 or 2
 					
-								boyfriendNotesDeath[id][c]:animate("end", false)
+								boyfriendNotes[id][c]:animate("end", false)
 							end
+							boyfriendNotes[id][c].type = "death"
 						end
 					else
 						if noteType >= 4 then
 							local id = noteType - 3
-							local c = #boyfriendNotesDeath[id] + 1
+							local c = #boyfriendNotes[id] + 1
 							local x = boyfriendArrows[id].x				
 					
-							table.insert(boyfriendNotesDeath[id], spriteD())
-							boyfriendNotesDeath[id][c].x = x
-							boyfriendNotesDeath[id][c].y = -400 + noteTime * 0.6 * speed
-							boyfriendNotesDeath[id][c].time = noteTime
+							table.insert(boyfriendNotes[id], spriteD())
+							boyfriendNotes[id][c].x = x
+							boyfriendNotes[id][c].y = -400 + noteTime * 0.6 * speed
+							boyfriendNotes[id][c].time = noteTime
 
 							if settings.downscroll then
-								boyfriendNotesDeath[id][c].sizeY = -1
+								boyfriendNotes[id][c].sizeY = -1
 							end
 					
-							boyfriendNotesDeath[id][c]:animate("on", true)
+							boyfriendNotes[id][c]:animate("on", true)
 					
 							if sectionNotes[j][3] > 0 then
 								local c
 					
 								for k = 71 / speed, sectionNotes[j][3], 71 / speed do
-									local c = #boyfriendNotesDeath[id] + 1
+									local c = #boyfriendNotes[id] + 1
 					
-									table.insert(boyfriendNotesDeath[id], spriteD())
-									boyfriendNotesDeath[id][c].x = x
-									boyfriendNotesDeath[id][c].y = -400 + (noteTime + k) * 0.6 * speed
+									table.insert(boyfriendNotes[id], spriteD())
+									boyfriendNotes[id][c].x = x
+									boyfriendNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
+									boyfriendNotes[id][c].type = "death"
 					
-									boyfriendNotesDeath[id][c]:animate("hold", false)
+									boyfriendNotes[id][c]:animate("hold", false)
 								end
 					
-								c = #boyfriendNotesDeath[id]
+								c = #boyfriendNotes[id]
 					
-								boyfriendNotesDeath[id][c].offsetY = not pixel and 10 or 2
+								boyfriendNotes[id][c].offsetY = not pixel and 10 or 2
 					
-								boyfriendNotesDeath[id][c]:animate("end", false)
+								boyfriendNotes[id][c]:animate("end", false)
+								boyfriendNotes[id][c].type = "death"
 							end
+							boyfriendNotes[id][c].type = "death"
 						elseif noteType < 4 and noteType >= 0 then
 							local id = noteType + 1
-							local c = #enemyNotesDeath[id] + 1
+							local c = #enemyNotes[id] + 1
 							local x = enemyArrows[id].x
 
-							table.insert(enemyNotesDeath[id], spriteD())
-							enemyNotesDeath[id][c].x = x
-							enemyNotesDeath[id][c].y = -400 + noteTime * 0.6 * speed
-							enemyNotesDeath[id][c].time = noteTime
+							table.insert(enemyNotes[id], spriteD())
+							enemyNotes[id][c].x = x
+							enemyNotes[id][c].y = -400 + noteTime * 0.6 * speed
+							enemyNotes[id][c].time = noteTime
+							enemyNotes[id][c].type = "death"
 
 							if settings.downscroll then
-								enemyNotesDeath[id][c].sizeY = -1
+								enemyNotes[id][c].sizeY = -1
 							end
 					
-							enemyNotesDeath[id][c]:animate("on", true)
+							enemyNotes[id][c]:animate("on", true)
 					
 							if sectionNotes[j][3] > 0 then
 								local c
 					
 								for k = 71 / speed, sectionNotes[j][3], 71 / speed do
-									local c = #enemyNotesDeath[id] + 1
+									local c = #enemyNotes[id] + 1
 					
-									table.insert(enemyNotesDeath[id], spriteD())
-									enemyNotesDeath[id][c].x = x
-									enemyNotesDeath[id][c].y = -400 + (noteTime + k) * 0.6 * speed
+									table.insert(enemyNotes[id], spriteD())
+									enemyNotes[id][c].x = x
+									enemyNotes[id][c].y = -400 + (noteTime + k) * 0.6 * speed
 									if k > sectionNotes[j][3] - 71 / speed then
-										enemyNotesDeath[id][c].offsetY = not pixel and 10 or 2
+										enemyNotes[id][c].offsetY = not pixel and 10 or 2
 					
-										enemyNotesDeath[id][c]:animate("end", false)
+										enemyNotes[id][c]:animate("end", false)
 									else
-										enemyNotesDeath[id][c]:animate("hold", false)
+										enemyNotes[id][c]:animate("hold", false)
 									end
+									enemyNotes[id][c].type = "death"
 								end
 					
-								c = #enemyNotesDeath[id]
+								c = #enemyNotes[id]
 					
-								enemyNotesDeath[id][c].offsetY = not pixel and 10 or 2
+								enemyNotes[id][c].offsetY = not pixel and 10 or 2
 					
-								enemyNotesDeath[id][c]:animate("end", false)
+								enemyNotes[id][c]:animate("end", false)
 							end
+							enemyNotes[id][c].type = "death"
+							print("death", enemyNotes[id][c].type)
 						end
 					end
 				end
@@ -934,12 +942,16 @@ return {
 			table.sort(enemyNotes[i], function(a, b) return a.y < b.y end)
 			table.sort(boyfriendNotes[i], function(a, b) return a.y < b.y end)
 
-			table.sort(enemyNotesDeath[i], function(a, b) return a.y < b.y end)
-			table.sort(boyfriendNotesDeath[i], function(a, b) return a.y < b.y end)
-
 			if hasPixelNotes then
 				table.sort(enemyNotesP[i], function(a, b) return a.y < b.y end)
 				table.sort(boyfriendNotesP[i], function(a, b) return a.y < b.y end)
+			end
+
+			for j = 1, #enemyNotes[i] do
+				enemyNotes[i][j].type = enemyNotes[i][j].type or "normal"
+			end
+			for j = 1, #boyfriendNotes[i] do
+				boyfriendNotes[i][j].type = boyfriendNotes[i][j].type or "normal"
 			end
 		end
 
@@ -965,32 +977,6 @@ return {
 
 				if boyfriendNotes[i][index]:getAnimName() == "on" and boyfriendNotes[i][index - 1]:getAnimName() == "on" and ((boyfriendNotes[i][index].y - boyfriendNotes[i][index - 1].y <= 10)) then
 					table.remove(boyfriendNotes[i], index)
-
-					offset = offset + 1
-				end
-			end
-		end
-		for i = 1, 4 do
-			local offset = 0
-
-			for j = 2, #enemyNotesDeath[i] do
-				local index = j - offset
-
-				if enemyNotesDeath[i][index]:getAnimName() == "on" and enemyNotesDeath[i][index - 1]:getAnimName() == "on" and ((enemyNotesDeath[i][index].y - enemyNotesDeath[i][index - 1].y <= 10)) then
-					table.remove(enemyNotesDeath[i], index)
-
-					offset = offset + 1
-				end
-			end
-		end
-		for i = 1, 4 do
-			local offset = 0
-
-			for j = 2, #boyfriendNotesDeath[i] do
-				local index = j - offset
-
-				if boyfriendNotesDeath[i][index]:getAnimName() == "on" and boyfriendNotesDeath[i][index - 1]:getAnimName() == "on" and ((boyfriendNotesDeath[i][index].y - boyfriendNotesDeath[i][index - 1].y <= 10)) then
-					table.remove(boyfriendNotesDeath[i], index)
 
 					offset = offset + 1
 				end
@@ -1382,9 +1368,7 @@ return {
 			local enemyArrow = enemyArrows[i]
 			local boyfriendArrow = boyfriendArrows[i]
 			local enemyNote = enemyNotes[i]
-			local enemyNoteDeath = enemyNotesDeath[i]
 			local boyfriendNote = boyfriendNotes[i]
-			local boyfriendNoteDeath = boyfriendNotesDeath[i]
 			local curAnim = animList[i]
 			local curInput = inputList[i]
 			local boyfriendSplash = boyfriendSplashes[i]
@@ -1414,12 +1398,6 @@ return {
 				else
 					boyfriendSplashP.x = boyfriendArrowP.x
 				end
-			end
-			for j = 1, #enemyNoteDeath do
-				enemyNoteDeath[j]:update(dt)
-			end
-			for j = 1, #boyfriendNoteDeath do
-				boyfriendNoteDeath[j]:update(dt)
 			end
 
 			if mirrorMode then 
@@ -1482,58 +1460,59 @@ return {
 						char = girlfriend
 					end
 
-					if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
-						if useAltAnims then
-							--[[
-							if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then enemy:animate(curAnim .. " alt", false) end
-							if enemy2 then if (not enemy2:isAnimated()) or enemy2:getAnimName() == "idle" then enemy2:animate(curAnim .. " alt", false) end end
-							--]]
+					if enemyNote[1].type ~= "death" then
+						if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
+							if useAltAnims then
+								--[[
+								if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then enemy:animate(curAnim .. " alt", false) end
+								if enemy2 then if (not enemy2:isAnimated()) or enemy2:getAnimName() == "idle" then enemy2:animate(curAnim .. " alt", false) end end
+								--]]
 
-							if enemyNote[1].ver == "5" then
-								if (not enemy2:isAnimated() or enemy2:getAnimName() == "idle") then enemy2:animate(curAnim .. " alt", false) end
-								if (not enemy3:isAnimated() or enemy3:getAnimName() == "idle") then enemy3:animate(curAnim .. " alt", false) end
-								if (not enemy:isAnimated() or enemy:getAnimName() == "idle") then enemy:animate(curAnim .. " alt", false) end
-							else
-								if (not char:isAnimated() or char:getAnimName() == "idle") then char:animate(curAnim .. " alt", false) end
-								if FORCEP2NOMATTERWHAT then
+								if enemyNote[1].ver == "5" then
 									if (not enemy2:isAnimated() or enemy2:getAnimName() == "idle") then enemy2:animate(curAnim .. " alt", false) end
+									if (not enemy3:isAnimated() or enemy3:getAnimName() == "idle") then enemy3:animate(curAnim .. " alt", false) end
+									if (not enemy:isAnimated() or enemy:getAnimName() == "idle") then enemy:animate(curAnim .. " alt", false) end
+								else
+									if (not char:isAnimated() or char:getAnimName() == "idle") then char:animate(curAnim .. " alt", false) end
+									if FORCEP2NOMATTERWHAT then
+										if (not enemy2:isAnimated() or enemy2:getAnimName() == "idle") then enemy2:animate(curAnim .. " alt", false) end
+									end
 								end
-							end
-						else
-							if enemyNote[1].ver == "5" then
-								if (not enemy2:isAnimated() or enemy2:getAnimName() == "idle") then enemy2:animate(curAnim, false) end
-								if (not enemy3:isAnimated() or enemy3:getAnimName() == "idle") then enemy3:animate(curAnim, false) end
-								if (not enemy:isAnimated() or enemy:getAnimName() == "idle") then enemy:animate(curAnim, false) end
 							else
-								if (not char:isAnimated() or char:getAnimName() == "idle") then char:animate(curAnim, false) end
-								if FORCEP2NOMATTERWHAT then
+								if enemyNote[1].ver == "5" then
 									if (not enemy2:isAnimated() or enemy2:getAnimName() == "idle") then enemy2:animate(curAnim, false) end
+									if (not enemy3:isAnimated() or enemy3:getAnimName() == "idle") then enemy3:animate(curAnim, false) end
+									if (not enemy:isAnimated() or enemy:getAnimName() == "idle") then enemy:animate(curAnim, false) end
+								else
+									if (not char:isAnimated() or char:getAnimName() == "idle") then char:animate(curAnim, false) end
+									if FORCEP2NOMATTERWHAT then
+										if (not enemy2:isAnimated() or enemy2:getAnimName() == "idle") then enemy2:animate(curAnim, false) end
+									end
 								end
 							end
-						end
-					else
-						if useAltAnims then
-							if enemyNote[1].ver == "5" then
-								enemy2:animate(curAnim .. " alt", false)
-								enemy3:animate(curAnim .. " alt", false)
-								enemy:animate(curAnim .. " alt", false)
-							else
-								char:animate(curAnim .. " alt", false)
-								if FORCEP2NOMATTERWHAT then
+						elseif enemyNote[1]:getAnimName() ~= "hold" or enemyNote[1]:getAnimName() ~= "end" then
+							--print(enemyNote[1].type, enemyNote[1].type == "death")
+							if useAltAnims then
+								if enemyNote[1].ver == "5" then
 									enemy2:animate(curAnim .. " alt", false)
-									print("animating enemy2 (alt)")
+									enemy3:animate(curAnim .. " alt", false)
+									enemy:animate(curAnim .. " alt", false)
+								else
+									char:animate(curAnim .. " alt", false)
+									if FORCEP2NOMATTERWHAT then
+										enemy2:animate(curAnim .. " alt", false)
+									end
 								end
-							end
-						else
-							if enemyNote[1].ver == "5" then
-								enemy2:animate(curAnim, false)
-								enemy3:animate(curAnim, false)
-								enemy:animate(curAnim, false)
 							else
-								char:animate(curAnim, false)
-								if FORCEP2NOMATTERWHAT then
+								if enemyNote[1].ver == "5" then
 									enemy2:animate(curAnim, false)
-									print("animating enemy2")
+									enemy3:animate(curAnim, false)
+									enemy:animate(curAnim, false)
+								else
+									char:animate(curAnim, false)
+									if FORCEP2NOMATTERWHAT then
+										enemy2:animate(curAnim, false)
+									end
 								end
 							end
 						end
@@ -1707,17 +1686,6 @@ return {
 						end
 					end
 
-					if #enemyNoteDeath > 0 then
-						for j = 1, #enemyNoteDeath do
-							if enemyNoteDeath[j].time - musicTime <= 100 then
-								health = health - 0.095
-
-								table.remove(enemyNoteDeath, j)
-								break
-							end
-						end
-					end
-
 					if not success then
 						audio.playSound(sounds.miss[love.math.random(3)])
 	
@@ -1726,7 +1694,6 @@ return {
 						if combo >= 5 then girlfriend:animate("sad", false) end
 	
 						enemy:animate("miss " .. curAnim, false)
-						if boyfriend2 then boyfriend2:animate("miss " .. curAnim, false) end
 	
 						score = score - 10
 						combo = 0
@@ -1758,49 +1725,29 @@ return {
 				end
 			end
 
-			if #enemyNoteDeath > 0 then
-				if (enemyNoteDeath[1].y - musicPos <= -410) then
-					enemyArrow:animate("confirm", false)
-
-					if song == 2 and not yuriGoneCrazy then
-						enemy:animate(curAnim, false)
-
-						if not mustHitSection then 
-							noteCamTweens[i]()
-						end
-					end
-
-					table.remove(enemyNoteDeath, 1)
-				end
-			end
-
 			if #boyfriendNote > 0 and not mirrorMode then
 				if (boyfriendNote[1].y - musicPos < -600) then
-					if inst then voices:setVolume(0) end
+					if boyfriendNote[1].type ~= "death" then
+						if inst then voices:setVolume(0) end
 
-					notMissed[noteNum] = false
+						notMissed[noteNum] = false
 
-					if boyfriendNote[1]:getAnimName() ~= "hold" and boyfriendNote[1]:getAnimName() ~= "end" then 
-						health = health - 0.095
-						misses = misses + 1
-					else
-						health = health - 0.0125
+						if boyfriendNote[1]:getAnimName() ~= "hold" and boyfriendNote[1]:getAnimName() ~= "end" then
+							health = health - 0.095
+							misses = misses + 1
+						elseif boyfriendNote[1]:getAnimName() == "hold" and boyfriendNote[1]:getAnimName() == "end" then
+							health = health - 0.0125
+						end
+
+						if combo >= 5 then girlfriend:animate("sad", false) end
+
+						combo = 0
 					end
 
 					table.remove(boyfriendNote, 1)
 					if hasPixelNotes then
 						table.remove(boyfriendNoteP, 1)
 					end
-
-					if combo >= 5 then girlfriend:animate("sad", false) end
-
-					combo = 0
-				end
-			end
-
-			if #boyfriendNoteDeath > 0 then
-				if (boyfriendNoteDeath[1].y - musicPos < -500) then
-					table.remove(boyfriendNoteDeath, 1)
 				end
 			end
 	
@@ -1920,7 +1867,7 @@ return {
 
 				if #boyfriendNote > 0 then
 					for j = 1, #boyfriendNote do
-						if boyfriendNote[j] and boyfriendNote[j]:getAnimName() == "on" then
+						if boyfriendNote[j] and boyfriendNote[j]:getAnimName() == "on" and boyfriendNote[j].type == "normal" then
 							if (boyfriendNote[j].time - musicTime <= 150) then
 								local notePos
 								local ratingAnim
@@ -2036,14 +1983,13 @@ return {
 							else
 								break
 							end
-						end
-					end
-				end
-
-				if #boyfriendNoteDeath > 0 then
-					for j = 1, #boyfriendNoteDeath do
-						if boyfriendNoteDeath[j].time - musicTime <= 40 then
-							health = 0
+						elseif boyfriendNote[j] and boyfriendNote[j]:getAnimName() == "on" and boyfriendNote[j].type == "death" then
+							if (boyfriendNote[j].time - musicTime <= 40) then
+								local pos = math.abs(boyfriendNote[j].time - musicTime)
+								if pos < 25 then
+									health = 0
+								end
+							end
 						end
 					end
 				end
@@ -2447,42 +2393,6 @@ return {
 									end
 								end
 							end
-
-						for j = #enemyNotesDeath[i], 1, -1 do
-							if enemyNotesDeath[i][j].y - musicPos <= 560 then
-								local animName = enemyNotesDeath[i][j]:getAnimName()
-
-								if animName == "hold" or animName == "end" then
-									if settings.middleScroll then
-										graphics.setColor(1, 1, 1, 0.3*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
-									else
-										graphics.setColor(1, 1, 1, 0.5*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
-									end
-
-								else
-									if settings.middleScroll then
-										graphics.setColor(1, 1, 1, 0.5*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
-									else
-										graphics.setColor(1, 1, 1, 1*(useUIAlphaForNotes and uiAlpha[1] or enemyArrows[i].alpha))
-									end
-								end
-
-								if not pixel then
-									enemyNotesDeath[i][j]:draw()
-								else
-									if not settings.downscroll then
-										enemyNotesDeath[i][j]:udraw(8, 8)
-									else
-										if enemyNotesDeath[i][j]:getAnimName() == "end" then
-											enemyNotesDeath[i][j]:udraw(8, 8)
-										else
-											enemyNotesDeath[i][j]:udraw(8, -8)
-										end
-									end
-								end
-								graphics.setColor(1, 1, 1,uiAlpha[1])
-							end
-						end
 					love.graphics.pop()
 					love.graphics.push()
 						if whoHasPixelNotes ~= "boyfriend" and whoHasPixelNotes ~= "both" then
@@ -2531,31 +2441,6 @@ return {
 											else
 												boyfriendNotesP[i][j]:udraw(8, -8)
 											end
-										end
-									end
-								end
-							end
-						end
-
-						for j = #boyfriendNotesDeath[i], 1, -1 do
-							if boyfriendNotesDeath[i][j].y - musicPos <= 560 then
-								local animName = boyfriendNotesDeath[i][j]:getAnimName()
-
-								if animName == "hold" or animName == "end" then
-									graphics.setColor(1, 1, 1, math.min(0.5, (500 + (boyfriendNotesDeath[i][j].y - musicPos)) / 150) * (useUIAlphaForNotes and uiAlpha[1] or boyfriendArrows[i].alpha))
-								else
-									graphics.setColor(1, 1, 1, math.min(1, (500 + (boyfriendNotesDeath[i][j].y - musicPos)) / 75) * (useUIAlphaForNotes and uiAlpha[1] or boyfriendArrows[i].alpha))
-								end
-								if not pixel then 
-									boyfriendNotesDeath[i][j]:draw()
-								else
-									if not settings.downscroll then
-										boyfriendNotesDeath[i][j]:udraw(8, 8)
-									else
-										if boyfriendNotesDeath[i][j]:getAnimName() == "end" then
-											boyfriendNotesDeath[i][j]:udraw(8, 8)
-										else
-											boyfriendNotesDeath[i][j]:udraw(8, -8)
 										end
 									end
 								end
