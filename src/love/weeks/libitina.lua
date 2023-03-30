@@ -40,7 +40,8 @@ return {
         else
             weeks:setupCountdown()
         end
-        numOfChar = 3
+
+        mirrorMode = false -- Theres literally no enemy
     end,
 
     update = function (self, dt)

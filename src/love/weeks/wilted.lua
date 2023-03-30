@@ -37,11 +37,15 @@ return {
         hasPixelNotes = true
         whoHasPixelNotes = "enemy" -- can be enemy, boyfriend, or both
         enemyIsPixel = true
+        showStatic = false
 
 		self:load()
 
         function glitchEffect()
-
+            showStatic = true
+            Timer.after(0.2, function()
+                showStatic = false
+            end)
         end
 
         function wiltswap(t)
@@ -70,6 +74,7 @@ return {
 
         camera:addPoint("center", 0, 350)
         funCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
+        funCanvas2 = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
 	end,
 
 	load = function(self)
@@ -192,6 +197,8 @@ return {
         end
         --]]
 
+        static:send("iTime", love.timer.getTime())
+
 
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
 			status.setLoading(true)
@@ -246,23 +253,34 @@ return {
             love.graphics.pop()
         love.graphics.setCanvas()
 
+        love.graphics.setCanvas(funCanvas2)
+        love.graphics.clear()
         love.graphics.push()
-            love.graphics.setShader(fisheye)
-            love.graphics.draw(funCanvas, 0, 0, 0, 1, 1)
-            love.graphics.setShader()
+            love.graphics.push()
+                love.graphics.setShader(fisheye)
+                love.graphics.draw(funCanvas, 0, 0, 0, 1, 1)
+                love.graphics.setShader()
+            love.graphics.pop()
+            
+            love.graphics.push()
+                love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
+                love.graphics.scale(camera.zoom, camera.zoom)
+
+                stages["wilted"]:draw()
+
+            love.graphics.pop()
+
+            love.graphics.push()
+                love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
+
+            love.graphics.pop()
         love.graphics.pop()
-        
-		love.graphics.push()
-			love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
-			love.graphics.scale(camera.zoom, camera.zoom)
-
-            stages["wilted"]:draw()
-
-		love.graphics.pop()
+        love.graphics.setCanvas()
 
         love.graphics.push()
-            love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
-
+        if showStatic then love.graphics.setShader(static) end
+        love.graphics.draw(funCanvas2, 0, 0, 0, graphics.getWidth() / funCanvas2:getWidth(), graphics.getHeight() / funCanvas2:getHeight())
+        love.graphics.setShader()
         love.graphics.pop()
 
 		if inCutscene then 

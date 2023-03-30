@@ -204,10 +204,10 @@ return {
             if isShitVisible then
                 if enemyIsPixel then
                     enemy:udraw(4.8, 4.8)
-                    boyfriend:udraw(-0.7, 0.7)
+                    boyfriend:udraw(0.7, 0.7)
                 else
                     enemy:udraw(0.7, 0.7)
-                    boyfriend:udraw(-4.8, 4.8)
+                    boyfriend:udraw(4.8, 4.8)
                 end
             end
 

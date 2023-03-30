@@ -394,6 +394,7 @@ function love.load()
 		["wilted"] = require "stages.wilted",
 		["drinks"] = require "stages.drinks",
 		["epiphany"] = require "stages.epiphany",
+		["libitina"] = require "stages.libitina"
 	}
 
 	-- Load Menus
@@ -433,6 +434,7 @@ function love.load()
 		require "weeks.drinks",
 		require "weeks.dual-demise",
 		require "weeks.epiphany",
+		require "weeks.libitina",
 	}
 
 	weekDesc = { -- Add your week description here
@@ -544,45 +546,30 @@ function love.load()
 			{
 				"Epiphany"
 			}
-		}
+		},
+		{
+			"Libitina",
+			{
+				"Libitina"
+			}
+		},
 	}
 
 	catfight = require "weeks.catfight"
 
-	glitchy = love.graphics.newShader [[
-            extern number time;
-            extern number strength;
-            extern vec2 resolution;
-            vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
-            {
-                vec2 pixel_count = max(floor(resolution.xy * vec2((cos(strength) + 1.0) / 2.0)), 1.0);
-                vec2 pixel_size = vec2(love_ScreenSize.x, love_ScreenSize.y) / pixel_count;
-                vec2 pixel = (pixel_size * floor(vec2(screen_coords.x, screen_coords.y) / pixel_size)) + (pixel_size / 1.0);
-                vec2 uv = pixel.xy / vec2(love_ScreenSize.x, love_ScreenSize.y);
-                vec4 pixel_color = Texel(texture, uv);
-                return pixel_color;
-            }
-        ]]
+	glitchy = love.graphics.newShader("shaders/pixel.glsl")
+	fisheye = love.graphics.newShader("shaders/fisheye.glsl")
+	glitch = love.graphics.newShader("shaders/glitch.glsl")
+	static = love.graphics.newShader("shaders/static.glsl")
 
-	fisheye = love.graphics.newShader [[
-			// make a fishlens shader that has a strength
-		extern number strength;
+	function set_preset()
+		presetData = json.decode(love.filesystem.read("data/glitch.json")).presets[1]
+		glitch:send("prob", (0.25 - (presetData[1]/8)))
+		glitch:send("intensityChromatic", presetData[2])
+	end
 
-		vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
-		{
-			vec2 uv = texture_coords.xy;
-			vec2 center = vec2(0.5, 0.5);
-			vec2 toCenter = center - uv;
-			float dist = length(toCenter);
-			float maxDist = length(center);
-			float percent = dist / maxDist;
-			float newDist = percent * strength;
-			vec2 newUV = uv + toCenter * newDist;
-			vec4 pixel = Texel(texture, newUV);
-			return pixel;
-		}
-		
-	]]
+	set_preset()
+
 	costumes = {
 		sayori = "default",
 		natsuki = "default",
@@ -641,6 +628,12 @@ function love.resize(width, height)
 	if shaderCanvas then
 		shaderCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
 	end
+	if funCanvas then
+		funCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
+	end
+	if funCanvas2 then
+		funCanvas2 = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
+	end
 	lovesize.resize(width, height)
 
 	scissorScale = height / 720
@@ -686,7 +679,6 @@ end
 
 function love.update(dt)
 	dt = math.min(dt, 1 / 30)
-
 	if volFade > 0 then
 		volFade = volFade - 1 * dt
 	end
@@ -711,7 +703,6 @@ end
 function love.draw()
 	love.graphics.setFont(font)
 	graphics.screenBase(lovesize.getWidth(), lovesize.getHeight())
-
 	lovesize.begin()
 		graphics.setColor(1, 1, 1) -- Fade effect on
 		Gamestate.draw()

@@ -157,7 +157,7 @@ return {
 					self.x,
 					self.y,
 					self.orientation,
-					sx,
+					sx * (self.flipX and -1 or 1),
 					sy,
 					math.floor(width / 2) + self.offsetX,
 					math.floor(height / 2) + self.offsetY,
