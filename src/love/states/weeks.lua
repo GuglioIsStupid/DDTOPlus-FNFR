@@ -1662,7 +1662,9 @@ return {
 											enemy2:animate(curAnim, false)
 										end
 	
-										char:animate(curAnim, false)
+										if enemyNote[1].type ~= "death" then
+											char:animate(curAnim, false)
+										end
 	
 										if enemyNote[j]:getAnimName() ~= "hold" and enemyNote[j]:getAnimName() ~= "end" then
 											health = health - 0.095
@@ -2545,5 +2547,9 @@ return {
 		Timer.clear()
 
 		fakeBoyfriend = nil
+		hasPixelNotes = false
+		whoHasPixelNotes = "none"
+
+		love.graphics.setBackgroundColor(0, 0, 0)
 	end
 }

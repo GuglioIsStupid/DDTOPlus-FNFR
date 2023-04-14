@@ -50,7 +50,8 @@ return {
 
         function wiltswap(t)
             local t = t or 0
-
+            whiteFlash.alpha = 1
+            Timer.tween(beatHandler.calcSectionLength(0.1), whiteFlash, {alpha = 0}, "out-sine")
             if t == 1 then
                 -- monika becoems pixel
                 enemy = senpaiNonpixel
@@ -75,6 +76,10 @@ return {
         camera:addPoint("center", 0, 350)
         funCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
         funCanvas2 = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
+
+        whiteFlash = {
+            alpha = 0
+        }
 	end,
 
 	load = function(self)
@@ -282,6 +287,10 @@ return {
         love.graphics.draw(funCanvas2, 0, 0, 0, graphics.getWidth() / funCanvas2:getWidth(), graphics.getHeight() / funCanvas2:getHeight())
         love.graphics.setShader()
         love.graphics.pop()
+
+        love.graphics.setColor(1,1,1,whiteFlash.alpha)
+        love.graphics.rectangle("fill", -1000, -1000, 3000, 3000)
+        love.graphics.setColor(1,1,1,1)
 
 		if inCutscene then 
 			dialogue.draw()

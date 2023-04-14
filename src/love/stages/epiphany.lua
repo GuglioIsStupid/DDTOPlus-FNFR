@@ -173,7 +173,11 @@ return {
 			love.graphics.translate(camera.x, camera.y)
             stageImages.bg:draw()
             love.graphics.setColor(1, 1, 1, 0.8)
+            -- change alpha based off brightness
+            love.graphics.setBlendMode("add")
+            graphics.setColor(1,1,1,.5)
             stageImages.windowLight:draw()
+            love.graphics.setBlendMode("alpha")
             stageImages.lightsontopofall:draw()
             love.graphics.setColor(1, 1, 1, 1)
             stageImages.scrollingBG:draw()

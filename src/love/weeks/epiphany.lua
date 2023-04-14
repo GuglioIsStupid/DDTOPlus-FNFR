@@ -1,3 +1,4 @@
+local hasLyrics
 function love.math.randomFloat(min, max)
     return love.math.random() * (max - min) + min
 end
@@ -7,9 +8,9 @@ return {
         stages["epiphany"]:enter(2)
 
         song = songNum
+        difficulty = songAppend
 
         self:load()
-        hasLyrics = false
 
         gameFade = {
             alpha = 0,
@@ -20,9 +21,13 @@ return {
         weeks:load()
         stages["epiphany"]:load()
 
-        inst = love.audio.newSource("songs/extra/epiphany/Inst.ogg", "stream")
-        voices = love.audio.newSource("songs/extra/epiphany/Voices.ogg", "stream")
-        if hasLyrics then lyrics.set("data/extra/epiphany/lyrics.txt") end
+        if difficulty == "-hard" then
+            inst = love.audio.newSource("songs/extra/epiphany/Inst.ogg", "stream")
+            voices = love.audio.newSource("songs/extra/epiphany/Voices.ogg", "stream")
+        else
+            inst = love.audio.newSource("songs/extra/epiphany/Inst.ogg", "stream")
+            voices = love.audio.newSource("songs/extra/epiphany/Voices_Lyrics.ogg", "stream")
+        end
 
         camera:addPoint("enemy", 227, 98)
         camera:addPoint("boyfriend", 95, -40)
@@ -37,8 +42,16 @@ return {
 
     initUI = function (self)
         weeks:initUI()
-
-        weeks:generateNotes("data/extra/epiphany/epiphany.json")
+        print(difficulty)
+        if difficulty == "-hard" then
+            weeks:generateNotes("data/extra/epiphany/epiphany.json")
+            hasLyrics = false
+        else
+            weeks:generateNotes("data/extra/epiphany/epiphany-hard.json")
+            hasLyrics = true
+            lyrics.set("data/extra/epiphany/lyrics.txt")
+            print("lyrics")
+        end 
 
         if storyMode and not died then
             weeks:setupCountdown()
@@ -146,6 +159,7 @@ return {
             love.graphics.setColor(1,1,1,1)
             lyrics.draw()
         end
+        print(beatHandler.curStep, hasLyrics)
 
         love.graphics.setColor(0, 0, 0, gameFade.alpha)
         love.graphics.rectangle("fill", -1000, -1000, 3000, 3000)
