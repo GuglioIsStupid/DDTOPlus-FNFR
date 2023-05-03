@@ -24,8 +24,9 @@ import sys
 
 import xml.etree.ElementTree as ET
 
-xmlname = os.path.split(sys.argv[1])[1]
+xmlname = os.path.basename(sys.argv[1])
 sheetxml = ET.parse(xmlname).getroot()
+filename = xmlname[:len(xmlname) - 4]
 
 lua = ('\t-- Automatically generated from ' + xmlname + '\n'
        '\t{\n')
@@ -57,5 +58,5 @@ for SubTexture in sheetxml.findall('SubTexture'):
 lua = lua[:len(lua) - (len(str(c)) + len(name) + 9)] + '} -- ' + str(c) + ': ' + name + '\n'
 lua += '\t},\n'
 
-with open('output.txt', 'w') as f:
+with open(filename + '-output.txt', 'w') as f:
     f.write(lua)

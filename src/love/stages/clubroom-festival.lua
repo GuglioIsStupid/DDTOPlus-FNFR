@@ -63,7 +63,7 @@ return {
         showDokis = true
 
         if curEnemy == "sayori" then
-            enemy = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
+            enemy = love.filesystem.load("sprites/characters/sayori/".. SaveData.costumes.sayori .. ".lua")()
 
             stageImages.dokis.yuri.x = -475
             stageImages.dokis.natsuki.x = 450
@@ -73,7 +73,7 @@ return {
 
             enemy.x, enemy.y = -380, 225
         elseif curEnemy == "natsuki" then
-            enemy = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
+            enemy = love.filesystem.load("sprites/characters/natsuki/" .. SaveData.costumes.natsuki .. ".lua")()
 
             stageImages.dokis.yuri.x = 500
             stageImages.dokis.sayori.x = -350
@@ -83,7 +83,7 @@ return {
 
             enemy.x, enemy.y = -380, 265
         elseif curEnemy == "yuri" then 
-            enemy = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
+            enemy = love.filesystem.load("sprites/characters/yuri/" .. SaveData.costumes.yuri .. ".lua")()
 
             stageImages.dokis.natsuki.x = 500
             stageImages.dokis.sayori.x = -350
@@ -93,7 +93,7 @@ return {
 
             enemy.x, enemy.y = -380, 215
         elseif curEnemy == "monika" then
-            enemy = love.filesystem.load("sprites/characters/monika/monika.lua")()
+            enemy = love.filesystem.load("sprites/characters/monika/" .. SaveData.costumes.monika .. ".lua")()
             enemy2 = love.filesystem.load("sprites/characters/pixel/monika.lua")()
             boyfriend2 = love.filesystem.load("sprites/characters/pixel/boyfriend.lua")()
             girlfriend2 = love.filesystem.load("sprites/pixel/girlfriend.lua")()
@@ -112,7 +112,7 @@ return {
             boyfriend2.x, boyfriend2.y = 300, 190
             girlfriend2.x, girlfriend2.y = 30, -50
         elseif curEnemy == "protag" then
-            enemy = love.filesystem.load("sprites/characters/mc/mc.lua")()
+            enemy = love.filesystem.load("sprites/characters/mc/" .. SaveData.costumes.mc .. ".lua")()
 
             stageImages.dokis.yuri.x = 500
             stageImages.dokis.natsuki.x = 675

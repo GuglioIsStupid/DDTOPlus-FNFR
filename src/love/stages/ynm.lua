@@ -7,7 +7,7 @@ return {
             skybox = graphics.newImage(graphics.imagePath("ynm/skybox")),
         }
 
-        boyfriend = love.filesystem.load("sprites/characters/mc/mc.lua")()
+        boyfriend = love.filesystem.load("sprites/characters/mc/" .. SaveData.costumes.mc .. ".lua")()
         enemy = boyfriend
 
         boyfriend.flipX = true

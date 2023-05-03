@@ -103,6 +103,28 @@ function borderedText(text,x,y,r,sx,sy,ox,oy,kx,ky,alpha)
 	graphics.setColor(1,1,1, alpha or 1)
 	love.graphics.print(text,x,y,r,sx,sy,a,ox,oy,kx,ky)
 end
+function borderedText2(text,x,y,r,sx,sy,col1,col2, ox,oy,kx,ky,alpha)
+	local x = x or 0
+	local y = y or 0
+	local r = r or 0
+	local sx = sx or 1
+	local sy = sy or 1
+	local ox = ox or 0
+	local oy = oy or 0
+	local kx = kx or 0
+	local ky = ky or 0
+
+	local col1 = col1 or {0,0,0}
+	local col2 = col2 or {1,1,1}
+	graphics.setColor(col1[1],col1[2],col1[3], alpha or 1)
+	love.graphics.print(text,x-3,y,r,sx,sy,a,ox,oy,kx,ky)
+	love.graphics.print(text,x+3,y,r,sx,sy,a,ox,oy,kx,ky)
+	love.graphics.print(text,x,y-3,r,sx,sy,a,ox,oy,kx,ky)
+	love.graphics.print(text,x,y+3,r,sx,sy,a,ox,oy,kx,ky)
+	graphics.setColor(col2[1],col2[2],col2[3], alpha or 1)
+	love.graphics.print(text,x,y,r,sx,sy,a,ox,oy,kx,ky)
+	graphics.setColor(1,1,1, alpha or 1)
+end
 
 function saveSettings()
     if settings.hardwareCompression ~= settingdata.saveSettingsMoment.hardwareCompression then
@@ -399,12 +421,12 @@ function love.load()
 
 	-- Load Menus
 	clickStart = require "states.click-start"
-	menu = require "states.menu.menu"
+	menu = require "states.doki.menu"
 	menuWeek = require "states.menu.menuWeek"
 	menuFreeplay = require "states.menu.menuFreeplay"
 	menuSettings = require "states.menu.menuSettings"
 	menuCredits = require "states.menu.menuCredits"
-	menuSelect = require "states.menu.menuSelect"
+	menuSelect = require "states.doki.select"
 	
 	chooseDoki = require "states.misc.chooseDoki"
 
@@ -570,14 +592,41 @@ function love.load()
 
 	set_preset()
 
+	SaveData = {
+		costumes = {
+			sayori = "grace",
+			natsuki = "default",
+			yuri = "default",
+			monika = "default",
+			mc = "default",
+			boyfriend = "default",
+			girlfriend = "default",
+		},
+		songs = {},
+	}
+
 	costumes = {
-		sayori = "default",
-		natsuki = "default",
-		yuri = "default",
-		monika = "default",
-		protag = "default",
-		boyfriend = "default",
-		girlfriend = "default",
+		["sayori"] = {
+
+		},
+		["natsuki"] = {
+
+		},
+		["yuri"] = {
+
+		},
+		["monika"] = {
+			
+		},
+		["protag"] = {
+			
+		},
+		["boyfriend"] = {
+			
+		},
+		["girlfriend"] = {
+			
+		},
 	}
 
 	-- LÖVE init
@@ -597,6 +646,7 @@ function love.load()
 	pauseFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 96)
 	weekFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 84)
 	weekFontSmall = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 54)
+	riffic = love.graphics.newFont("fonts/riffic.ttf", 20)
 
 	weekNum = 1
 	songDifficulty = 2
@@ -609,7 +659,7 @@ function love.load()
 	musicTime = 0
 	health = 0
 
-	music = love.audio.newSource("music/menu/menu.ogg", "stream")
+	music = love.audio.newSource("music/menu/freakyMenu.ogg", "stream")
 	music:setLooping(true)
 
 	fixVol = tonumber(string.format(

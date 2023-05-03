@@ -75,8 +75,8 @@ return {
         stageImages.encore.visible = true
         stageImages.encore.alpha = 0
 
-        boyfriend = love.filesystem.load("sprites/characters/monika/monika.lua")()
-        enemy = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
+        boyfriend = love.filesystem.load("sprites/characters/monika/" .. SaveData.costumes.monika .. ".lua")()
+        enemy = love.filesystem.load("sprites/characters/natsuki/" .. SaveData.costumes.natsuki .. ".lua")()
         girlfriend = love.filesystem.load("sprites/characters/girlfriend/speaker.lua")()
 
         boyfriend.flipX = true
@@ -93,18 +93,18 @@ return {
     load = function()
         if gf ~= "gf" then
             if song == 1 then
-                enemy = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
+                enemy = love.filesystem.load("sprites/characters/natsuki/" .. SaveData.costumes.natsuki .. ".lua")()
                 enemy.x, enemy.y = -380, 100
             elseif song == 2 then
-                enemy = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
+                enemy = love.filesystem.load("sprites/characters/yuri/" .. SaveData.costumes.yuri .. ".lua")()
                 enemy.x, enemy.y = -380, 80
             elseif song == 3 then
-                enemy = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
+                enemy = love.filesystem.load("sprites/characters/sayori/".. SaveData.costumes.sayori .. ".lua")()
                 enemy.x, enemy.y = -380, 80
             else
-                enemy = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
-                enemy2 = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
-                enemy3 = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
+                enemy = love.filesystem.load("sprites/characters/sayori/".. SaveData.costumes.sayori .. ".lua")()
+                enemy2 = love.filesystem.load("sprites/characters/natsuki/" .. SaveData.costumes.natsuki .. ".lua")()
+                enemy3 = love.filesystem.load("sprites/characters/yuri/" .. SaveData.costumes.yuri .. ".lua")()
 
                 enemy.x, enemy.y = -380, 100
                 enemy2.x, enemy2.y = -600, 100
@@ -114,10 +114,10 @@ return {
             end
         else
             boyfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriendPlayer.lua")()
-            enemy = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
-            enemy2 = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
-            enemy3 = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
-            girlfriend = love.filesystem.load("sprites/characters/monika/monika.lua")()
+            enemy = love.filesystem.load("sprites/characters/sayori/".. SaveData.costumes.sayori .. ".lua")()
+            enemy2 = love.filesystem.load("sprites/characters/natsuki/" .. SaveData.costumes.natsuki .. ".lua")()
+            enemy3 = love.filesystem.load("sprites/characters/yuri/" .. SaveData.costumes.yuri .. ".lua")()
+            girlfriend = love.filesystem.load("sprites/characters/monika/" .. SaveData.costumes.monika .. ".lua")()
 
             enemy.x, enemy.y = -380, 100
             enemy2.x, enemy2.y = -600, 100

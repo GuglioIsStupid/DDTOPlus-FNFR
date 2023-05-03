@@ -17,7 +17,7 @@ return {
         showDokis = true
         curEnemy = enemyChar
         if enemyChar == "sayori" then
-            enemy = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
+            enemy = love.filesystem.load("sprites/characters/sayori/".. SaveData.costumes.sayori .. ".lua")()
 
             stageImages.dokis.yuri.x = -475
             stageImages.dokis.natsuki.x = 500
@@ -27,7 +27,7 @@ return {
 
             enemy.x, enemy.y = -380, 225
         elseif enemyChar == "natsuki" then
-            enemy = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
+            enemy = love.filesystem.load("sprites/characters/natsuki/" .. SaveData.costumes.natsuki .. ".lua")()
 
             stageImages.dokis.yuri.x = -475
             stageImages.dokis.sayori.x = 500
@@ -37,7 +37,7 @@ return {
 
             enemy.x, enemy.y = -380, 265
         elseif enemyChar == "yuri" then 
-            enemy = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
+            enemy = love.filesystem.load("sprites/characters/yuri/" .. SaveData.costumes.yuri .. ".lua")()
 
             stageImages.dokis.natsuki.x = -475
             stageImages.dokis.sayori.x = 500
@@ -47,7 +47,7 @@ return {
 
             enemy.x, enemy.y = -380, 215
         elseif enemyChar == "monika" then
-            enemy = love.filesystem.load("sprites/characters/monika/monika.lua")()
+            enemy = love.filesystem.load("sprites/characters/monika/" .. SaveData.costumes.monika .. ".lua")()
 
             stageImages.dokis.yuri.x = -550
             stageImages.dokis.natsuki.x = 500
@@ -59,20 +59,20 @@ return {
 
             enemy.x, enemy.y = -275, 210
         elseif enemyChar == "mc" then
-            enemy = love.filesystem.load("sprites/characters/mc/mc.lua")()
+            enemy = love.filesystem.load("sprites/characters/mc/" .. SaveData.costumes.mc .. ".lua")()
 
             enemy.x, enemy.y = -380, 225
         elseif enemyChar == "zipper" then
             enemy = love.filesystem.load("sprites/characters/extra/zipper.lua")()
             girlfriend = love.filesystem.load("sprites/characters/girlfriend/speaker.lua")()
-            boyfriend = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
+            boyfriend = love.filesystem.load("sprites/characters/sayori/".. SaveData.costumes.sayori .. ".lua")()
 
             enemy.x, enemy.y = -380, 225
             boyfriend.x, boyfriend.y = 380, 225
             showDokis = false
         elseif enemyChar == "catfight" then
-            enemy = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
-            boyfriend = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
+            enemy = love.filesystem.load("sprites/characters/yuri/" .. SaveData.costumes.yuri .. ".lua")()
+            boyfriend = love.filesystem.load("sprites/characters/natsuki/" .. SaveData.costumes.natsuki .. ".lua")()
             girlfriend = love.filesystem.load("sprites/characters/girlfriend/sayo.lua")()
 
             enemy.x, enemy.y = -380, 225

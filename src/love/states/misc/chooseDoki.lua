@@ -35,6 +35,7 @@ return {
                 end
             end
         }
+        
 
         yuri.x = -300
         natsuki.x = 300

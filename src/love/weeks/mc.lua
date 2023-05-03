@@ -132,7 +132,7 @@ return {
 			voices = love.audio.newSource("songs/mc/you and me/Voices.ogg", "stream")
 
             MonikaCard = love.filesystem.load("sprites/ynm/monika.lua")()
-            SayoriCard = love.filesystem.load("sprites/ynm/sayori.lua")()
+            SayoriCard = love.filesystem.load("sprites/ynm/".. SaveData.costumes.sayori .. ".lua")()
             NatsukiCard = love.filesystem.load("sprites/ynm/natsuki.lua")()
             YuriCard = love.filesystem.load("sprites/ynm/yuri.lua")()
 
@@ -146,10 +146,10 @@ return {
             voices_Sayori = love.audio.newSource("songs/mc/you and me/Voices_Sayori.ogg", "stream")
             voices_Yuri = love.audio.newSource("songs/mc/you and me/Voices_Yuri.ogg", "stream")
 
-            moni = love.filesystem.load("sprites/characters/monika/monika.lua")()
-            natsu = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
-            sayo = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
-            yuri = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
+            moni = love.filesystem.load("sprites/characters/monika/" .. SaveData.costumes.monika .. ".lua")()
+            natsu = love.filesystem.load("sprites/characters/natsuki/" .. SaveData.costumes.natsuki .. ".lua")()
+            sayo = love.filesystem.load("sprites/characters/sayori/".. SaveData.costumes.sayori .. ".lua")()
+            yuri = love.filesystem.load("sprites/characters/yuri/" .. SaveData.costumes.yuri .. ".lua")()
 
             YuriCard.x = -425
             SayoriCard.x = -140
@@ -172,12 +172,12 @@ return {
             voices = love.audio.newSource("songs/mc/takeover medley/Voices.ogg", "stream")
 
             monikap = love.filesystem.load("sprites/characters/pixel/monika.lua")()
-            monika = love.filesystem.load("sprites/characters/monika/monika.lua")()
-            natsuki = love.filesystem.load("sprites/characters/natsuki/natsuki.lua")()
-            sayori = love.filesystem.load("sprites/characters/sayori/sayori.lua")()
-            yuri = love.filesystem.load("sprites/characters/yuri/yuri.lua")()
+            monika = love.filesystem.load("sprites/characters/monika/" .. SaveData.costumes.monika .. ".lua")()
+            natsuki = love.filesystem.load("sprites/characters/natsuki/" .. SaveData.costumes.natsuki .. ".lua")()
+            sayori = love.filesystem.load("sprites/characters/sayori/".. SaveData.costumes.sayori .. ".lua")()
+            yuri = love.filesystem.load("sprites/characters/yuri/" .. SaveData.costumes.yuri .. ".lua")()
             enemy2 = love.filesystem.load("sprites/characters/yuri/yuricrazy.lua")()
-            protag = love.filesystem.load("sprites/characters/mc/mc.lua")()
+            protag = love.filesystem.load("sprites/characters/mc/" .. SaveData.costumes.mc .. ".lua")()
             girlfriend = love.filesystem.load("sprites/week6/senpai.lua")()
             girlfreindangry = love.filesystem.load("sprites/week6/senpai-angry.lua")()
 

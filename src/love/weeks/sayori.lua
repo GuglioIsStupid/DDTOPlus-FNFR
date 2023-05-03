@@ -124,7 +124,7 @@ return {
                     girlfriend.danced = false
                     girlfriend:animate("danceLeft")
                 elseif s == 749 and countNum == 4 then
-                    if costumes.sayori == "grace" then
+                    if SaveData.costumes.sayori == "grace" then
                         enemy:animate("nara")
                     end
                     countNum = 5

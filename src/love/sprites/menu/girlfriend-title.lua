@@ -19,42 +19,43 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 return graphics.newSprite(
 	love.graphics.newImage(graphics.imagePath("menu/girlfriend-title")),
-	-- Automatically generated from gfDanceTitle.xml
+		-- Automatically generated from gfDanceTitle.xml
+		{
+			{x = 2862, y = 1984, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: GF Dancing Beat0029
+			{x = 10, y = 10, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 1: GF Dancing Beat0000
+			{x = 723, y = 10, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 2: GF Dancing Beat0001
+			{x = 1436, y = 10, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 3: GF Dancing Beat0002
+			{x = 2149, y = 10, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 4: GF Dancing Beat0003
+			{x = 2862, y = 10, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 5: GF Dancing Beat0004
+			{x = 10, y = 668, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 6: GF Dancing Beat0005
+			{x = 723, y = 668, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 7: GF Dancing Beat0006
+			{x = 1436, y = 668, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 8: GF Dancing Beat0007
+			{x = 1436, y = 668, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 9: GF Dancing Beat0008
+			{x = 1436, y = 668, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 10: GF Dancing Beat0009
+			{x = 2149, y = 668, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 11: GF Dancing Beat0010
+			{x = 2149, y = 668, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 12: GF Dancing Beat0011
+			{x = 2149, y = 668, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 13: GF Dancing Beat0012
+			{x = 2862, y = 668, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 14: GF Dancing Beat0013
+			{x = 2862, y = 668, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 15: GF Dancing Beat0014
+			{x = 10, y = 1326, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 16: GF Dancing Beat0015
+			{x = 723, y = 1326, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 17: GF Dancing Beat0016
+			{x = 1436, y = 1326, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 18: GF Dancing Beat0017
+			{x = 2149, y = 1326, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 19: GF Dancing Beat0018
+			{x = 2862, y = 1326, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 20: GF Dancing Beat0019
+			{x = 10, y = 1984, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 21: GF Dancing Beat0020
+			{x = 723, y = 1984, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 22: GF Dancing Beat0021
+			{x = 1436, y = 1984, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 23: GF Dancing Beat0022
+			{x = 1436, y = 1984, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 24: GF Dancing Beat0023
+			{x = 1436, y = 1984, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 25: GF Dancing Beat0024
+			{x = 2149, y = 1984, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 26: GF Dancing Beat0025
+			{x = 2149, y = 1984, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 27: GF Dancing Beat0026
+			{x = 2149, y = 1984, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 28: GF Dancing Beat0027
+			{x = 2862, y = 1984, width = 703, height = 648, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 30: GF Dancing Beat0028
+		},	
 	{
-		{x = 0, y = 0, width = 717, height = 648, offsetX = -2, offsetY = -14, offsetWidth = 721, offsetHeight = 662}, -- 1: gfDance0000
-		{x = 727, y = 0, width = 721, height = 648, offsetX = 0, offsetY = -14, offsetWidth = 721, offsetHeight = 662}, -- 2: gfDance0001
-		{x = 1458, y = 0, width = 721, height = 646, offsetX = 0, offsetY = -16, offsetWidth = 721, offsetHeight = 662}, -- 3: gfDance0002
-		{x = 2189, y = 0, width = 717, height = 646, offsetX = -2, offsetY = -16, offsetWidth = 721, offsetHeight = 662}, -- 4: gfDance0003
-		{x = 2916, y = 0, width = 717, height = 649, offsetX = -2, offsetY = -13, offsetWidth = 721, offsetHeight = 662}, -- 5: gfDance0004
-		{x = 0, y = 659, width = 717, height = 649, offsetX = -2, offsetY = -13, offsetWidth = 721, offsetHeight = 662}, -- 6: gfDance0005
-		{x = 727, y = 659, width = 717, height = 650, offsetX = -2, offsetY = -12, offsetWidth = 721, offsetHeight = 662}, -- 7: gfDance0006
-		{x = 1454, y = 659, width = 717, height = 661, offsetX = -2, offsetY = -1, offsetWidth = 721, offsetHeight = 662}, -- 8: gfDance0007
-		{x = 1454, y = 659, width = 717, height = 661, offsetX = -2, offsetY = -1, offsetWidth = 721, offsetHeight = 662}, -- 9: gfDance0008
-		{x = 1454, y = 659, width = 717, height = 661, offsetX = -2, offsetY = -1, offsetWidth = 721, offsetHeight = 662}, -- 10: gfDance0009
-		{x = 2181, y = 659, width = 717, height = 662, offsetX = -2, offsetY = 0, offsetWidth = 721, offsetHeight = 662}, -- 11: gfDance0010
-		{x = 2181, y = 659, width = 717, height = 662, offsetX = -2, offsetY = 0, offsetWidth = 721, offsetHeight = 662}, -- 12: gfDance0011
-		{x = 2181, y = 659, width = 717, height = 662, offsetX = -2, offsetY = 0, offsetWidth = 721, offsetHeight = 662}, -- 13: gfDance0012
-		{x = 2908, y = 659, width = 717, height = 661, offsetX = -2, offsetY = -1, offsetWidth = 721, offsetHeight = 662}, -- 14: gfDance0013
-		{x = 2908, y = 659, width = 717, height = 661, offsetX = -2, offsetY = -1, offsetWidth = 721, offsetHeight = 662}, -- 15: gfDance0014
-		{x = 0, y = 1331, width = 717, height = 650, offsetX = -2, offsetY = -12, offsetWidth = 721, offsetHeight = 662}, -- 16: gfDance0015
-		{x = 727, y = 1331, width = 721, height = 650, offsetX = 0, offsetY = -12, offsetWidth = 721, offsetHeight = 662}, -- 17: gfDance0016
-		{x = 1458, y = 1331, width = 721, height = 650, offsetX = 0, offsetY = -12, offsetWidth = 721, offsetHeight = 662}, -- 18: gfDance0017
-		{x = 2189, y = 1331, width = 717, height = 650, offsetX = -2, offsetY = -12, offsetWidth = 721, offsetHeight = 662}, -- 19: gfDance0018
-		{x = 2916, y = 1331, width = 717, height = 651, offsetX = -2, offsetY = -11, offsetWidth = 721, offsetHeight = 662}, -- 20: gfDance0019
-		{x = 0, y = 1992, width = 717, height = 651, offsetX = -2, offsetY = -11, offsetWidth = 721, offsetHeight = 662}, -- 21: gfDance0020
-		{x = 727, y = 1992, width = 717, height = 652, offsetX = -2, offsetY = -10, offsetWidth = 721, offsetHeight = 662}, -- 22: gfDance0021
-		{x = 1454, y = 1992, width = 717, height = 657, offsetX = -2, offsetY = -5, offsetWidth = 721, offsetHeight = 662}, -- 23: gfDance0022
-		{x = 1454, y = 1992, width = 717, height = 657, offsetX = -2, offsetY = -5, offsetWidth = 721, offsetHeight = 662}, -- 24: gfDance0023
-		{x = 1454, y = 1992, width = 717, height = 657, offsetX = -2, offsetY = -5, offsetWidth = 721, offsetHeight = 662}, -- 25: gfDance0024
-		{x = 2181, y = 1992, width = 717, height = 656, offsetX = -2, offsetY = -6, offsetWidth = 721, offsetHeight = 662}, -- 26: gfDance0025
-		{x = 2181, y = 1992, width = 717, height = 656, offsetX = -2, offsetY = -6, offsetWidth = 721, offsetHeight = 662}, -- 27: gfDance0026
-		{x = 2181, y = 1992, width = 717, height = 656, offsetX = -2, offsetY = -6, offsetWidth = 721, offsetHeight = 662}, -- 28: gfDance0027
-		{x = 2908, y = 1992, width = 717, height = 656, offsetX = -2, offsetY = -6, offsetWidth = 721, offsetHeight = 662}, -- 29: gfDance0028
-		{x = 2908, y = 1992, width = 717, height = 656, offsetX = -2, offsetY = -6, offsetWidth = 721, offsetHeight = 662} -- 30: gfDance0029
+		["danceLeft"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
+		["danceRight"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
 	},
-	{
-		["anim"] = {start = 1, stop = 30, speed = 24, offsetX = 0, offsetY = 0}
-	},
-	"anim",
-	true
+	"danceLeft",
+	false
 )

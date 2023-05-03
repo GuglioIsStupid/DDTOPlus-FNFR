@@ -25,7 +25,7 @@ return {
         senpaiAngryNonpixel = love.filesystem.load("sprites/characters/extra/senpai-angry-nonpixel.lua")()
         senpaiNonpixel = love.filesystem.load("sprites/characters/extra/senpai-nonpixel.lua")()
 
-        monika = love.filesystem.load("sprites/characters/monika/monika.lua")()
+        monika = love.filesystem.load("sprites/characters/monika/" .. SaveData.costumes.monika .. ".lua")()
         monikapixel = love.filesystem.load("sprites/characters/pixel/monika.lua")()
 
         monika.flipX = true
