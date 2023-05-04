@@ -594,7 +594,7 @@ function love.load()
 
 	SaveData = {
 		costumes = {
-			sayori = "grace",
+			sayori = "zipper",
 			natsuki = "default",
 			yuri = "default",
 			monika = "default",
