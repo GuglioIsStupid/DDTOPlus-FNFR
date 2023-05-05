@@ -115,13 +115,12 @@ return {
 
         stageImages.desks.visible = true
 
+        girlfriend.x, girlfriend.y = 30, 250
         if enemyChar ~= "zipper" and enemyChar ~= "catfight" then
-            girlfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriend.lua")()
+            girlfriend = love.filesystem.load("sprites/characters/girlfriend/" .. SaveData.costumes.girlfriend .. ".lua")()
             boyfriend.x, boyfriend.y = 260, 390
-
-            print("enemyChar: " .. enemyChar)
+            girlfriend.x, girlfriend.y = 30, 175
         end
-        girlfriend.x, girlfriend.y = 30, 175
         
     end,
 

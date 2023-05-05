@@ -81,7 +81,7 @@ return {
 
         boyfriend.flipX = true
 
-        stageImages.FG.x, stageImages.FG.y = 0, -100
+        stageImages.FG.x, stageImages.FG.y = -25, -100
 
         girlfriend.x, girlfriend.y = 30, 145
         enemy.x, enemy.y = -380, 100

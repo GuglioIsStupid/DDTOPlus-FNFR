@@ -48,13 +48,13 @@ return graphics.newSprite(
 			{x = 2075, y = 1511, width = 721, height = 697, offsetX = -10, offsetY = -14, offsetWidth = 731, offsetHeight = 711} -- 25: scream0002
 		},
 	{
-		["singDOWN"] = {start = 15, stop = 16, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 17, stop = 18, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 19, stop = 20, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 21, stop = 22, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 15, stop = 16, speed = 24, offsetX = 66, offsetY = -64},
+		["singLEFT"] = {start = 17, stop = 18, speed = 24, offsetX = 10, offsetY = -41},
+		["singRIGHT"] = {start = 19, stop = 20, speed = 24, offsetX = 153, offsetY = -19},
+		["singUP"] = {start = 21, stop = 22, speed = 24, offsetX = 118, offsetY = 22},
 
 		["idle"] = {start = 1, stop = 14, speed = 24, offsetX = 0, offsetY = 0},
-		["scream"] = {start = 23, stop = 25, speed = 24, offsetX = 0, offsetY = 0},
+		["scream"] = {start = 23, stop = 25, speed = 24, offsetX = 224, offsetY = -18},
 	},
 	"idle",
 	false,

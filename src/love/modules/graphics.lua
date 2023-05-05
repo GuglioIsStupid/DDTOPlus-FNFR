@@ -227,6 +227,7 @@ return {
 			danceIdle = optionsTable and optionsTable.danceIdle or false,
 			altIdle = optionsTable and optionsTable.altIdle or false,
 			filter = optionsTable and optionsTable.filter,
+			maxHoldTimer = optionsTable and optionsTable.maxHoldTimer or 0.1,
 
 			alpha = 1,
 
@@ -284,6 +285,9 @@ return {
 
 				isAnimated = true
 			end,
+			getAnimOffset = function(self)
+				return anim.offsetX, anim.offsetY
+			end,
 			getAnims = function(self)
 				return anims
 			end,
@@ -323,6 +327,8 @@ return {
 						isAnimated = false
 					end
 				end
+
+				self.holdTimer = self.holdTimer + dt
 
 				if self.specialAnim then 
 					self.heyTimer = self.heyTimer - dt 

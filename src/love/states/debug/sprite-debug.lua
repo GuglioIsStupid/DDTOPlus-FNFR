@@ -40,6 +40,8 @@ return {
 		menuID = 1
 		selection = 3
 
+		love.keyboard.setKeyRepeat(true)
+
 		menus = {
 			{
 				1,
@@ -198,8 +200,12 @@ return {
 					love.graphics.print(spriteAnims[i], 0, (i - 1) * 20)
 					graphics.setColor(1, 1, 1)
 
-					love.graphics.print("X: " .. tostring(sprite.x - overlaySprite.x), 0, (#spriteAnims + 1) * 20)
-					love.graphics.print("Y: " .. tostring(sprite.y - overlaySprite.y), 0, (#spriteAnims + 2) * 20)
+					local ox, oy = sprite:getAnimOffset()
+					ox = ox - overlaySprite.x
+					oy = oy - overlaySprite.y
+
+					love.graphics.print("X: " .. tostring(ox), 0, (#spriteAnims + 1) * 20)
+					love.graphics.print("Y: " .. tostring(oy), 0, (#spriteAnims + 2) * 20)
 				end
 			else
 				for i = 1, #dirTable do

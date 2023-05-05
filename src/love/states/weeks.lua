@@ -111,8 +111,8 @@ return {
 
 			rating.sizeX, rating.sizeY = 0.75, 0.75
 
-			girlfriend = love.filesystem.load("sprites/girlfriend.lua")()
-			boyfriend = love.filesystem.load("sprites/boyfriend.lua")()
+			girlfriend = love.filesystem.load("sprites/characters/girlfriend/" .. SaveData.costumes.girlfriend .. ".lua")()
+			boyfriend = love.filesystem.load("sprites/characters/boyfriend/" .. SaveData.costumes.boyfriend .. ".lua")()
 		else
 			pixel = true
 			love.graphics.setDefaultFilter("nearest", "nearest")
@@ -1463,30 +1463,44 @@ return {
 					if enemyNote[1].type ~= "death" then
 						if enemyNote[1]:getAnimName() == "hold" or enemyNote[1]:getAnimName() == "end" then
 							if useAltAnims then
-								--[[
-								if (not enemy:isAnimated()) or enemy:getAnimName() == "idle" then enemy:animate(curAnim .. " alt", false) end
-								if enemy2 then if (not enemy2:isAnimated()) or enemy2:getAnimName() == "idle" then enemy2:animate(curAnim .. " alt", false) end end
-								--]]
-
 								if enemyNote[1].ver == "5" then
-									if (not enemy2:isAnimated() or enemy2:getAnimName() == "idle") then enemy2:animate(curAnim .. " alt", false) end
-									if (not enemy3:isAnimated() or enemy3:getAnimName() == "idle") then enemy3:animate(curAnim .. " alt", false) end
-									if (not enemy:isAnimated() or enemy:getAnimName() == "idle") then enemy:animate(curAnim .. " alt", false) end
+									if enemy2.holdTimer > enemy2.maxHoldTimer then
+										enemy2:animate(curAnim .. " alt", false)
+									end
+									if enemy3.holdTimer > enemy3.maxHoldTimer then
+										enemy3:animate(curAnim .. " alt", false)
+									end
+									if enemy.holdTimer > enemy.maxHoldTimer then
+										enemy:animate(curAnim .. " alt", false)
+									end
 								else
-									if (not char:isAnimated() or char:getAnimName() == "idle") then char:animate(curAnim .. " alt", false) end
+									if char.holdTimer > char.maxHoldTimer then
+										char:animate(curAnim .. " alt", false)
+									end
 									if FORCEP2NOMATTERWHAT then
-										if (not enemy2:isAnimated() or enemy2:getAnimName() == "idle") then enemy2:animate(curAnim .. " alt", false) end
+										if enemy2.holdTimer > enemy2.maxHoldTimer then
+											enemy2:animate(curAnim .. " alt", false)
+										end
 									end
 								end
 							else
 								if enemyNote[1].ver == "5" then
-									if (not enemy2:isAnimated() or enemy2:getAnimName() == "idle") then enemy2:animate(curAnim, false) end
-									if (not enemy3:isAnimated() or enemy3:getAnimName() == "idle") then enemy3:animate(curAnim, false) end
-									if (not enemy:isAnimated() or enemy:getAnimName() == "idle") then enemy:animate(curAnim, false) end
-								else
-									if (not char:isAnimated() or char:getAnimName() == "idle") then char:animate(curAnim, false) end
+									if enemy2.holdTimer > enemy2.maxHoldTimer then
+										enemy2:animate(curAnim, false)
+									end
+									if enemy3.holdTimer > enemy3.maxHoldTimer then
+										enemy3:animate(curAnim, false)
+									end
+									if enemy.holdTimer > enemy.maxHoldTimer then
+										enemy:animate(curAnim, false)
+									end								else
+									if char.holdTimer > char.maxHoldTimer then
+										char:animate(curAnim, false)
+									end
 									if FORCEP2NOMATTERWHAT then
-										if (not enemy2:isAnimated() or enemy2:getAnimName() == "idle") then enemy2:animate(curAnim, false) end
+										if enemy2.holdTimer > enemy2.maxHoldTimer then
+											enemy2:animate(curAnim, false)
+										end
 									end
 								end
 							end
@@ -1519,10 +1533,6 @@ return {
 					end
 
 					char.lastHit = musicTime
-
-					if not mustHitSection then 
-						noteCamTweens[i]()
-					end
 
 					table.remove(enemyNote, 1)
 					if hasPixelNotes then
@@ -1612,10 +1622,7 @@ return {
 											numbersP[i].y = 300 + 50 + (settings.downscroll and 0 or -490)
 										end
 									end
-		
-									if mustHitSection then 
-										noteCamTweens[i]()
-									end
+	
 		
 									ratingVisibility[1] = 1
 									ratingTimers[1] = Timer.tween(2, ratingVisibility, {0}, "linear")
@@ -1764,8 +1771,10 @@ return {
 						end
 
 						if boyfriendNote[1]:getAnimName() == "hold" or boyfriendNote[1]:getAnimName() == "end" then
-							if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then boyfriend:animate(curAnim, false) end
-							if boyfriend2 then if (not boyfriend2:isAnimated()) or boyfriend2:getAnimName() == "idle" then boyfriend2:animate(curAnim, false) end end
+							if boyfriend.holdTimer > boyfriend.maxHoldTimer then
+								boyfriend:animate(curAnim, false)
+							end
+							if boyfriend2 then if boyfriend2:getAnimName() == "idle" then boyfriend2:animate(curAnim, false) end end
 						else
 							boyfriend:animate(curAnim, false)
 							if boyfriend2 then boyfriend2:animate(curAnim, false) end
@@ -1803,10 +1812,6 @@ return {
 									for i = 1, 3 do
 										numbersP[i].y = 300 + 50 + (settings.downscroll and 0 or -490)
 									end
-								end
-
-								if mustHitSection then 
-									noteCamTweens[i]()
 								end
 
 								ratingVisibility[1] = 1
@@ -1934,10 +1939,7 @@ return {
 										numbersP[i].y = 300 + 50 + (settings.downscroll and 0 or -490)
 									end
 								end
-	
-								if mustHitSection then 
-									noteCamTweens[i]()
-								end
+
 	
 								ratingVisibility[1] = 1
 								ratingTimers[1] = Timer.tween(2, ratingVisibility, {0}, "linear")
@@ -2021,7 +2023,9 @@ return {
 
 					health = health + 0.0125
 
-					if (not boyfriend:isAnimated()) or boyfriend:getAnimName() == "idle" then boyfriend:animate(curAnim, false) end
+					if boyfriend.holdTimer > boyfriend.maxHoldTimer then
+						boyfriend:animate(curAnim, false)
+					end
 					if boyfriend2 then if (not boyfriend2:isAnimated()) or boyfriend2:getAnimName() == "idle" then boyfriend2:animate(curAnim, false) end end
 
 					table.remove(boyfriendNote, 1)
@@ -2062,12 +2066,16 @@ return {
 					end
 
 					if not useAltAnims then
-						if (not char:isAnimated()) or char:getAnimName() == "idle" then char:animate(curAnim, false) end
+						if char.holdTimer > char.maxHoldTimer then
+							char:animate(curAnim, false)
+						end
 						if FORCEP2NOMATTERWHAT then
 							if (not enemy2:isAnimated()) or enemy2:getAnimName() == "idle" then enemy2:animate(curAnim, false) end
 						end
 					else
-						if (not char:isAnimated()) or char:getAnimName() == "idle" then char:animate(curAnim .. " alt", false) end
+						if char.holdTimer > char.maxHoldTimer then
+							char:animate(curAnim .. " alt", false)
+						end
 						if FORCEP2NOMATTERWHAT then
 							if (not enemy2:isAnimated()) or enemy2:getAnimName() == "idle" then enemy2:animate(curAnim .. " alt", false) end
 						end
