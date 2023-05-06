@@ -28,6 +28,15 @@ return {
             static = love.filesystem.load("sprites/clubroom/static.lua")()
         }
 
+        stickies = {}
+
+        -- go in graphics.imagePath()/stickies
+        for i, v in ipairs(love.filesystem.getDirectoryItems("images/png/stickies")) do
+            filename = string.gsub(v, ".png", "")
+            table.insert(stickies, graphics.newImage(graphics.imagePath("stickies/" .. filename)))
+            stickies[i].alpha = 1
+        end
+
         ddtoCursor = stageImages.cursor
 
         ddtoCursor.x = 100
@@ -99,7 +108,7 @@ return {
 
         camera.mustHit = false
 
-        boyfriend = love.filesystem.load("sprites/boyfriend.lua")()
+        boyfriend = love.filesystem.load("sprites/characters/boyfriend/casual.lua")()
         enemy = boyfriend
 
         stageImages.cg1.alpha = 1
@@ -145,6 +154,63 @@ return {
         fisheye:send("strength", 0.3)
         uiAlpha = {0}
         curEnemy = "none"
+
+        function summonStickies(fo, sD)
+            local fo = fo or false
+            local sD = sD or 0.5
+
+            for i = 1, 4 do
+                if #stickies < 0 then
+                    break
+                end
+
+                rand = love.math.random(1, #stickies)
+                sticker = stickies[rand]
+
+                if sticker == nil and rand > #stickies then
+                    rand = rand - 1
+                    sticker = stickies[rand]
+                end
+
+                table.remove(stickies, rand)
+
+                local x = 0
+                local y = 0
+                if i == 1 then
+                    x = -550
+                    y = -275
+                elseif i == 2 then
+                    x = 550
+                    y = -275
+                elseif i == 3 then
+                    x = -550
+                    y = 275
+                elseif i == 4 then
+                    x = 550
+                    y = 275
+                end
+
+                shownStickers[i] = {
+                    img = sticker,
+                    x = x,
+                    y = y,
+                    alpha = 1,
+                    scale = 1,
+                }
+            end
+
+            if fo then
+                Timer.after(sD, function()
+                    for i = 1, 4 do
+                        Timer.tween(
+                            1, shownStickers[i], {alpha = 0}, "linear"
+                        )
+                    end
+                end)
+            end
+        end
+
+        shownStickers = {}
     end,
 
     load = function()

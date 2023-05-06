@@ -241,6 +241,7 @@ return {
 		self:initUI()
 
         countNum = 0
+        cn = 0
 
         camera:addPoint("center", 0, 350)
 
@@ -324,6 +325,7 @@ return {
                 Timer.cancel(camTimer)
             end
 			local s = beatHandler.curStep
+            oS = beatHandler.onStep()
 			if song == 1 then
                 if s == 384 and countNum == 0 then
                     girlfriend.alpha = 0
@@ -457,6 +459,7 @@ return {
                 elseif s == 76 and countNum == 5 then
                     -- swap char
                     creditsCharSwap("pmonika")
+                    summonStickies(true, 8)
                     countNum = 6
                 elseif s == 239 and countNum == 6 then
                     -- dear god, senpai is here
@@ -477,6 +480,7 @@ return {
                     girlfriend = girlfreindangry
                     girlfriend.y = 75
                     countNum = 8
+                    summonStickies(true, 8)
                 elseif s == 440 and countNum == 8 then
                     Timer.tween(beatHandler.calcSectionLength(), stageImages.windowBoxes.senpai, {y = 1000}, "out-sine")
                     Timer.tween(beatHandler.calcSectionLength(), stageImages.windowBoxes.p1, {x = 400}, "out-sine")
@@ -511,6 +515,8 @@ return {
                     -- swap char
                     creditsCharSwap("yuri")
                     countNum = 15
+                    summonStickies(true, 8)
+                    summonStickies(true, 8)
                 elseif s == 1392 and countNum == 15 then
                     -- stupid ass yuri shit
                     FORCEP2NOMATTERWHAT = true
@@ -525,6 +531,7 @@ return {
                     enemy.alpha = 1
                     enemy2.alpha = 0
                     countNum = 17 
+                    summonStickies(true, 8)
                 elseif s ==  1606 and countNum == 17 then
                     prepareCharSwap()
                     countNum = 18
@@ -532,6 +539,7 @@ return {
                     -- swap char
                     creditsCharSwap("protag")
                     countNum = 19
+                    summonStickies(true, 8)
                 elseif s == 1866 and countNum == 19 then
                     prepareCharSwap()
                     countNum = 20
@@ -566,6 +574,69 @@ return {
                 end
 			end
 		end
+
+        if oS then
+            if song == 3 then
+                local s = beatHandler.curStep
+                --[[
+                if s == 208 or s == 464
+                    or s == 592 or s == 720
+                    or s == 848 or s == 976 
+                    or s == 1104 or s == 1300 
+                    or s == 1744 or s == 1880
+                    or s == 2008 or s == 2072
+                    or s == 2136 or s == 2200 then
+                        summonStickies(true, 8)
+                end
+                --]]
+
+                if s == 208 and cn == 0 then
+                    cn = 1
+                    summonStickies(true, 8)
+                elseif s == 464 and cn == 1 then
+                    cn = 2
+                    summonStickies(true, 8)
+                elseif s == 592 and cn == 2 then
+                    cn = 3
+                    summonStickies(true, 8)
+                elseif s == 720 and cn == 3 then
+                    cn = 4
+                    summonStickies(true, 8)
+                elseif s == 848 and cn == 4 then
+                    cn = 5
+                    summonStickies(true, 8)
+                elseif s == 976 and cn == 5 then
+                    cn = 6
+                    summonStickies(true, 8)
+                elseif s == 1104 and cn == 6 then
+                    cn = 7
+                    summonStickies(true, 8)
+                elseif s == 1300 and cn == 7 then
+                    cn = 8
+                    summonStickies(true, 8)
+                elseif s == 1744 and cn == 8 then
+                    cn = 9
+                    summonStickies(true, 8)
+                elseif s == 1880 and cn == 9 then
+                    cn = 10
+                    summonStickies(true, 8)
+                elseif s == 2008 and cn == 10 then
+                    cn = 11
+                    summonStickies(true, 8)
+                elseif s == 2072 and cn == 11 then
+                    cn = 12
+                    summonStickies(true, 8)
+                elseif s == 2136 and cn == 12 then
+                    cn = 13
+                    summonStickies(true, 8)
+                elseif s == 2200 and cn == 13 then
+                    cn = 14
+                    summonStickies(true, 8)
+                end
+
+            end
+            oS = false
+        end
         if beatHandler.onBeat() then
             local b = beatHandler.curBeat
             if song == 2 then
@@ -854,6 +925,22 @@ return {
             end
 
 		love.graphics.pop()
+
+        love.graphics.push()
+            love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
+            love.graphics.scale(0.85, 0.85)
+            love.graphics.push()
+                for i = 1, #shownStickers do
+                    if shownStickers[i].img ~= nil then
+                        shownStickers[i].img.x = shownStickers[i].x
+                        shownStickers[i].img.y = shownStickers[i].y
+                        graphics.setColor(1,1,1,shownStickers[i].alpha)
+                        shownStickers[i].img:draw()
+                        graphics.setColor(1,1,1,1)
+                    end
+                end
+            love.graphics.pop()
+        love.graphics.pop()
 
         love.graphics.push()
             love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
