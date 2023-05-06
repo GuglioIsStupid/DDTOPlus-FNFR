@@ -200,7 +200,7 @@ return {
 					love.graphics.print(spriteAnims[i], 0, (i - 1) * 20)
 					graphics.setColor(1, 1, 1)
 
-					local ox, oy = sprite:getAnimOffset()
+					local ox, oy = overlaySprite:getAnimOffset()
 					ox = ox - overlaySprite.x
 					oy = oy - overlaySprite.y
 

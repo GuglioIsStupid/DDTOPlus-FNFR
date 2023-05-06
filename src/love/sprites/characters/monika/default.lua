@@ -75,10 +75,10 @@ return graphics.newSprite(
 		{x = 7215, y = 822, width = 492, height = 819, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 71: Monika Returns Up0012
 	},
 	{
-		["singDOWN"] = {start = 1, stop = 14, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 32, stop = 44, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 45, stop = 58, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 59, stop = 71, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 1, stop = 14, speed = 24, offsetX = 28, offsetY = -29},
+		["singLEFT"] = {start = 32, stop = 44, speed = 24, offsetX = 3, offsetY = 22},
+		["singRIGHT"] = {start = 45, stop = 58, speed = 24, offsetX = 31, offsetY = -5},
+		["singUP"] = {start = 59, stop = 71, speed = 24, offsetX = -40, offsetY = 6},
 
 		["idle"] = {start = 15, stop = 31, speed = 24, offsetX = 0, offsetY = 0},
 	},

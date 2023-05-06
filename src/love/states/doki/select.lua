@@ -57,14 +57,18 @@ return {
         storyPos = {
             x = -570, y = 10
         }
-        optionsPos = {
+        freeplayPos = {
             x = -570, y = 60
         }
-        exitPos = {
+        optionsPos = {
             x = -570, y = 110
+        }
+        exitPos = {
+            x = -570, y = 160
         } -- 600
 
         Timer.tween(0.75, storyPos, {x = -600}, "in-bounce")
+        Timer.tween(0.75, freeplayPos, {x = -600}, "in-bounce")
         Timer.tween(1, optionsPos, {x = -600}, "in-bounce")
         Timer.tween(1.25, exitPos, {x = -600}, "in-bounce")
         Timer.tween(0.7, left, {x = -425}, "in-bounce")
@@ -97,13 +101,17 @@ return {
         if input:pressed("up") then
             if curOption == "story" then
                 curOption = "exit"
-            elseif curOption == "options" then
+            elseif curOption == "freeplay" then
                 curOption = "story"
+            elseif curOption == "options" then
+                curOption = "freeplay"
             elseif curOption == "exit" then
                 curOption = "options"
             end
         elseif input:pressed("down") then
             if curOption == "story" then
+                curOption = "freeplay"
+            elseif curOption == "freeplay" then
                 curOption = "options"
             elseif curOption == "options" then
                 curOption = "exit"
@@ -115,6 +123,8 @@ return {
         if input:pressed("confirm") then
             if curOption == "story" then
                 graphics:fadeOutWipe(0.5, function() Gamestate.switch(menuWeek) end)
+            elseif curOption == "freeplay" then
+                graphics:fadeOutWipe(0.5, function() Gamestate.switch(menuFreeplay) end)
             elseif curOption == "options" then
                 graphics:fadeOutWipe(0.5, function() Gamestate.switch(menuSettings) end)
             elseif curOption == "exit" then
@@ -126,9 +136,6 @@ return {
     end,
 
     keypressed = function(self, key)
-        if key == "5" then
-            Gamestate.switch(menuFreeplay)
-        end
     end,
 
     draw = function(self)
@@ -143,6 +150,7 @@ return {
             left:draw()
             logo:draw()
             borderedText2("Story Mode", storyPos.x, storyPos.y, 0, 1.25, 1.25, (curOption ~= "story" and {1,134/255,215/255} or {1,200/255,215/255}), (curOption ~= "story" and {1,245/255,245/255} or {1,1,1}))
+            borderedText2("Freeplay", freeplayPos.x, freeplayPos.y, 0, 1.25, 1.25, (curOption ~= "freeplay" and {1,134/255,215/255} or {1,200/255,215/255}), (curOption ~= "freeplay" and {1,245/255,245/255} or {1,1,1}))
             borderedText2("Options", optionsPos.x, optionsPos.y, 0, 1.25, 1.25, (curOption ~= "options" and {1,134/255,215/255} or {1,200/255,215/255}), (curOption ~= "options" and {1,245/255,245/255} or {1,1,1}))
             borderedText2("Exit Game", exitPos.x, exitPos.y, 0, 1.25, 1.25, (curOption ~= "exit" and {1,134/255,215/255} or {1,200/255,215/255}), (curOption ~= "exit" and {1,245/255,245/255} or {1,1,1}))
         love.graphics.pop()

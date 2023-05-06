@@ -113,7 +113,7 @@ return {
                 numOfChar = 4
             end
         else
-            boyfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriendPlayer.lua")()
+            boyfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriend-player.lua")()
             enemy = love.filesystem.load("sprites/characters/sayori/".. SaveData.costumes.sayori .. ".lua")()
             enemy2 = love.filesystem.load("sprites/characters/natsuki/" .. SaveData.costumes.natsuki .. ".lua")()
             enemy3 = love.filesystem.load("sprites/characters/yuri/" .. SaveData.costumes.yuri .. ".lua")()
