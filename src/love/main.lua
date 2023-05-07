@@ -569,12 +569,14 @@ function love.load()
 				"Epiphany"
 			}
 		},
+		--[[ -- Not available in this release.
 		{
 			"Libitina",
 			{
 				"Libitina"
 			}
 		},
+		--]]
 	}
 
 	catfight = require "weeks.catfight"
@@ -607,25 +609,25 @@ function love.load()
 
 	costumes = {
 		["sayori"] = {
-
+			order = {},
 		},
 		["natsuki"] = {
-
+			order = {},
 		},
 		["yuri"] = {
-
+			order = {},
 		},
 		["monika"] = {
-			
+			order = {},
 		},
 		["protag"] = {
-			
+			order = {},
 		},
 		["boyfriend"] = {
-			
+			order = {},
 		},
 		["girlfriend"] = {
-			
+			order = {},
 		},
 	}
 

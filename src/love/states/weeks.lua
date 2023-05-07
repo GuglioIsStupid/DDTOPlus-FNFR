@@ -2558,6 +2558,9 @@ return {
 		hasPixelNotes = false
 		whoHasPixelNotes = "none"
 
+		enemy2 = nil
+		enemy3 = nil
+
 		love.graphics.setBackgroundColor(0, 0, 0)
 	end
 }
