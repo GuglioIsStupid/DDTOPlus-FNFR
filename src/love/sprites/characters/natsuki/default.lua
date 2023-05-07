@@ -107,14 +107,14 @@ return graphics.newSprite(
 		{x = 10, y = 1765, width = 329, height = 534, offsetX = -26, offsetY = -34, offsetWidth = 368, offsetHeight = 568} -- 103: Nat hmph0020
 	},
 	{
-		["singDOWN"] = {start = 15, stop = 31, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 32, stop = 47, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 48, stop = 67, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 68, stop = 82, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 15, stop = 31, speed = 24, offsetX = 14, offsetY = -9},
+		["singLEFT"] = {start = 32, stop = 47, speed = 24, offsetX = -7, offsetY = -11},
+		["singRIGHT"] = {start = 48, stop = 67, speed = 24, offsetX = -39, offsetY = 7},
+		["singUP"] = {start = 68, stop = 82, speed = 24, offsetX = 27, offsetY = 0},
 
 		["idle"] = {start = 1, stop = 14, speed = 24, offsetX = 0, offsetY = 0},
 
-        ["hmmph"] = {start = 83, stop = 103, speed = 24, offsetX = 0, offsetY = 0}
+        ["hmmph"] = {start = 83, stop = 103, speed = 24, offsetX = -11, offsetY = -1}
 	},
 	"idle",
 	false,

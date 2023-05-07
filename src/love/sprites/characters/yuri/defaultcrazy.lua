@@ -84,10 +84,10 @@ return graphics.newSprite(
 		{x = 2341, y = 1991, width = 405, height = 695, offsetX = 0, offsetY = -7, offsetWidth = 405, offsetHeight = 702} -- 80: Yuri Crazy Up0013
 	},
 	{
-		["singDOWN"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 38, stop = 52, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 53, stop = 66, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 67, stop = 80, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 1, stop = 15, speed = 24, offsetX = 20, offsetY = -20},
+		["singLEFT"] = {start = 38, stop = 52, speed = 24, offsetX = 103, offsetY = 7},
+		["singRIGHT"] = {start = 53, stop = 66, speed = 24, offsetX = -50, offsetY = 1},
+		["singUP"] = {start = 67, stop = 80, speed = 24, offsetX = 35, offsetY = 30},
 
 		["idle"] = {start = 16, stop = 37, speed = 24, offsetX = 0, offsetY = 0},
 	},

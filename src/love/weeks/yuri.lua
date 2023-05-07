@@ -91,7 +91,7 @@ return {
 		else
 			weeks:generateNotes("data/yuri/obsession/obsession.json")
 
-            enemy2 = love.filesystem.load("sprites/characters/yuri/yuricrazy.lua")()
+            enemy2 = love.filesystem.load("sprites/characters/yuri/" .. SaveData.costumes.yuri .. "crazy.lua")()
             enemy2.x, enemy2.y = enemy2.x - 400, enemy.y + 105
 			if storyMode and not died then
 				weeks:setupCountdown()

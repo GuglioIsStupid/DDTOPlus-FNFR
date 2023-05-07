@@ -114,10 +114,10 @@ return graphics.newSprite(
 	},
 
 	{
-		["singDOWN"] = {start = 48, stop = 65, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 66, stop = 77, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 78, stop = 95, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 31, stop = 47, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 48, stop = 65, speed = 24, offsetX = -36, offsetY = -11},
+		["singLEFT"] = {start = 66, stop = 77, speed = 24, offsetX = 45, offsetY = 0},
+		["singRIGHT"] = {start = 78, stop = 95, speed = 24, offsetX = -43, offsetY = 8},
+		["singUP"] = {start = 31, stop = 47, speed = 24, offsetX = 4, offsetY = 5},
 
 		["danceLeft"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
         ["danceRight"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 0},

@@ -163,14 +163,14 @@ return graphics.newSprite(
 		{x = 0, y = 3069, width = 379, height = 779, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0} -- 159: Yuri Sing Note Up0014
 	},
 	{
-		["singDOWN"] = {start = 98, stop = 113, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 114, stop = 129, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 130, stop = 144, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 145, stop = 159, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 98, stop = 113, speed = 24, offsetX = -14, offsetY = -11},
+		["singLEFT"] = {start = 114, stop = 129, speed = 24, offsetX = -24, offsetY = -11},
+		["singRIGHT"] = {start = 130, stop = 144, speed = 24, offsetX = 7, offsetY = -1},
+		["singUP"] = {start = 145, stop = 159, speed = 24, offsetX = 8, offsetY = 11},
 
 		["idle"] = {start = 70, stop = 83, speed = 24, offsetX = 0, offsetY = 0},
 
-        ["breath"] = {start = 1, stop = 69, speed = 24, offsetX = 0, offsetY = 0}
+        ["breath"] = {start = 1, stop = 69, speed = 24, offsetX = 9, offsetY = 11}
 	},
 	"idle",
 	false,

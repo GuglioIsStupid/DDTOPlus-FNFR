@@ -74,10 +74,10 @@ return graphics.newSprite(
 		{x = 1995, y = 835, width = 326, height = 805, offsetX = -17, offsetY = -19, offsetWidth = 343, offsetHeight = 824} -- 70: Protag Up0013
 	},
 	{
-		["singDOWN"] = {start = 1, stop = 14, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 28, stop = 41, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 42, stop = 56, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 57, stop = 70, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 1, stop = 14, speed = 24, offsetX = 0, offsetY = -8},
+		["singLEFT"] = {start = 28, stop = 41, speed = 24, offsetX = 43, offsetY = 22},
+		["singRIGHT"] = {start = 42, stop = 56, speed = 24, offsetX = -52, offsetY = 5},
+		["singUP"] = {start = 57, stop = 70, speed = 24, offsetX = -9, offsetY = 22},
 
 		["idle"] = {start = 15, stop = 27, speed = 24, offsetX = 0, offsetY = 0},
 	},

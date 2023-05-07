@@ -172,12 +172,12 @@ return {
             voices = love.audio.newSource("songs/mc/takeover medley/Voices.ogg", "stream")
 
             monikap = love.filesystem.load("sprites/characters/pixel/monika.lua")()
-            monika = love.filesystem.load("sprites/characters/monika/" .. SaveData.costumes.monika .. ".lua")()
-            natsuki = love.filesystem.load("sprites/characters/natsuki/" .. SaveData.costumes.natsuki .. ".lua")()
-            sayori = love.filesystem.load("sprites/characters/sayori/".. SaveData.costumes.sayori .. ".lua")()
-            yuri = love.filesystem.load("sprites/characters/yuri/" .. SaveData.costumes.yuri .. ".lua")()
-            enemy2 = love.filesystem.load("sprites/characters/yuri/yuricrazy.lua")()
-            protag = love.filesystem.load("sprites/characters/mc/" .. SaveData.costumes.mc .. ".lua")()
+            monika = love.filesystem.load("sprites/characters/monika/casual.lua")()
+            natsuki = love.filesystem.load("sprites/characters/natsuki/casual.lua")()
+            sayori = love.filesystem.load("sprites/characters/sayori/casual.lua")()
+            yuri = love.filesystem.load("sprites/characters/yuri/casual.lua")()
+            enemy2 = love.filesystem.load("sprites/characters/yuri/casualcrazy.lua")()
+            protag = love.filesystem.load("sprites/characters/mc/casual.lua")()
             girlfriend = love.filesystem.load("sprites/week6/senpai.lua")()
             girlfreindangry = love.filesystem.load("sprites/week6/senpai-angry.lua")()
 
