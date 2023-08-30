@@ -60,9 +60,12 @@ local option = "normal"
 
 return {
 	enter = function(self, option)
+		FORCEP2NOMATTERWHAT = false
 		playMenuMusic = false
 		beatHandler.reset()
 		option = option or "normal"
+		camera.x, camera.y = 0, 0
+		camera.zooming, camera.locked = false, false
 
 		arrowAngles = {math.rad(180), math.rad(90), math.rad(270), math.rad(0)}
 		if settings.downscroll then

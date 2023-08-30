@@ -42,7 +42,7 @@ return {
         stageImages.vignette.visible = false
         stageImages.vignette.alpha = 1
 
-        girlfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriend.lua")()
+        girlfriend = love.filesystem.load("sprites/characters/girlfriend/default.lua")()
 
         stageImages.desks.visible = true
 
