@@ -59,14 +59,14 @@ return {
 		weeks:initUI()
 
 		if song == 2 then
-			weeks:generateNotes("data/sayori/my confession/my confession.json")
+			weeks:generateNotes("data/songs/my confession/my confession.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
 		else
-			weeks:generateNotes("data/sayori/rain clouds/rain clouds.json")
+			weeks:generateNotes("data/songs/rain clouds/rain clouds.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else

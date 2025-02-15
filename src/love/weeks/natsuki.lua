@@ -59,14 +59,14 @@ return {
 		weeks:initUI()
 
 		if song == 1 then
-			weeks:generateNotes("data/natsuki/my sweets/my sweets.json")
+			weeks:generateNotes("data/songs/my sweets/my sweets.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
 		else
-			weeks:generateNotes("data/natsuki/baka/baka.json")
+			weeks:generateNotes("data/songs/baka/baka.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else

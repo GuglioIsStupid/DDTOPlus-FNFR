@@ -104,7 +104,7 @@ return {
         showPixelNotes = true
         whoHasPixelNotes = "enemy" -- can be enemy, boyfriend, or both
 
-		weeks:generateNotes("data/extra/wilted/wilted.json")
+		weeks:generateNotes("data/songs/wilted/wilted.json")
 		if storyMode and not died then
 			weeks:setupCountdown()
 		else

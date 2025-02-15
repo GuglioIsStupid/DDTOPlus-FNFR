@@ -254,14 +254,14 @@ return {
 		weeks:initUI()
 
 		if song == 1 then
-			weeks:generateNotes("data/mc/neet/neet.json")
+			weeks:generateNotes("data/songs/neet/neet.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
 		elseif song == 2 then
-			weeks:generateNotes("data/mc/you and me/you and me.json")
+			weeks:generateNotes("data/songs/you and me/you and me.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else
@@ -274,7 +274,7 @@ return {
                 enemyArrows[i].alpha = 0
             end
         else
-            weeks:generateNotes("data/mc/takeover medley/takeover medley.json")
+            weeks:generateNotes("data/songs/takeover medley/takeover medley.json")
 
             if storyMode and not died then
                 weeks:setupCountdown()
@@ -680,7 +680,7 @@ return {
             if input:pressed("gameLeft") then
                 -- Yuri
                 choosen = "yuri"
-                weeks:generateNotes("data/mc/you and me/you and me-yuri.json")
+                weeks:generateNotes("data/songs/you and me/you and me-yuri.json")
                 Timer.tween(1, SayoriCard, {y = 600})
                 Timer.tween(1, NatsukiCard, {y = 600})
                 Timer.tween(1, MonikaCard, {y = 600})
@@ -719,7 +719,7 @@ return {
             elseif input:pressed("gameDown") then
                 -- Sayori
                 choosen = "sayori"
-                weeks:generateNotes("data/mc/you and me/you and me-sayori.json")
+                weeks:generateNotes("data/songs/you and me/you and me-sayori.json")
                 Timer.tween(1, YuriCard, {y = 600})
                 Timer.tween(1, NatsukiCard, {y = 600})
                 Timer.tween(1, MonikaCard, {y = 600})
@@ -758,7 +758,7 @@ return {
             elseif input:pressed("gameRight") then
                 -- Natsuki
                 choosen = "natsuki"
-                weeks:generateNotes("data/mc/you and me/you and me-natsuki.json")
+                weeks:generateNotes("data/songs/you and me/you and me-natsuki.json")
                 Timer.tween(1, SayoriCard, {y = 600})
                 Timer.tween(1, MonikaCard, {y = 600})
                 Timer.tween(1, YuriCard, {y = 600})
@@ -797,7 +797,7 @@ return {
             elseif input:pressed("gameUp") then
                 -- Monika
                 choosen = "monika"
-                weeks:generateNotes("data/mc/you and me/you and me-monika.json")
+                weeks:generateNotes("data/songs/you and me/you and me-monika.json")
                 Timer.tween(1, SayoriCard, {y = 600})
                 Timer.tween(1, NatsukiCard, {y = 600})
                 Timer.tween(1, YuriCard, {y = 600})

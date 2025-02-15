@@ -20,6 +20,95 @@ function util.round(x)
     return x >= 0 and math.floor(x + .5) or math.ceil(x - .5) 
 end
 
+function util.split(inputstr, sep)
+    if sep == nil then
+        sep = "%s"
+    end
+    local t = {}
+    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+        table.insert(t, str)
+    end
+    return t
+end
+
+local invalidChars = " ~%%&\\;:\"',<>?#]+" -- Invalid characters for a flixel save file
+function util.getFlixelSave(company, title, localPath, name, newPath)
+    localPath = localPath or "ninjamuffin99"
+    name = name or "funkin"
+    newPath = newPath or false
+
+    if localPath == "" then
+        local path = company 
+        if path == nil or path == "" then
+            path = "HaxeFlixel"
+        else
+            path = path:gsub(invalidChars, "-")
+        end
+
+        localPath = path
+    end
+    local directory = love.filesystem.getAppdataDirectory() .. "/"
+    local path = ""
+
+    if newPath then
+        path = directory .. localPath .. "/"
+    else
+        path = directory .. company .. "/" .. title .. "/" .. localPath .. "/"
+    end
+    
+    name = name:gsub("//", "/")
+    name = name:gsub("//", "/")
+
+    if util.startsWith(name, "/") then
+        name = name:sub(2)
+    end
+
+    if util.endsWith(name, "/") then
+        name = name:sub(1, #name - 1)
+    end
+
+    if name:find("/") then
+        local split = util.split(name, "/")
+        name = ""
+
+        for i = 1, #split - 1 do
+            name = name .. "#" .. split[i] .. "/"
+        end
+
+        name = name .. split[#split]
+    end
+
+    -- print(path .. name .. ".sol")
+
+    local file = io.open(path .. name .. ".sol", "r")
+    if file then
+        file:close()
+        return true
+    end
+
+    return false
+end
+
+function util.getFNFRSave(identity)
+end
+
+local checkForFlixel = love.system.getOS() ~= "NX"
+function util.getModSave(identity, ...)
+    if type(identity) == "string" then -- There is a known port of the mod to FNFR
+        if util.getFNFRSave(identity) then
+            return true
+        end
+    end
+
+    if checkForFlixel then
+        return util.getFlixelSave(...)
+    end
+
+    return false
+end
+
+print(util.getModSave(nil, "Hotline024", "Hotline024"))
+
 -- God like coding
 --[[
 function util.🍰(🥰, 🥵)

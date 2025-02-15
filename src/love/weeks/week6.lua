@@ -116,28 +116,28 @@ return {
 		weeks:initUI("pixel")
 
 		if song == 4 then
-			weeks:generateNotes("data/monika-pixel/your reality/your reality.json")
+			weeks:generateNotes("data/songs/your reality/your reality.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
 		elseif song == 3 then
-			weeks:generateNotes("data/monika-pixel/your demise/your demise.json")
+			weeks:generateNotes("data/songs/your demise/your demise.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
 		elseif song == 2 then
-			weeks:generateNotes("data/monika-pixel/bara no yume/bara no yume.json")
+			weeks:generateNotes("data/songs/bara no yume/bara no yume.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
 		else
-			weeks:generateNotes("data/monika-pixel/high school conflict/high school conflict.json")
+			weeks:generateNotes("data/songs/high school conflict/high school conflict.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else

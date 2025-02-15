@@ -33,7 +33,7 @@ return {
     initUI = function (self)
         weeks:initUI("pixel")
 
-        weeks:generateNotes("data/extra/dual demise/dual demise.json")
+        weeks:generateNotes("data/songs/dual demise/dual demise.json")
 
         if storyMode and not died then
             weeks:setupCountdown()

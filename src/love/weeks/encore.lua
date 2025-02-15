@@ -131,14 +131,14 @@ return {
 		weeks:initUI()
 
         if song == 1 then
-            weeks:generateNotes("data/encore/hot air balloon/hot air balloon.json")
+            weeks:generateNotes("data/songs/hot air balloon/hot air balloon.json")
         elseif song == 2 then
-            weeks:generateNotes("data/encore/shrinking violet/shrinking violet.json")
+            weeks:generateNotes("data/songs/shrinking violet/shrinking violet.json")
         elseif song == 3 then
-            weeks:generateNotes("data/encore/joyride/joyride.json")
+            weeks:generateNotes("data/songs/joyride/joyride.json")
         elseif song == 4 then
-            weeks:generateNotes("data/encore/our harmony/our harmony.json")
-            lyrics.set("data/encore/our harmony/lyrics.txt")
+            weeks:generateNotes("data/songs/our harmony/our harmony.json")
+            lyrics.set("data/songs/our harmony/lyrics.txt")
         end
 		
 		if storyMode and not died then

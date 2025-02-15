@@ -33,7 +33,7 @@ return {
     initUI = function (self)
         weeks:initUI()
 
-        weeks:generateNotes("data/extra/libitina/libitina.json")
+        weeks:generateNotes("data/songs/libitina/libitina.json")
 
         if storyMode and not died then
             weeks:setupCountdown()

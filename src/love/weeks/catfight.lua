@@ -63,7 +63,7 @@ return {
 	initUI = function(self)
 		weeks:initUI()
 
-		weeks:generateNotes("data/extra/catfight/catfight.json")
+		weeks:generateNotes("data/songs/catfight/catfight.json")
 		if storyMode and not died then
 			weeks:setupCountdown()
 		else

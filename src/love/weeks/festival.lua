@@ -117,19 +117,19 @@ return {
 		weeks:initUI()
 
         if song == 1 then
-            weeks:generateNotes("data/festival/crucify (yuri mix)/crucify (yuri mix).json")
+            weeks:generateNotes("data/songs/crucify (yuri mix)/crucify (yuri mix).json")
         elseif song == 2 then
-            weeks:generateNotes("data/festival/beathoven (natsuki mix)/beathoven (natsuki mix).json")
+            weeks:generateNotes("data/songs/beathoven (natsuki mix)/beathoven (natsuki mix).json")
         elseif song == 3 then
-            weeks:generateNotes("data/festival/it's complicated (sayori mix)/it's complicated (sayori mix).json")
+            weeks:generateNotes("data/songs/it's complicated (sayori mix)/it's complicated (sayori mix).json")
         elseif song == 4 then
-            weeks:generateNotes("data/festival/glitcher (monika mix)/glitcher (monika mix).json")
+            weeks:generateNotes("data/songs/glitcher (monika mix)/glitcher (monika mix).json")
             FORCEP2NOMATTERWHAT = true
             hasPixelNotes = true
             whoHasPixelNotes = "none"
             showPixelNotes = false
         elseif song == 5 then
-            weeks:generateNotes("data/festival/titular (mc mix)/titular (mc mix).json")
+            weeks:generateNotes("data/songs/titular (mc mix)/titular (mc mix).json")
             FORCEP2NOMATTERWHAT = false
         end
 		

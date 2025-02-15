@@ -44,12 +44,12 @@ return {
         weeks:initUI()
         print(difficulty)
         if difficulty == "-hard" then
-            weeks:generateNotes("data/extra/epiphany/epiphany.json")
+            weeks:generateNotes("data/songs/epiphany/epiphany.json")
             hasLyrics = false
         else
-            weeks:generateNotes("data/extra/epiphany/epiphany-hard.json")
+            weeks:generateNotes("data/songs/epiphany/epiphany-hard.json")
             hasLyrics = true
-            lyrics.set("data/extra/epiphany/lyrics.txt")
+            lyrics.set("data/songs/epiphany/lyrics.txt")
             print("lyrics")
         end 
 

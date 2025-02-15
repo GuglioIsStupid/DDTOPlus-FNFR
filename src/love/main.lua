@@ -103,7 +103,7 @@ function borderedText(text,x,y,r,sx,sy,ox,oy,kx,ky,alpha)
 	graphics.setColor(1,1,1, alpha or 1)
 	love.graphics.print(text,x,y,r,sx,sy,a,ox,oy,kx,ky)
 end
-function borderedText2(text,x,y,r,sx,sy,col1,col2, ox,oy,kx,ky,alpha)
+function borderedText2(text,x,y,r,sx,sy,col1,col2, ox,oy,kx,ky,alpha, forcedSize)
 	local x = x or 0
 	local y = y or 0
 	local r = r or 0
@@ -113,6 +113,7 @@ function borderedText2(text,x,y,r,sx,sy,col1,col2, ox,oy,kx,ky,alpha)
 	local oy = oy or 0
 	local kx = kx or 0
 	local ky = ky or 0
+	local forcedSize = forcedSize or 2
 
 	local col1 = col1 or {0,0,0}
 	local col2 = col2 or {1,1,1}
@@ -121,8 +122,8 @@ function borderedText2(text,x,y,r,sx,sy,col1,col2, ox,oy,kx,ky,alpha)
 	love.graphics.print(text,x+3,y,r,sx,sy,a,ox,oy,kx,ky)
 	love.graphics.print(text,x,y-3,r,sx,sy,a,ox,oy,kx,ky)
 	love.graphics.print(text,x,y+3,r,sx,sy,a,ox,oy,kx,ky) ]]
-	for nx = -3, 3 do
-		for ny = -3, 3 do
+	for nx = -forcedSize, forcedSize do
+		for ny = -forcedSize, forcedSize do
 			love.graphics.print(text,x+nx,y+ny,r,sx,sy,a,ox,oy,kx,ky)
 		end
 	end
@@ -599,6 +600,8 @@ function love.load()
 
 	set_preset()
 
+	math.randomseed(os.time())
+
 	SaveData = {
 		costumes = {
 			sayori = "default",
@@ -609,7 +612,47 @@ function love.load()
 			boyfriend = "default",
 			girlfriend = "default",
 		},
-		songs = {},
+		songs = {
+			beatPrologue = false,
+			beatSayori = false,
+			beatNatsuki = false,
+			beatYuri = false,
+			beatMonika = false,
+			beatFestival = false,
+			beatEncore = false,
+			beatProtag = false,
+			beatSide = false,
+			unlockedEpiphany = false,
+			beatEpiphany = false,
+			beatCatfight = false,
+			beatVA11HallA = false,
+			beatLibitina = false,
+		},
+		costumeUnlock = {
+			unlockHFCostume = false,
+			unlockAntipathyCostume = false,
+			unlockSoftCostume = false,
+		},
+		yam = {
+			yamMonika = false,
+			yamSayori = false,
+			yamNatsuki = false,
+			yamYuri = false,
+			yamLoss = false,
+		},
+		popup = {
+			popupPrologue = false,
+			popupSayori = false,
+			popupNatsuki = false,
+			popupYuri = false,
+			popupMonika = false,
+			popupFestival = false,
+			popupEncore = false,
+			popupProtag = false,
+			popupSide = false,
+			popupEpiphany = false,
+			popupLibitina = false,
+		}
 	}
 
 	costumes = {
@@ -653,7 +696,7 @@ function love.load()
 	pauseFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 96)
 	weekFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 84)
 	weekFontSmall = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 54)
-	riffic = love.graphics.newFont("fonts/riffic.ttf", 20)
+	riffic = love.graphics.newFont("fonts/riffic.ttf", 20 * 1.5)
 
 	weekNum = 1
 	songDifficulty = 2

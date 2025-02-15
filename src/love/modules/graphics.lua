@@ -254,7 +254,15 @@ return {
 			animate = function(self, animName, loopAnim, func)
 				self.holdTimer = 0
 				if not self:isAnimName(animName) then
-					return
+					if not util.endsWith(animName, " alt") then
+						return
+					else
+						--[[ animName = animName:gsub(" alt$")
+						if not self:isAnimName(animName) then
+							return
+						end ]]
+						return -- why is the above code broken
+					end
 				end
 				if self.flipX and self.isCharacter then 
 					if animName == "singLEFT" then 

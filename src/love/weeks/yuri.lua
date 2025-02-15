@@ -82,14 +82,14 @@ return {
 		weeks:initUI()
 
 		if song == 1 then
-			weeks:generateNotes("data/yuri/deep breaths/deep breaths.json")
+			weeks:generateNotes("data/songs/deep breaths/deep breaths.json")
 			if storyMode and not died then
 				weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
 		else
-			weeks:generateNotes("data/yuri/obsession/obsession.json")
+			weeks:generateNotes("data/songs/obsession/obsession.json")
 
             enemy2 = love.filesystem.load("sprites/characters/yuri/" .. SaveData.costumes.yuri .. "crazy.lua")()
             enemy2.x, enemy2.y = enemy2.x - 400, enemy.y + 105
