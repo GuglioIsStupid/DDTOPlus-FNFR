@@ -55,6 +55,8 @@ return {
             if t == 1 then
                 -- monika becoems pixel
                 enemy = senpaiNonpixel
+                enemy2 = senpaiNonpixel
+                enemy3 = senpaiNonpixel
                 boyfriend = monikapixel
                 boyfriend.flipX = true
                 enemyIsPixel = false
@@ -153,6 +155,8 @@ return {
                     countNum = 7
                 elseif s == 848 and countNum == 7 then
                     enemy = senpaiAngryNonpixel
+                    enemy2 = senpaiAngryNonpixel
+                    enemy3 = senpaiAngryNonpixel
                     countNum = 8
                 elseif s == 912 and countNum == 8 then
                     --wilted shiz

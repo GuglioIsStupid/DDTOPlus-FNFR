@@ -117,10 +117,15 @@ function borderedText2(text,x,y,r,sx,sy,col1,col2, ox,oy,kx,ky,alpha)
 	local col1 = col1 or {0,0,0}
 	local col2 = col2 or {1,1,1}
 	graphics.setColor(col1[1],col1[2],col1[3], alpha or 1)
-	love.graphics.print(text,x-3,y,r,sx,sy,a,ox,oy,kx,ky)
+	--[[ love.graphics.print(text,x-3,y,r,sx,sy,a,ox,oy,kx,ky)
 	love.graphics.print(text,x+3,y,r,sx,sy,a,ox,oy,kx,ky)
 	love.graphics.print(text,x,y-3,r,sx,sy,a,ox,oy,kx,ky)
-	love.graphics.print(text,x,y+3,r,sx,sy,a,ox,oy,kx,ky)
+	love.graphics.print(text,x,y+3,r,sx,sy,a,ox,oy,kx,ky) ]]
+	for nx = -3, 3 do
+		for ny = -3, 3 do
+			love.graphics.print(text,x+nx,y+ny,r,sx,sy,a,ox,oy,kx,ky)
+		end
+	end
 	graphics.setColor(col2[1],col2[2],col2[3], alpha or 1)
 	love.graphics.print(text,x,y,r,sx,sy,a,ox,oy,kx,ky)
 	graphics.setColor(1,1,1, alpha or 1)

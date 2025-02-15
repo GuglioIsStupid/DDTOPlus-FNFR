@@ -165,6 +165,11 @@ return graphics.newSprite(
 		["singRIGHT"] = {start = 85, stop = 98, speed = 24, offsetX = 0, offsetY = 0},
 		["singUP"] = {start = 113, stop = 126, speed = 24, offsetX = 0, offsetY = 0},
 
+		["singDOWN alt"] = {start = 29, stop = 42, speed = 24, offsetX = 0, offsetY = 0},
+		["singLEFT alt"] = {start = 57, stop = 70, speed = 24, offsetX = 0, offsetY = 0},
+		["singRIGHT alt"] = {start = 85, stop = 98, speed = 24, offsetX = 0, offsetY = 0},
+		["singUP alt"] = {start = 113, stop = 126, speed = 24, offsetX = 0, offsetY = 0},
+
 		["idle"] = {start = 1, stop = 14, speed = 24, offsetX = 0, offsetY = 0},
 		["swap"] = {start = 141, stop = 156, speed = 24, offsetX = 0, offsetY = 0},
 	},

@@ -132,7 +132,7 @@ return {
 			voices = love.audio.newSource("songs/mc/you and me/Voices.ogg", "stream")
 
             MonikaCard = love.filesystem.load("sprites/ynm/monika.lua")()
-            SayoriCard = love.filesystem.load("sprites/ynm/".. SaveData.costumes.sayori .. ".lua")()
+            SayoriCard = love.filesystem.load("sprites/ynm/sayori.lua")()
             NatsukiCard = love.filesystem.load("sprites/ynm/natsuki.lua")()
             YuriCard = love.filesystem.load("sprites/ynm/yuri.lua")()
 
@@ -167,6 +167,8 @@ return {
 
             yuri.x = -300
             yuri.y = -160
+
+            scrollingBG.alpha = 0
         else
             inst = love.audio.newSource("songs/mc/takeover medley/Inst.ogg", "stream")
             voices = love.audio.newSource("songs/mc/takeover medley/Voices.ogg", "stream")
@@ -930,13 +932,15 @@ return {
             love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
             love.graphics.scale(0.85, 0.85)
             love.graphics.push()
-                for i = 1, #shownStickers do
-                    if shownStickers[i].img ~= nil then
-                        shownStickers[i].img.x = shownStickers[i].x
-                        shownStickers[i].img.y = shownStickers[i].y
-                        graphics.setColor(1,1,1,shownStickers[i].alpha)
-                        shownStickers[i].img:draw()
-                        graphics.setColor(1,1,1,1)
+                if shownStickers then
+                    for i = 1, #shownStickers do
+                        if shownStickers[i].img ~= nil then
+                            shownStickers[i].img.x = shownStickers[i].x
+                            shownStickers[i].img.y = shownStickers[i].y
+                            graphics.setColor(1,1,1,shownStickers[i].alpha)
+                            shownStickers[i].img:draw()
+                            graphics.setColor(1,1,1,1)
+                        end
                     end
                 end
             love.graphics.pop()

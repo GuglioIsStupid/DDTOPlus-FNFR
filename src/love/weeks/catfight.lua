@@ -145,7 +145,7 @@ return {
 		if musicTime >= 111180 and countNum == 3 then
 			camera.mustHit = false
 			camera.zooming = false
-			camera:moveToMain(0.25, girlfriend.x, girlfriend.y -150)
+			camera:moveToMain(0.25, girlfriend.x, girlfriend.y - 300)
 			Timer.tween(0.45, camera, {zoom=1.55}, "out-sine")
 			girlfriend:animate("popout")
 			girlfriend.danceIdle = true

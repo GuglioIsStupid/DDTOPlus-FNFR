@@ -267,6 +267,9 @@ return {
 			end
 		end
 
+		camera.zooming = true
+		camera.locked = false
+
 		graphics:fadeInWipe(0.6)
 	end,
 

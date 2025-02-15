@@ -149,10 +149,13 @@ return {
             love.graphics.pop()
             left:draw()
             logo:draw()
+            local lastFont = love.graphics.getFont()
+            love.graphics.setFont(riffic)
             borderedText2("Story Mode", storyPos.x, storyPos.y, 0, 1.25, 1.25, (curOption ~= "story" and {1,134/255,215/255} or {1,200/255,215/255}), (curOption ~= "story" and {1,245/255,245/255} or {1,1,1}))
             borderedText2("Freeplay", freeplayPos.x, freeplayPos.y, 0, 1.25, 1.25, (curOption ~= "freeplay" and {1,134/255,215/255} or {1,200/255,215/255}), (curOption ~= "freeplay" and {1,245/255,245/255} or {1,1,1}))
             borderedText2("Options", optionsPos.x, optionsPos.y, 0, 1.25, 1.25, (curOption ~= "options" and {1,134/255,215/255} or {1,200/255,215/255}), (curOption ~= "options" and {1,245/255,245/255} or {1,1,1}))
             borderedText2("Exit Game", exitPos.x, exitPos.y, 0, 1.25, 1.25, (curOption ~= "exit" and {1,134/255,215/255} or {1,200/255,215/255}), (curOption ~= "exit" and {1,245/255,245/255} or {1,1,1}))
+            love.graphics.setFont(lastFont)
         love.graphics.pop()
     end,
 
