@@ -232,6 +232,7 @@ function love.load() -- Todo, add custom framerate support
 end
 ]]
 
+UNLOCKED_ALL = true
 function love.load()
 	paused = false
 	settings = {}
@@ -428,8 +429,8 @@ function love.load()
 	-- Load Menus
 	clickStart = require "states.click-start"
 	menu = require "states.doki.menu"
-	menuWeek = require "states.menu.menuWeek"
-	menuFreeplay = require "states.menu.menuFreeplay"
+	menuWeek = require "states.doki.story"
+	menuFreeplay = require "states.doki.freeplay"
 	menuSettings = require "states.menu.menuSettings"
 	menuCredits = require "states.menu.menuCredits"
 	menuSelect = require "states.doki.select"
@@ -603,6 +604,7 @@ function love.load()
 	math.randomseed(os.time())
 
 	SaveData = {
+		weekUnlocked = 1,
 		costumes = {
 			sayori = "default",
 			natsuki = "default",
@@ -627,6 +629,7 @@ function love.load()
 			beatCatfight = false,
 			beatVA11HallA = false,
 			beatLibitina = false,
+			sideStatus = {}
 		},
 		costumeUnlock = {
 			unlockHFCostume = false,
@@ -654,6 +657,16 @@ function love.load()
 			popupLibitina = false,
 		}
 	}
+
+	if UNLOCKED_ALL then
+		SaveData.weekUnlocked = 10
+		print("Unlocked")
+		for i, v in pairs(SaveData.songs) do
+			if type(v) == "boolean" then
+				SaveData.songs[i] = true
+			end
+		end
+	end
 
 	costumes = {
 		["sayori"] = {
@@ -697,6 +710,9 @@ function love.load()
 	weekFont = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 84)
 	weekFontSmall = love.graphics.newFont("fonts/Dosis-SemiBold.ttf", 54)
 	riffic = love.graphics.newFont("fonts/riffic.ttf", 20 * 1.5)
+	tracklistFont = love.graphics.newFont("fonts/riffic.ttf", 32)
+	weekTitleFont = love.graphics.newFont("fonts/riffic.ttf", 32 * 1.2)
+	freeplayFont = love.graphics.newFont("fonts/Halogen.otf", 29)
 
 	weekNum = 1
 	songDifficulty = 2

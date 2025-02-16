@@ -135,6 +135,8 @@ return {
 			else
 				status.setLoading(true)
 
+				SaveData.songs.beatNatsuki = true
+
 				graphics:fadeOutWipe(
 					0.7,
 					function()

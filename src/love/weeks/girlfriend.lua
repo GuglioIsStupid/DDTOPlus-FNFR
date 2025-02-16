@@ -128,6 +128,14 @@ return {
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
 			status.setLoading(true)
 
+			if not SaveData.songs.beatSide and not util.contains(SaveData.songs.sideStatus, "love n funkin") then
+				table.insert(SaveData.songs.sideStatus, "love n funkin")
+
+				if #SaveData.songs.sideStatus == 4 then
+					SaveData.songs.beatSide = true
+				end
+			end
+
 			graphics:fadeOutWipe(
 				0.7,
 				function()

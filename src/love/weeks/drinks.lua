@@ -1,6 +1,3 @@
-function love.math.randomFloat(min, max)
-    return love.math.random() * (max - min) + min
-end
 return {
     enter = function (self, from, songNum, songAppend)
         love.graphics.setDefaultFilter("nearest")

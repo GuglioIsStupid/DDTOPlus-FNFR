@@ -208,9 +208,16 @@ return {
 
         static:send("iTime", love.timer.getTime())
 
-
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
 			status.setLoading(true)
+
+            if not SaveData.songs.beatSide and not util.contains(SaveData.songs.sideStatus, "wilted") then
+				table.insert(SaveData.songs.sideStatus, "wilted")
+
+				if #SaveData.songs.sideStatus == 4 then
+					SaveData.songs.beatSide = true
+				end
+			end
 
 			graphics:fadeOutWipe(
 				0.7,
@@ -229,8 +236,6 @@ return {
 				dialogue.next()
 			end
 		end
-
-        print(boyfriend.flipX)
 
 		if health >= 1.595 then
 			if enemyIcon:getAnimName() == "yuri" then

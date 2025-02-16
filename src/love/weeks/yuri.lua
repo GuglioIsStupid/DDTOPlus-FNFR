@@ -191,6 +191,8 @@ return {
 			else
 				status.setLoading(true)
 
+                SaveData.songs.beatYuri = true
+
 				graphics:fadeOutWipe(
 					0.7,
 					function()

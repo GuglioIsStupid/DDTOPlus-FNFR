@@ -223,6 +223,8 @@ return {
 			else
 				status.setLoading(true)
 
+                SaveData.songs.beatFestival = true
+
 				graphics:fadeOutWipe(
 					0.7,
 					function()

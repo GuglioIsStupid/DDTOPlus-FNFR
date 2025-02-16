@@ -655,6 +655,8 @@ return {
 			else
 				status.setLoading(true)
 
+                SaveData.songs.beatProtag = true
+
 				graphics:fadeOutWipe(
 					0.7,
 					function()

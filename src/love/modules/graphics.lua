@@ -235,6 +235,12 @@ return {
 
 			setSheet = function(self, imageData)
 				sheet = imageData
+				if type(sheet) == "string" then
+					if not graphics.cache[sheet] then 
+						graphics.cache[sheet] = love.graphics.newImage(sheet)
+					end
+					sheet = graphics.cache[sheet]
+				end
 				sheetWidth = sheet:getWidth()
 				sheetHeight = sheet:getHeight()
 
@@ -317,6 +323,12 @@ return {
 			end,
 			getOptions = function(self)
 				return options
+			end,
+
+			setFrame = function(self, frameNum)
+				-- sets frame BASED OFF THE ANIMATION
+				-- so we gotta #math
+				frame = anim.start + frameNum
 			end,
 
 			update = function(self, dt)

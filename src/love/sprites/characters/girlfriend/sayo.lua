@@ -204,17 +204,17 @@ return graphics.newSprite(
 		{x = 2854, y = 3465, width = 699, height = 614, offsetX = -2, offsetY = -19, offsetWidth = 703, offsetHeight = 633} -- 174: Sayo_singUP0014
 	},
 	{
-		["danceLeft"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 0},
-		["danceRight"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 0},
+		["danceLeft"] = {start = 1, stop = 15, speed = 24, offsetX = 0, offsetY = 106},
+		["danceRight"] = {start = 16, stop = 30, speed = 24, offsetX = 0, offsetY = 106},
         ["idle"] = {start = 31, stop = 45, speed = 24, offsetX = 0, offsetY = 0},
 
-        ["singUP"] = {start = 160, stop = 174, speed = 24, offsetX = 0, offsetY = 0},
-        ["singLEFT"] = {start = 130, stop = 144, speed = 24, offsetX = 0, offsetY = 0},
-        ["singRIGHT"] = {start = 145, stop = 159, speed = 24, offsetX = 0, offsetY = 0},
-        ["singDOWN"] = {start = 115, stop = 129, speed = 24, offsetX = 0, offsetY = 0},
+        ["singUP"] = {start = 160, stop = 174, speed = 24, offsetX = 0, offsetY = 141},
+        ["singLEFT"] = {start = 130, stop = 144, speed = 24, offsetX = 0, offsetY = 111},
+        ["singRIGHT"] = {start = 145, stop = 159, speed = 24, offsetX = 0, offsetY = 104},
+        ["singDOWN"] = {start = 115, stop = 129, speed = 24, offsetX = 0, offsetY = 106},
 
-        ["scared"] = {start = 71, stop = 114, speed = 24, offsetX = 0, offsetY = 0},
-        ["popout"] = {start = 46, stop = 70, speed = 24, offsetX = 0, offsetY = 0},
+        ["scared"] = {start = 71, stop = 114, speed = 24, offsetX = 0, offsetY = 107},
+        ["popout"] = {start = 46, stop = 70, speed = 24, offsetX = 0, offsetY = 112},
 	},
 	"idle",
 	false,

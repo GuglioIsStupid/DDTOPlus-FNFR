@@ -70,36 +70,10 @@ return {
 			previousFrameTime = love.timer.getTime() * 1000
 		end
 
-		if beatHandler.onStep() then
-            local camTimer
-            if camTimer then
-                Timer.cancel(camTimer)
-            end
-			local s = beatHandler.curStep
-			if song == 1 then
-                
-            elseif song == 2 then
-                
-            elseif song == 3 then
-                
-            elseif song == 4 then
-                
-            end
-		end
-        if beatHandler.onBeat() then
-            local b = beatHandler.curBeat
-            if song == 1 then
-                
-            elseif song == 2 then
-                
-            elseif song == 3 then
-                
-            elseif song == 4 then
-                
-            end
-        end
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
 			status.setLoading(true)
+
+			SaveData.songs.beatMonika = true
 
 			graphics:fadeOutWipe(
 				0.7,

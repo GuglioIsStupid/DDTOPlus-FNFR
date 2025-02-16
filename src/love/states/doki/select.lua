@@ -1,6 +1,7 @@
 local char
 local firstStart = true
 local optionShit = {}
+local addVally = false
 return {
     enter = function(self)
         scrollingBG = {
@@ -72,11 +73,11 @@ return {
         char = love.filesystem.load("sprites/menu/chars/" .. char .. ".lua")()
 
         left = graphics.newImage(graphics.imagePath("menu/Credits_LeftSide"))
-        left.x = -450
+        left.x = -650
 
         logo = love.filesystem.load("sprites/menu/logo2.lua")()
         logo.sizeX, logo.sizeY = 0.525, 0.525
-        logo.x, logo.y = -415, -210
+        logo.x, logo.y = -615, -210
 
         graphics:fadeInWipe(0.3)
         curOption = "Story"
@@ -84,27 +85,27 @@ return {
         optionShit = {
             {
                 "Story",
-                pos = {x = -570, y = 0}
+                pos = {x = -770, y = 0}
             },
             {
                 "Freeplay",
-                pos = {x = -570, y = 0}
+                pos = {x = -770, y = 0}
             },
             {
                 "Gallery",
-                pos = {x = -570, y = 0}
+                pos = {x = -770, y = 0}
             },
             {
                 "Credits",
-                pos = {x = -570, y = 0}
+                pos = {x = -770, y = 0}
             },
             {
                 "Options",
-                pos = {x = -570, y = 0}
+                pos = {x = -770, y = 0}
             },
             {
                 "Exit Game",
-                pos = {x = -570, y = 0}
+                pos = {x = -770, y = 0}
             }
         }
         -- each option is seperateed by 50 px started at 30
@@ -117,7 +118,7 @@ return {
             end
         end
         if not SaveData.songs.beatPrologue then
-            removeFromName("Freeplay")
+            --removeFromName("Freeplay")
         end
         if not SaveData.songs.beatProtag then
             removeFromName("Credits")
@@ -142,6 +143,10 @@ return {
             end
             left.x = -425
             logo.x = -395
+        end
+
+        if not SaveData.songs.beatVA11HallA and SaveData.songs.beatSide then
+            addVally = true
         end
 
         firstStart = false

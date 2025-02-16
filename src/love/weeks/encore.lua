@@ -292,6 +292,8 @@ return {
 			else
 				status.setLoading(true)
 
+                SaveData.songs.beatEncore = true
+
 				graphics:fadeOutWipe(
 					0.7,
 					function()

@@ -211,6 +211,8 @@ return {
 			else
 				status.setLoading(true)
 
+				SaveData.songs.beatPrologue = true
+
 				graphics:fadeOutWipe(
 					0.7,
 					function()

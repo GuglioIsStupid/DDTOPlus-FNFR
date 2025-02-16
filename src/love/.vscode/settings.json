@@ -1,9 +1,11 @@
 {
     "Lua.diagnostics.globals": [
-        "love"
+        "love",
+        "doingDialogue"
     ],
     "Lua.diagnostics.disable": [
-        "redundant-parameter"
+        "redundant-parameter",
+        "undefined-global"
     ],
     "Lua.runtime.version": "LuaJIT",
     "Lua.runtime.special": [],

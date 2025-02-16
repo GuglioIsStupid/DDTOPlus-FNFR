@@ -107,7 +107,45 @@ function util.getModSave(identity, ...)
     return false
 end
 
-print(util.getModSave(nil, "Hotline024", "Hotline024"))
+--[[
+public static function coolTextFile(path:String):Array<String>
+	{
+		var daList:Array<String> = OpenFlAssets.getText(path).trim().split('\n');
+
+		for (i in 0...daList.length)
+		{
+			daList[i] = daList[i].trim();
+		}
+
+		return daList;
+	}]]
+
+function util.coolTextFile(path)
+    local function trim(s)
+        return (s:gsub("^%s*(.-)%s*$", "%1"))
+    end
+
+    local daList = love.filesystem.read(path)
+    daList = trim(daList)
+    ---@diagnostic disable-next-line: cast-local-type
+    daList = util.split(daList, "\n")
+
+    for i = 1, #daList do
+        daList[i] = trim(daList[i])
+    end
+
+    return daList
+end
+
+function util.contains(tbl, value)
+    for i = 1, #tbl do
+        if tbl[i] == value then
+            return true
+        end
+    end
+
+    return false
+end
 
 -- God like coding
 --[[

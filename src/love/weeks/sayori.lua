@@ -168,6 +168,8 @@ return {
 			else
 				status.setLoading(true)
 
+				SaveData.songs.beatSayori = true
+
 				graphics:fadeOutWipe(
 					0.7,
 					function()
