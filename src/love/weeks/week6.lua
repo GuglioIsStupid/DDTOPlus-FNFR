@@ -21,13 +21,28 @@ local canvas, font
 
 local difficulty
 
+local dialogueFiles = {
+	{
+		start = "data/dialogue/high school conflict/IntroDialogue.json",
+		finish = "data/dialogue/high school conflict/EndDialogue.json"
+	},
+	{
+		start = "data/dialogue/bara no yume/IntroDialogue.json",
+		finish = "data/dialogue/bara no yume/EndDialogue.json"
+	},
+	{
+		start = "data/dialogue/your demise/IntroDialogue.json",
+		finish = "data/dialogue/your demise/EndDialogue.json"
+	}
+}
+
 return {
 	enter = function(self, from, songNum, songAppend)
 		love.graphics.setDefaultFilter("nearest")
 		weeks:enter("pixel")
 		stages["school"]:enter()
 
-		song = songNum
+		song = 3
 		difficulty = songAppend
 
 		camera.zoom = 0.85
@@ -117,29 +132,34 @@ return {
 
 		if song == 4 then
 			weeks:generateNotes("data/songs/your reality/your reality.json")
-			if storyMode and not died then
-				weeks:setupCountdown()
-			else
-				weeks:setupCountdown()
-			end
+			weeks:setupCountdown()
 		elseif song == 3 then
 			weeks:generateNotes("data/songs/your demise/your demise.json")
 			if storyMode and not died then
-				weeks:setupCountdown()
+				weeks:setupDialogue(dialogueFiles[song].start)
+				weeks.dialogueSequenceCallback = function()
+					weeks:setupCountdown()
+				end
 			else
 				weeks:setupCountdown()
 			end
 		elseif song == 2 then
 			weeks:generateNotes("data/songs/bara no yume/bara no yume.json")
 			if storyMode and not died then
-				weeks:setupCountdown()
+				weeks:setupDialogue(dialogueFiles[song].start)
+				weeks.dialogueSequenceCallback = function()
+					weeks:setupCountdown()
+				end
 			else
 				weeks:setupCountdown()
 			end
 		else
 			weeks:generateNotes("data/songs/high school conflict/high school conflict.json")
 			if storyMode and not died then
-				weeks:setupCountdown()
+				weeks:setupDialogue(dialogueFiles[song].start)
+				weeks.dialogueSequenceCallback = function()
+					weeks:setupCountdown()
+				end
 			else
 				weeks:setupCountdown()
 			end
@@ -204,31 +224,55 @@ return {
 			end
 		end
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
-			if storyMode and song < 4 then
-				song = song + 1
+			if storyMode and song < 3 then
+				inCutscene = true
+				weeks:setupDialogue(dialogueFiles[song].finish, {
+					isEndDialogue = true
+				})
+				inCutscene = true
+				weeks.dialogueSequenceCallback = function()
+					song = song + 1
 
-				self:load()
+					self:load()
+				end
 			else
-				status.setLoading(true)
+				if storyMode then
+					weeks:setupDialogue(dialogueFiles[song].finish, {
+						isEndDialogue = true
+					})
+					inCutscene = true
+					weeks.dialogueSequenceCallback = function()
+						status.setLoading(true)
 
-				SaveData.songs.beatPrologue = true
+						SaveData.songs.beatPrologue = true
 
-				graphics:fadeOutWipe(
-					0.7,
-					function()
-						Gamestate.switch(menu)
+						graphics:fadeOutWipe(
+							0.7,
+							function()
+								Gamestate.switch(menu)
 
-						status.setLoading(false)
+								status.setLoading(false)
+							end
+						)
 					end
-				)
+				else
+					status.setLoading(true)
+
+					graphics:fadeOutWipe(
+						0.7,
+						function()
+							Gamestate.switch(menu)
+
+							status.setLoading(false)
+						end
+					)
+				end
 			end
 		end
 
 		if inCutscene then
-			dialogue.doDialogue(dt)
-
 			if input:pressed("confirm") then
-				dialogue.next()
+				weeks:d_next()
 			end
 		end
 
@@ -275,11 +319,7 @@ return {
 			end
 		love.graphics.pop()
 
-		if inCutscene then 
-			dialogue.draw()
-		else
-			weeks:drawUI()
-		end
+		weeks:drawUI()
 	end,
 
 	leave = function(self)

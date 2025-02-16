@@ -89,7 +89,6 @@ return {
 
 			enemy:udraw()
 			boyfriend:udraw()
-			print("wtf")
 		love.graphics.pop()
     end,
 

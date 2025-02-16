@@ -233,6 +233,8 @@ return {
 
 			danced = false,
 
+			visible = true,
+
 			setSheet = function(self, imageData)
 				sheet = imageData
 				if type(sheet) == "string" then
@@ -427,6 +429,7 @@ return {
 			end,
 			
 			draw = function(self)
+				if not self.visible then return end
 				local flooredFrame = math.floor(frame)
 
 				if flooredFrame <= anim.stop then

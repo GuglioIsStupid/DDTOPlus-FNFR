@@ -193,10 +193,16 @@ return {
 			height = 95,
 		}
 
+		self.d_sprites = {}
+
 		mirrorMode = settings.mirrorMode
 	end,
 
 	load = function(self)
+		self.blackscreen = {
+			alpha = 0,
+			visible = false
+		}
 		changeIcons = true
 		showEnemyIcon = true
 		botplayY = 0
@@ -270,6 +276,8 @@ return {
 		camera.zooming = true
 		camera.locked = false
 
+		self.did = false
+
 		graphics:fadeInWipe(0.6)
 	end,
 
@@ -279,6 +287,321 @@ return {
 			ratingPercent = 0
 		elseif ratingPercent > 1 then
 			ratingPercent = 1
+		end
+	end,
+
+	setupDialogue = function(self, file, config)
+		if not storyMode then
+			return
+		end
+		self.dialogueSequenceCallback = function() end
+
+		self.displayDialogue = true
+
+		inCutscene = true
+
+		self.dialogueData = json.decode(love.filesystem.read(file))
+		if music then 
+			music:stop()
+		end
+		if self.dialogueData.startingMusic == "Lunchbox" then
+			music = love.audio.newSource("music/pixel/Lunchbox.ogg", "stream")
+		else
+			music = nil
+		end
+
+		self.boxes = {}
+		self.speakers = {}
+
+		if self.dialogueData.initStyle == "pixel" then
+			self.boxes["monika"] = love.filesystem.load("sprites/week6/dialogueBox-monika.lua")()
+			self.boxes["default"] = love.filesystem.load("sprites/week6/dialogueBox.lua")()
+
+			self.boxes["monika"].x = 650
+			self.boxes["default"].x = 650
+			self.boxes["monika"].y = 375
+			self.boxes["default"].y = 375
+
+			self.speakers["monika"] = love.filesystem.load("sprites/dialogue/pixel/monika.lua")()
+			self.speakers["bf"] = love.filesystem.load("sprites/dialogue/pixel/bf.lua")()
+			self.speakers["senpai"] = love.filesystem.load("sprites/dialogue/pixel/senpai.lua")()
+
+			self.speakers["monika"].y = 205
+			self.speakers["bf"].y = 205
+			self.speakers["senpai"].y = 205
+
+			self.boxes["monika"].sizeX, self.boxes["monika"].sizeY = 5, 6
+			self.boxes["default"].sizeX, self.boxes["default"].sizeY = 5, 6
+
+			self.speakers["monika"].sizeX, self.speakers["monika"].sizeY = 6, 6
+			self.speakers["bf"].sizeX, self.speakers["bf"].sizeY = 6, 6
+			self.speakers["senpai"].sizeX, self.speakers["senpai"].sizeY = 6, 6
+
+			self.dialogueSounds = {
+				text = love.audio.newSource("sounds/pixel/text.ogg", "static"),
+				confirm = love.audio.newSource("sounds/pixel/continue-text.ogg", "static"),
+			}
+		end
+
+		self.d_cur = 1
+		self.d_timer = 0
+		self.d_progress = 1
+		self.d_output = ""
+		self.d_isDone = false
+		self.d_charSpeaking = ""
+		self.d_fullDialogue = ""
+		self.d_curExpression = ""
+		self.d_rightSpr = nil
+		self.d_leftSpr = nil
+
+		self.d_sprites = {}
+
+		self.d_isEndDialogue = config and config.isEndDialogue or false
+
+		if music then
+			music:setLooping(true)
+			music:play()
+		end
+	end,
+
+	d_update = function(self, dt)
+		for i = 1, #self.d_sprites do
+			self.d_sprites[i]:update(dt)
+		end
+		if self.d_isDone then
+			return
+		end
+		if not self.dialogueData then
+			return
+		end
+		-- is next char different?
+		if self.d_charSpeaking ~= self.dialogueData.dialogue[self.d_cur].name and self.speakers[self.d_charSpeaking] then
+			self.speakers[self.d_charSpeaking].visible = true
+		else
+			if self.d_side ~= self.dialogueData.dialogue[self.d_cur].side and self.speakers[self.d_charSpeaking] then
+				self.speakers[self.d_charSpeaking].visible = true
+			end
+		end
+		self.d_charSpeaking = self.dialogueData.dialogue[self.d_cur].name
+		self.d_curExpression = self.dialogueData.dialogue[self.d_cur].expression
+		self.d_isCommand = self.dialogueData.dialogue[self.d_cur].isCommand
+		self.d_side = self.dialogueData.dialogue[self.d_cur].side
+		self.d_fullDialogue = self.dialogueData.dialogue[self.d_cur].string
+
+		if not self.d_isCommand then
+			if self.speakers[self.d_charSpeaking] then
+				if self.d_side == "left" then
+					self.speakers[self.d_charSpeaking].x = 340
+					self.d_leftSpr = self.speakers[self.d_charSpeaking]
+				elseif self.d_side == "right" then
+					self.speakers[self.d_charSpeaking].x = 980
+					self.speakers[self.d_charSpeaking].flipX = true
+					self.d_rightSpr = self.speakers[self.d_charSpeaking]
+				else
+					self.speakers[self.d_charSpeaking].x = 640
+				end
+				self.speakers[self.d_charSpeaking]:animate(self.d_curExpression)
+				self.speakers[self.d_charSpeaking]:update(dt)
+			end
+
+			if self.boxes[self.d_charSpeaking] then
+				self.boxes[self.d_charSpeaking]:update(dt)
+			else
+				self.boxes["default"]:update(dt)
+			end
+
+			if music then
+				if not music:isPlaying() then
+					music:play()
+				end
+			end
+
+			self.d_timer = self.d_timer + dt
+
+			if self.d_timer > 0.05 then
+				if self.d_progress < #self.d_fullDialogue then
+					self.dialogueSounds.text:play()
+					self.d_progress = self.d_progress + 1
+					self.d_output = self.d_fullDialogue:sub(1, math.floor(self.d_progress))
+
+					self.d_timer = 0
+				else
+					self.d_timer = 0
+				end
+			end
+		else
+
+			self:d_next(true)
+			self:d_command()
+		end
+	end,
+
+	dialogueSequenceCallback = function(self)
+		
+	end,
+	
+	did = false,
+
+	d_command = function(self)
+		if self.d_isDone then
+			return
+		end
+		local cmd = self.d_charSpeaking
+		local arg = self.d_fullDialogue
+		local duration = self.dialogueData.dialogue[self.d_cur].duration
+
+		if cmd == "playsound" then
+		elseif cmd == "startmusic" then
+		elseif cmd == "glitch" then
+		elseif cmd == "autoskip" then
+		elseif cmd == "hideright" then
+			if self.d_rightSpr then
+				self.d_rightSpr.visible = false
+			end
+		elseif cmd == "hideleft" then
+			if self.d_leftSpr then
+				self.d_leftSpr.visible = false
+			end
+		elseif cmd == "crash" then
+			-- save data
+			error(":)")
+		elseif cmd == "showbackgroundImage" then
+		elseif cmd == "hidebackground" then
+		elseif cmd == "fadeout" then
+		elseif cmd == "fadein" then
+		elseif cmd == "hidedialogue" then
+		elseif cmd == "hidebgfade" then
+		elseif cmd == "showbgFade" then
+		elseif cmd == "flash" then
+		elseif cmd == "shake" then
+		elseif cmd == "fadecg" then
+		elseif cmd == "swapstyle" or cmd == "styleswap" then
+		elseif cmd == "playcutscene" then
+			self.displayDialogue = false
+
+			self:playbackCutscene(arg, duration)
+		end
+
+		self:d_next(true)
+	end,
+
+	d_next = function(self, dontDoSound)
+		if not self.dialogueData then
+			return
+		end
+		if not self.displayDialogue then
+			return
+		end
+		if not self.d_fullDialogue then
+			return
+		end
+		if not dontDoSound then
+			self.dialogueSounds.confirm:play()
+		end
+
+		if self.d_progress < #self.d_fullDialogue then
+			self.d_progress = #self.d_fullDialogue
+			self.d_output = self.d_fullDialogue
+		else
+			if self.d_cur < #self.dialogueData.dialogue then
+				self.d_cur = self.d_cur + 1
+				self.d_timer = 0
+				self.d_progress = 1
+				self.d_output = ""
+
+				if self.speakers[self.d_charSpeaking] then
+					if self.speakers[self.d_charSpeaking].repeatAnim then
+						self.speakers[self.d_charSpeaking]:animate(self.d_curExpression)
+					end
+				end
+			
+				if self.boxes[self.d_charSpeaking] then
+					if self.boxes[self.d_charSpeaking].repeatAnim then
+						self.boxes[self.d_charSpeaking]:animate("anim")
+					end
+				else
+					if self.boxes["default"].repeatAnim then
+						self.boxes["default"]:animate("anim")
+					end
+				end
+			else
+				self.d_isDone = true
+
+				if self.d_isEndDialogue then
+					print("FINISHED END")
+					self:dialogueSequenceCallback()
+
+					if music then
+						music:stop()
+					end
+				else
+					print("FINISHED INTRO")
+					self:dialogueSequenceCallback()
+					inCutscene = false
+				end
+			end
+		end
+	end,
+
+	d_draw = function(self)
+		for i = 1, #self.d_sprites do
+			love.graphics.push()
+				love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
+				self.d_sprites[i]:draw()
+			love.graphics.pop()
+		end
+		if not self.displayDialogue then
+			return
+		end
+		if not self.dialogueData then
+			return
+		end
+
+		if self.d_leftSpr then
+			self.d_leftSpr:draw()
+		end
+		if self.d_rightSpr then
+			self.d_rightSpr:draw()
+		end
+
+		if self.boxes[self.d_charSpeaking] then
+			self.boxes[self.d_charSpeaking]:draw()
+		else
+			self.boxes["default"]:draw()
+		end
+
+		local lastFont = love.graphics.getFont()
+		local scale = 1
+		if self.dialogueData.initStyle == "pixel" then 
+			love.graphics.setFont(pixelFont)
+			scale = 3
+		else 
+			love.graphics.setFont(font)
+		end
+		local box = self.boxes[self.d_charSpeaking] or self.boxes["default"]
+		local fw = box:getFrameWidth()*box.sizeX
+		local fh = box:getFrameHeight()*box.sizeY
+		love.graphics.printf(self.d_output, box.x - fw/2 + 160, box.y + 50, (fw - 350)/scale, "left", 0, scale, scale)
+	end,
+
+	playbackCutscene = function(self, id, duration)
+		if id == "fakeout" and not self.did then
+			self.did = true
+			local schoolFakeout = love.filesystem.load("sprites/week6/evil-school.lua")()
+			schoolFakeout.sizeX, schoolFakeout.sizeY = 7, 7
+			table.insert(self.d_sprites, schoolFakeout)
+
+			love.audio.play(love.audio.newSource("sounds/awhellnaw.ogg", "static"))
+
+			Timer.after(1.3, function()
+				Timer.after(0.5, function()
+					self.blackscreen.visible = true
+					self.blackscreen.alpha = 1
+					
+					song = 3
+					weekData[1]:load()
+				end)
+			end)
 		end
 	end,
 
@@ -1159,6 +1482,9 @@ return {
 
 	-- Gross countdown script
 	setupCountdown = function(self)
+		if music then
+			music:stop()
+		end
 		lastReportedPlaytime = 0
 		musicTime = (240 / bpm) * -1000
 
@@ -1290,7 +1616,7 @@ return {
 				local time = love.timer.getTime()
 				local seconds = voices:tell("seconds")
 
-				musicTime = musicTime + (time * 1000) - previousFrameTime
+				musicTime = musicTime + (time * 1000) - (previousFrameTime or 0)
 				previousFrameTime = time * 1000
 
 				if lastReportedPlaytime ~= seconds * 1000 then
@@ -1303,11 +1629,16 @@ return {
 		musicThres = math.floor(absMusicTime / 100) -- Since "musicTime" isn't precise, this is needed
 
 		if input:pressed("debugZoomIn") then
-			inst:seek(inst:tell() + 15)
-			voices:seek(voices:tell() + 15)
+			if inst:tell() + 15 < inst:getDuration() then
+				inst:seek(inst:tell() + 15)
+				voices:seek(voices:tell() + 15)
+			end
+			
 		elseif input:pressed("debugZoomOut") then
-			inst:seek(inst:tell() - 15)
-			voices:seek(voices:tell() - 15)
+			if inst:tell() - 15 > 0 then
+				inst:seek(inst:tell() - 15)
+				voices:seek(voices:tell() - 15)
+			end
 		end
 
 		for i = 1, #events do
@@ -1317,11 +1648,9 @@ return {
 				if camera.mustHit then
 					if events[i].mustHitSection then
 						mustHitSection = true
-						--camTimer = Timer.tween(1.25, camera, {x = -boyfriend.x + 100, y = -boyfriend.y + 75}, "out-quad")
 						camera:moveToPoint(1.25, "boyfriend")
 					else
 						mustHitSection = false
-						--camTimer = Timer.tween(1.25, camera, {x = -enemy.x - 100, y = -enemy.y + 75}, "out-quad")
 						camera:moveToPoint(1.25, "enemy")
 					end
 				end
@@ -1366,7 +1695,10 @@ return {
 	end,
 
 	updateUI = function(self, dt)
-		if inCutscene then return end
+		if inCutscene then 
+			self:d_update(dt)
+			return
+		end
 		if paused then return end
 		musicPos = musicTime * 0.6 * speed
 
@@ -2199,6 +2531,15 @@ return {
 	end,
 
 	drawUI = function(self)
+		if self.blackscreen.visible then
+			graphics.setColor(0, 0, 0, self.blackscreen.alpha)
+			love.graphics.rectangle("fill", 0, 0, graphics.getWidth(), graphics.getHeight())
+			graphics.setColor(1, 1, 1)
+		end
+		if inCutscene then
+			self:d_draw()
+			return
+		end
 		love.graphics.push()
 				graphics.setColor(0,0,0,1)
 				-- draw the bars, 50 height at bars[1].y and bars[2].y
