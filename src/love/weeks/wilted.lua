@@ -24,7 +24,7 @@ local difficulty
 return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
-        stages["wilted"]:enter("catfight")
+        stages["wilted"]:enter()
         showDokis = false
 
 		song = songNum
@@ -38,8 +38,6 @@ return {
         whoHasPixelNotes = "enemy" -- can be enemy, boyfriend, or both
         enemyIsPixel = true
         showStatic = false
-
-		self:load()
 
         function glitchEffect()
             showStatic = true
@@ -55,8 +53,6 @@ return {
             if t == 1 then
                 -- monika becoems pixel
                 enemy = senpaiNonpixel
-                enemy2 = senpaiNonpixel
-                enemy3 = senpaiNonpixel
                 boyfriend = monikapixel
                 boyfriend.flipX = true
                 enemyIsPixel = false
@@ -82,6 +78,8 @@ return {
         whiteFlash = {
             alpha = 0
         }
+
+        self:load()
 	end,
 
 	load = function(self)
@@ -96,6 +94,8 @@ return {
 		showDokis = false
 
         isShitVisible = true
+
+        wiltswap(0)
 	end,
 
 	initUI = function(self)
@@ -120,6 +120,8 @@ return {
 		else
 			previousFrameTime = love.timer.getTime() * 1000
 		end
+
+        camera.x, camera.y = 0, 0
 
 		if beatHandler.onStep() then
             local camTimer
@@ -155,8 +157,6 @@ return {
                     countNum = 7
                 elseif s == 848 and countNum == 7 then
                     enemy = senpaiAngryNonpixel
-                    enemy2 = senpaiAngryNonpixel
-                    enemy3 = senpaiAngryNonpixel
                     countNum = 8
                 elseif s == 912 and countNum == 8 then
                     --wilted shiz
@@ -211,18 +211,24 @@ return {
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
 			status.setLoading(true)
 
-            if not SaveData.songs.beatSide and not util.contains(SaveData.songs.sideStatus, "wilted") then
-				table.insert(SaveData.songs.sideStatus, "wilted")
-
-				if #SaveData.songs.sideStatus == 4 then
-					SaveData.songs.beatSide = true
-				end
-			end
-
 			graphics:fadeOutWipe(
 				0.7,
 				function()
-					Gamestate.switch(menu)
+                    highscore:save("Wilted", score, mirrorMode)
+					if storyMode then
+                        Gamestate.switch(menuWeek)
+                        if not leftSong then
+                            if not SaveData.songs.beatSide and not util.contains(SaveData.songs.sideStatus, "wilted") then
+                                table.insert(SaveData.songs.sideStatus, "wilted")
+                
+                                if #SaveData.songs.sideStatus == 4 then
+                                    SaveData.songs.beatSide = true
+                                end
+                            end
+                        end
+                    else
+                        Gamestate.switch(menuFreeplay)
+                    end
 
 					status.setLoading(false)
 				end

@@ -21,6 +21,10 @@ local canvas, font
 
 local difficulty
 
+local songnames = {
+	"Catfight"
+}
+
 return {
 	enter = function(self, from, songNum, songAppend, choosen)
 		weeks:enter()
@@ -163,18 +167,25 @@ return {
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
 			status.setLoading(true)
 
-			if not SaveData.songs.beatSide and not util.contains(SaveData.songs.sideStatus, "catfight") then
-				table.insert(SaveData.songs.sideStatus, "catfight")
-
-				if #SaveData.songs.sideStatus == 4 then
-					SaveData.songs.beatSide = true
-				end
-			end
-
 			graphics:fadeOutWipe(
 				0.7,
 				function()
-					Gamestate.switch(menu)
+					highscore:save("Catfight", score, mirrorMode)
+					if storyMode then
+						Gamestate.switch(menuWeek)
+						if not leftSong then
+							if not SaveData.songs.beatSide and not util.contains(SaveData.songs.sideStatus, "catfight") then
+								table.insert(SaveData.songs.sideStatus, "catfight")
+								SaveData.songs.beatCatfight = true
+				
+								if #SaveData.songs.sideStatus == 4 then
+									SaveData.songs.beatSide = true
+								end
+							end
+						end
+					else
+						Gamestate.switch(menuFreeplay)
+					end
 
 					status.setLoading(false)
 				end

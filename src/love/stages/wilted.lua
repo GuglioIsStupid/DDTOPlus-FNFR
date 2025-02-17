@@ -15,8 +15,6 @@ return {
             hmph = love.filesystem.load("sprites/wilt/hmph.lua")(),
         }
 
-        senpImg = love.graphics.newImage(graphics.imagePath("characters/SenpaiNonPixel_Assets"))
-
         curW = "w1"
         curBG = "bg1"
 
@@ -39,16 +37,14 @@ return {
 
         girlfriend.x, girlfriend.y = 30, -90
         senpai.x, senpai.y = -380, 0
-        senpaiAngry.x, senpaiAngry.y = -380, 0
-        senpaiAngryNonpixel.x, senpaiAngryNonpixel.y = -380, 40
-        senpaiNonpixel.x, senpaiNonpixel.y = -380, 40
-        enemy.x, enemy.y = -380, 0
-        monika.x, monika.y = 500, -20
-        monikapixel.x, monikapixel.y = 480, 10
-        boyfriend.x, boyfriend.y = 480, 10
+        senpaiAngry.x, senpaiAngry.y = -380, -50
+        senpaiAngryNonpixel.x, senpaiAngryNonpixel.y = -360, 0
+        senpaiNonpixel.x, senpaiNonpixel.y = -360, 0
+        enemy.x, enemy.y = -380, -50
+        monika.x, monika.y = 400, -10
+        monikapixel.x, monikapixel.y = 400, 10
         boyfriend.flipX = true
     
-
         stageImages.hoii_senpai.x = -405
         stageImages.hoii_senpai.y = -7
         stageImages.hoii_senpai.visible = false

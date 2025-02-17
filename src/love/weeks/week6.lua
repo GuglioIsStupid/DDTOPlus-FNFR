@@ -36,6 +36,13 @@ local dialogueFiles = {
 	}
 }
 
+local songList = {
+	"High School Conflict",
+	"Bara no Yume",
+	"Your Demise",
+	"Your Reality"
+}
+
 return {
 	enter = function(self, from, songNum, songAppend)
 		love.graphics.setDefaultFilter("nearest")
@@ -238,6 +245,7 @@ return {
 
 					self:load()
 				end ]]
+				highscore:save(songList[song], score, mirrorMode)
 				song = song + 1
 
 				self:load()
@@ -263,18 +271,25 @@ return {
 					end ]]
 					status.setLoading(true)
 
-					SaveData.songs.beatPrologue = true
-
+					highscore:save(songList[song], score, mirrorMode)
 					graphics:fadeOutWipe(
 						0.7,
 						function()
-							Gamestate.switch(menu)
+							if storyMode then
+								Gamestate.switch(menuWeek)
+								if not leftSong then
+									SaveData.songs.beatPrologue = true
+								end
+							else
+								Gamestate.switch(menuFreeplay)
+							end
 
 							status.setLoading(false)
 						end
 					)
 				else
 					status.setLoading(true)
+					highscore:save(songList[song], score, mirrorMode)
 
 					graphics:fadeOutWipe(
 						0.7,

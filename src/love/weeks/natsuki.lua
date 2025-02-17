@@ -21,6 +21,11 @@ local canvas, font
 
 local difficulty
 
+local songList = {
+	"My Sweets",
+	"Baka"
+}
+
 return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
@@ -129,18 +134,25 @@ return {
         end
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
 			if storyMode and song < 2 then
+				highscore:save(songList[song], score, mirrorMode)
 				song = song + 1
 
 				self:load()
 			else
 				status.setLoading(true)
 
-				SaveData.songs.beatNatsuki = true
-
 				graphics:fadeOutWipe(
 					0.7,
 					function()
-						Gamestate.switch(menu)
+						highscore:save(songList[song], score, mirrorMode)
+						if storyMode then
+                            Gamestate.switch(menuWeek)
+                            if not leftSong then
+                                SaveData.songs.beatNatsuki = true
+                            end
+                        else
+                            Gamestate.switch(menuFreeplay)
+                        end
 
 						status.setLoading(false)
 					end

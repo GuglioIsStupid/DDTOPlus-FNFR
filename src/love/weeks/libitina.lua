@@ -54,7 +54,15 @@ return {
 			graphics:fadeOutWipe(
 				0.7,
 				function()
-					Gamestate.switch(menu)
+                    highscore:save("Libitina", score, mirrorMode)
+					if storyMode then
+                        Gamestate.switch(menuWeek)
+                        if not leftSong then
+                            SaveData.songs.beatLibitina = true
+                        end
+                    else
+                        Gamestate.switch(menuFreeplay)
+                    end
 
 					status.setLoading(false)
 				end

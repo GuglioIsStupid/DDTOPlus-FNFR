@@ -24,8 +24,23 @@ local stupidIcon
 images = {
     icons = love.graphics.newImage(graphics.imagePath("icons"))
 }
+
+local function lerp(a, b, t)
+    return a + (b - a) * t
+end
+
+local function fpsBasedLerp(a, b, t, dt)
+    return a + (b - a) * (t * dt)
+end
+
+local curScore = 0
+
 return {
     enter = function(self)
+        curScore = 0
+        if not music:isPlaying() then
+			music:play()
+		end
         selectedSong = 1
         songs = {}
         grpSongs = {}
@@ -73,9 +88,10 @@ return {
         end
 
         bg = graphics.newImage(graphics.imagePath("freeplay/freeplayBook" .. curPage))
-        previewSong = graphics.newImage(graphics.imagePath("freeplay/preview"))
-        modifiers = graphics.newImage(graphics.imagePath("freeplay/modifiers"))
-        costumeSelect = graphics.newImage(graphics.imagePath("freeplay/costume"))
+        local isNX = love.system.getOS() == "NX"
+        previewSong = graphics.newImage(graphics.imagePath("freeplay/preview" .. (isNX and "_NX" or "")))
+        modifiers = graphics.newImage(graphics.imagePath("freeplay/modifiers" .. (isNX and "_NX" or "")))
+        costumeSelect = graphics.newImage(graphics.imagePath("freeplay/costume" .. (isNX and "_NX" or "")))
 
         previewSong.x, previewSong.y = 475, -300
         previewSong.sizeX, previewSong.sizeY = 0.6, 0.6
@@ -103,14 +119,20 @@ return {
 
         pageFlipped = true
         curSelected = 1
+        local ok
 
         if directPage then
             curPage = page
+            if not SaveData.songs.beatMonika then
+                curPage = 1
+            end
         else
-            self:changePage(page)
+            ok = self:changePage(page)
         end
 
-        Gamestate.switch(self)
+        if ok then
+            Gamestate.switch(self)
+        end
     end,
 
     changePage = function(self, huh)
@@ -130,6 +152,10 @@ return {
             if curPage <= 0 then
                 curPage = 4
             end
+        elseif not SaveData.songs.beatMonika then
+            -- no page changing :fedyfazber:
+            curPage = 1
+            return false
         else
             if curPage >= 6 then
                 curPage = 1
@@ -138,9 +164,13 @@ return {
                 curPage = 5
             end
         end
+
+        return true
     end,
 
     update = function(self)
+        local song = songs[selectedSong]
+        curScore = fpsBasedLerp(curScore, highscore:getHighestScore(song.title), 10, love.timer.getDelta())
         if input:pressed("confirm") then
             status.setLoading(true)
             graphics:fadeOutWipe(
@@ -226,6 +256,14 @@ return {
                 love.graphics.setColor(0, 0, 0)
                 love.graphics.print(song.txt, song.x, song.y)
             end
+            love.graphics.setColor(1, 1, 1)
+            for x = -1, 1 do
+                for y = -1, 1 do
+                    love.graphics.print("Personal Best: " .. math.floor(curScore), -200 + x, -300 + y)
+                end
+            end
+            love.graphics.setColor(0, 0, 0)
+            love.graphics.print("Personal Best: " .. math.floor(curScore), -200, -300)
             love.graphics.setFont(lastFont)
             love.graphics.setColor(1, 1, 1)
 

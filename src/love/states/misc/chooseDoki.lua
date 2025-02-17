@@ -68,10 +68,7 @@ return {
     
             graphics:fadeOutWipe(
                 0.7,
-                function()
-    
-                    storyMode = false
-    
+                function()    
                     music:stop()
     
                     Gamestate.switch(catfight, 1, "", choosen)

@@ -1,5 +1,5 @@
 return graphics.newSprite(
-	senpImg,
+	graphics.imagePath("characters/SenpaiNonPixel_Assets"),
     	-- Automatically generated from SenpaiNonPixel_Assets.xml
 	{
 		{x = 10, y = 10, width = 393, height = 747, offsetX = -3, offsetY = -27, offsetWidth = 452, offsetHeight = 774}, -- 1: Senpai Returns0000
@@ -160,18 +160,18 @@ return graphics.newSprite(
 		{x = 466, y = 2427, width = 446, height = 774, offsetX = -11, offsetY = -9, offsetWidth = 457, offsetHeight = 783} -- 156: Senpai Swap0015
 	},
 	{
-		["singDOWN"] = {start = 29, stop = 42, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT"] = {start = 57, stop = 70, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT"] = {start = 85, stop = 98, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP"] = {start = 113, stop = 126, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN"] = {start = 29, stop = 42, speed = 24, offsetX = 26, offsetY = -29},
+		["singLEFT"] = {start = 57, stop = 70, speed = 24, offsetX = 54, offsetY = 7},
+		["singRIGHT"] = {start = 85, stop = 98, speed = 24, offsetX = 1, offsetY = 2},
+		["singUP"] = {start = 113, stop = 126, speed = 24, offsetX = 23, offsetY = 20},
 
-		["singDOWN alt"] = {start = 29, stop = 42, speed = 24, offsetX = 0, offsetY = 0},
-		["singLEFT alt"] = {start = 57, stop = 70, speed = 24, offsetX = 0, offsetY = 0},
-		["singRIGHT alt"] = {start = 85, stop = 98, speed = 24, offsetX = 0, offsetY = 0},
-		["singUP alt"] = {start = 113, stop = 126, speed = 24, offsetX = 0, offsetY = 0},
+		["singDOWN alt"] = {start = 29, stop = 42, speed = 24, offsetX = 26, offsetY = -29},
+		["singLEFT alt"] = {start = 57, stop = 70, speed = 24, offsetX = 54, offsetY = 7},
+		["singRIGHT alt"] = {start = 85, stop = 98, speed = 24, offsetX = 1, offsetY = 2},
+		["singUP alt"] = {start = 113, stop = 126, speed = 24, offsetX = 23, offsetY = 20},
 
 		["idle"] = {start = 1, stop = 14, speed = 24, offsetX = 0, offsetY = 0},
-		["swap"] = {start = 141, stop = 156, speed = 24, offsetX = 0, offsetY = 0},
+		["swap"] = {start = 141, stop = 156, speed = 24, offsetX = 3, offsetY = 5},
 	},
 	"idle",
 	false,

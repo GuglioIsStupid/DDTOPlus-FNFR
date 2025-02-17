@@ -1371,64 +1371,6 @@ return {
 				boyfriendNotes[i][j].type = boyfriendNotes[i][j].type or "normal"
 			end
 		end
-
-		-- Workarounds for bad charts that have multiple notes around the same place
-		for i = 1, 4 do
-			local offset = 0
-
-			for j = 2, #enemyNotes[i] do
-				local index = j - offset
-
-				if enemyNotes[i][index]:getAnimName() == "on" and enemyNotes[i][index - 1]:getAnimName() == "on" and ((enemyNotes[i][index].y - enemyNotes[i][index - 1].y <= 10)) then
-					table.remove(enemyNotes[i], index)
-
-					offset = offset + 1
-				end
-			end
-		end
-		for i = 1, 4 do
-			local offset = 0
-
-			for j = 2, #boyfriendNotes[i] do
-				local index = j - offset
-
-				if boyfriendNotes[i][index]:getAnimName() == "on" and boyfriendNotes[i][index - 1]:getAnimName() == "on" and ((boyfriendNotes[i][index].y - boyfriendNotes[i][index - 1].y <= 10)) then
-					table.remove(boyfriendNotes[i], index)
-
-					offset = offset + 1
-				end
-			end
-		end
-
-		if hasPixelNotes then
-			for i = 1, 4 do
-				local offset = 0
-
-				for j = 2, #enemyNotesP[i] do
-					local index = j - offset
-
-					if enemyNotesP[i][index]:getAnimName() == "on" and enemyNotesP[i][index - 1]:getAnimName() == "on" and ((enemyNotesP[i][index].y - enemyNotesP[i][index - 1].y <= 10)) then
-						table.remove(enemyNotesP[i], index)
-
-						offset = offset + 1
-					end
-				end
-			end
-
-			for i = 1, 4 do
-				local offset = 0
-
-				for j = 2, #boyfriendNotesP[i] do
-					local index = j - offset
-
-					if boyfriendNotesP[i][index]:getAnimName() == "on" and boyfriendNotesP[i][index - 1]:getAnimName() == "on" and ((boyfriendNotesP[i][index].y - boyfriendNotesP[i][index - 1].y <= 10)) then
-						table.remove(boyfriendNotesP[i], index)
-
-						offset = offset + 1
-					end
-				end
-			end
-		end
 	end,
 
 	generateNotes2 = function(self, chart)
@@ -1687,8 +1629,8 @@ return {
 					if inst then inst:stop() end
 					voices:stop()
 					if inst then inst:stop() end
-					storyMode = false
 					quitPressed = true
+					leftSong = true
 				end
 			end
 			return
@@ -2997,5 +2939,7 @@ return {
 		enemy3 = nil
 
 		love.graphics.setBackgroundColor(0, 0, 0)
+
+		storyMode = false
 	end
 }

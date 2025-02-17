@@ -73,12 +73,18 @@ return {
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
 			status.setLoading(true)
 
-			SaveData.songs.beatMonika = true
-
 			graphics:fadeOutWipe(
 				0.7,
 				function()
-					Gamestate.switch(menu)
+					highscore:save("Reconciliation", score, mirrorMode)
+					if storyMode then
+						Gamestate.switch(menuWeek)
+						if not leftSong then
+							SaveData.songs.beatMonika = true
+						end
+					else
+						Gamestate.switch(menuFreeplay)
+					end
 
 					status.setLoading(false)
 				end

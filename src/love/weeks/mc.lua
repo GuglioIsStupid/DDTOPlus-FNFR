@@ -23,6 +23,12 @@ local canvas, font
 
 local difficulty
 
+local songList = {
+    "NEET",
+    "You and Me",
+    "Takeover Medley"
+}
+
 return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
@@ -580,17 +586,6 @@ return {
         if oS then
             if song == 3 then
                 local s = beatHandler.curStep
-                --[[
-                if s == 208 or s == 464
-                    or s == 592 or s == 720
-                    or s == 848 or s == 976 
-                    or s == 1104 or s == 1300 
-                    or s == 1744 or s == 1880
-                    or s == 2008 or s == 2072
-                    or s == 2136 or s == 2200 then
-                        summonStickies(true, 8)
-                end
-                --]]
 
                 if s == 208 and cn == 0 then
                     cn = 1
@@ -649,18 +644,25 @@ return {
         end
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
 			if storyMode and song < 3 then
+                highscore:save(songList[song], score, mirrorMode)
 				song = song + 1
 
 				self:load()
 			else
 				status.setLoading(true)
 
-                SaveData.songs.beatProtag = true
-
 				graphics:fadeOutWipe(
 					0.7,
 					function()
-						Gamestate.switch(menu)
+                        highscore:save(songList[song], score, mirrorMode)
+						if storyMode then
+                            Gamestate.switch(menuWeek)
+                            if not leftSong then
+                                SaveData.songs.beatProtag = true
+                            end
+                        else
+                            Gamestate.switch(menuFreeplay)
+                        end
 
 						status.setLoading(false)
 					end

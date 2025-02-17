@@ -70,7 +70,15 @@ return {
 			graphics:fadeOutWipe(
 				0.7,
 				function()
-					Gamestate.switch(menu)
+                    highscore:save("Epiphany", score, mirrorMode)
+					if storyMode then
+                        Gamestate.switch(menuWeek)
+                        if not leftSong then
+                            SaveData.songs.beatEpiphany = true
+                        end
+                    else
+                        Gamestate.switch(menuFreeplay)
+                    end
 
 					status.setLoading(false)
 				end

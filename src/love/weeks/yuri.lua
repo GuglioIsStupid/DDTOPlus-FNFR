@@ -21,6 +21,11 @@ local canvas, font
 
 local difficulty
 
+local songList = {
+    "Deep Breaths",
+    "Obsession"
+}
+
 return {
 	enter = function(self, from, songNum, songAppend)
 		weeks:enter()
@@ -185,18 +190,25 @@ return {
         end
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
 			if storyMode and song < 2 then
+                highscore:save(songList[song], score, mirrorMode)
 				song = song + 1
 
 				self:load()
 			else
 				status.setLoading(true)
 
-                SaveData.songs.beatYuri = true
-
+                highscore:save(songList[song], score, mirrorMode)
 				graphics:fadeOutWipe(
 					0.7,
 					function()
-						Gamestate.switch(menu)
+						if storyMode then
+                            Gamestate.switch(menuWeek)
+                            if not leftSong then
+                                SaveData.songs.beatYuri = true
+                            end
+                        else
+                            Gamestate.switch(menuFreeplay)
+                        end
 
 						status.setLoading(false)
 					end

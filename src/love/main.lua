@@ -232,13 +232,11 @@ function love.load() -- Todo, add custom framerate support
 end
 ]]
 
-UNLOCKED_ALL = false
+UNLOCKED_ALL = true
 function love.load()
 	paused = false
 	settings = {}
 	local curOS = love.system.getOS()
-
-	scissorScale = 1 -- SCISSOR DOESN'T WORK WITH SCALE SO WE HAVE TO SCALE IT OURSELVES
 
 	-- Load libraries
 	baton = require "lib.baton"
@@ -593,6 +591,9 @@ function love.load()
 	glitch = love.graphics.newShader("shaders/glitch.glsl")
 	static = love.graphics.newShader("shaders/static.glsl")
 
+	highscore = require "modules.highscore"
+	highscore:loadFile()
+
 	function set_preset()
 		presetData = json.decode(love.filesystem.read("data/glitch.json")).presets[1]
 		glitch:send("prob", (0.25 - (presetData[1]/8)))
@@ -686,6 +687,35 @@ function love.load()
 		end
 	end
 
+	function checkAllSongsBeaten(checkLibitina)
+		local freeplayList
+
+		for i = 1, 5 do
+			freeplayList = util.coolTextFile("data/freeplay/Page" .. i .. ".txt")
+
+			for j = 1, #freeplayList do
+				local song = util.split(freeplayList[j], ":")
+				if song[1]:lower() == "erb" then
+					goto continue
+				end
+				if song[1]:lower() == "epiphany" then
+					goto continue
+				end
+				if not checkLibitina and song[1]:lower() == "libitina" then
+					goto continue
+				end
+
+				if highscore:getScore(song[1], 1) < 1 and highscore:getMirrorScore(song[1], 1) < 1 then
+					return false
+				end
+
+				::continue::
+			end
+		end
+
+		return true
+	end
+
 	costumes = {
 		["sayori"] = {
 			order = {},
@@ -754,7 +784,7 @@ function love.load()
 	if curOS == "Web" then
 		Gamestate.switch(clickStart)
 	else
-		Gamestate.switch(menu)
+		Gamestate.switch(menuWeek)
 	end
 end
 
@@ -769,8 +799,6 @@ function love.resize(width, height)
 		funCanvas2 = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
 	end
 	lovesize.resize(width, height)
-
-	scissorScale = height / 720
 end
 
 function love.keypressed(key)
@@ -891,4 +919,5 @@ function love.quit()
 		local serialized = lume.serialize(SaveData)
 		love.filesystem.write("save", serialized)
 	end
+	highscore:saveFile()
 end

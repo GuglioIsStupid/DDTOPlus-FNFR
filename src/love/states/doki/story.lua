@@ -33,11 +33,14 @@ local storyCursor
 local inSubstate = false
 return {
     enter = function(self)
+        grpSprites = {}
+        if not music:isPlaying() then
+			music:play()
+		end
         storyCursor = graphics.newImage(graphics.imagePath("story/cursor"))
         sideStories = love.filesystem.load("sprites/story/SideStories.lua")()
         sideStories.visible = false
         sideStories.x, sideStories.y = 180, 250
-        curWeek = 1
         icons = {
             --internal file name, unlock condition, posX, posY
             -- x spacing is 220
@@ -60,6 +63,7 @@ return {
                 storyIcon.isLocked = true
             else
                 storyIcon = love.filesystem.load(dirStuff)()
+                storyIcon.isLocked = false
             end
 
             storyIcon.sizeX, storyIcon.sizeY = 0.5, 0.5
@@ -109,7 +113,46 @@ return {
         songListSpr = graphics.newImage(graphics.imagePath("story/song_list_lazy_smile"))
         songListSpr.x = -430
 
-        storyCursor.x, storyCursor.y = -150, -50
+        for i = 1, #grpSprites do
+            if not grpSprites[i].isLocked then
+                storyCursor.x = icons[i][3]
+                storyCursor.y = icons[i][4]
+            end
+        end
+        storyCursor.visible = true
+
+        self.popupStuff = {
+            songData = {
+                {"lovenfunkin", "Love N Funkin", -175, -200, weekData[9]},
+                {"zipper", "Constricted", 175, -200, weekData[10]},
+                {"catfight", "Catfight", -175, 0, weekData[11]},
+                {"wilted", "Wilted", 175, 0, weekData[12]},
+                {"meta", "Libitina", 0, 200, weekData[16]}
+            },
+            bg = {
+                col = {243/255, 140/255, 197/255, 0.4}
+            },
+            menuBG = graphics.newImage(graphics.imagePath("sidestory/sidestoriesmenu")),
+            drawGrp = {},
+            cursor = graphics.newImage(graphics.imagePath("sidestory/cursorsidestories")),
+            metacursor = graphics.newImage(graphics.imagePath("sidestory/cursorsidestories_meta")),
+            cursorType = 1,
+            curSelected = 1
+        }
+
+        if not checkAllSongsBeaten() and not SaveData.songs.beatLibitina and not (debug and love.keyboard.isDown("f")) then
+            table.remove(self.popupStuff.songData, 5)
+        end
+
+        for i = 1, #self.popupStuff.songData do
+            local sideIcon = graphics.newImage(graphics.imagePath("sidestory/sidestory_" .. self.popupStuff.songData[i][1]))
+            sideIcon.x = self.popupStuff.songData[i][3]
+            sideIcon.y = self.popupStuff.songData[i][4]
+            table.insert(self.popupStuff.drawGrp, sideIcon)
+        end
+        self.popupStuff.cursor.x, self.popupStuff.cursor.y = self.popupStuff.songData[1][3], self.popupStuff.songData[1][4]
+
+        self.popupStuff.metacursor.x, self.popupStuff.metacursor.y = self.popupStuff.songData[#self.popupStuff.songData][3], self.popupStuff.songData[#self.popupStuff.songData][4]
 
         self:unlockedWeeks()
         graphics:fadeInWipe(0.3)
@@ -147,6 +190,35 @@ return {
         end
     end,
 
+    changePopupItem = function(self, huh)
+        local prevSelected = self.popupStuff.curSelected
+        self.popupStuff.curSelected = self.popupStuff.curSelected + huh
+
+        if self.popupStuff.curSelected ~= prevSelected then
+            audio.playSound(selectSound)
+        end
+
+        if self.popupStuff.curSelected == 6 and prevSelected ~= 5 then
+            curSelected = 5
+        end
+
+        if self.popupStuff.curSelected >= #self.popupStuff.songData + 1 then
+            self.popupStuff.curSelected = 1
+        end
+        if self.popupStuff.curSelected <= 0 then
+            self.popupStuff.curSelected = #self.popupStuff.songData
+        end
+
+        self.popupStuff.cursor.x = self.popupStuff.songData[self.popupStuff.curSelected][3]
+        self.popupStuff.cursor.y = self.popupStuff.songData[self.popupStuff.curSelected][4]
+
+        if self.popupStuff.songData[self.popupStuff.curSelected][1] == "meta" then
+            self.popupStuff.cursorType = 2
+        else
+            self.popupStuff.cursorType = 1
+        end
+    end,
+
     changeItem = function(self, huh, wasRight)
         local prev = curWeek
         curWeek = curWeek + huh
@@ -171,6 +243,8 @@ return {
             if curWeek == 9 then
                 curWeek = 1
             end
+
+            -- we aren't allowed to go to side stories until festival is beaten
         else
             if curWeek == -4 then
                 curWeek = 9
@@ -230,20 +304,8 @@ return {
     end,
 
     update = function(self, dt)
-        if inSubstate then return end
         logo:update(dt)
         scrollingBG:update(dt)
-
-        if curWeek == #icons then
-            sideStories:update(dt)
-        end
-        for i = 1, #grpSprites do
-            if i == curWeek then
-                grpSprites[i]:update(dt)
-            elseif grpSprites[i].isLocked then
-                grpSprites[i]:update(dt)
-            end
-        end
 
         beatTimer = beatTimer + dt * 1000
         if beatTimer >= 60000 / bpm then
@@ -256,6 +318,40 @@ return {
 
         if beatHit then
             logo:animate("anim")
+        end
+
+        if inSubstate then
+            if input:pressed("left") then
+                self:changePopupItem(-1)
+            elseif input:pressed("right") then
+                self:changePopupItem(1, true)
+            elseif input:pressed("up") then
+                self:changePopupItem(-2)
+            elseif input:pressed("down") then
+                self:changePopupItem(2)
+            end
+
+            if input:pressed("confirm") then
+                self:gotoStatePopup()
+            end
+
+            if input:pressed("back") then
+                inSubstate = false
+            end
+
+            return
+        end
+
+        if curWeek == #icons then
+            sideStories:update(dt)
+        end
+        for i = 1, #grpSprites do
+            if i == curWeek then
+                print("curWeek: " .. curWeek)
+                grpSprites[i]:update(dt)
+            elseif grpSprites[i].isLocked then
+                grpSprites[i]:update(dt)
+            end
         end
 
         if input:pressed("left") then
@@ -286,7 +382,7 @@ return {
     end,
 
     gotoState = function(self)
-        if curWeek ~= 9 then
+        if curWeek ~= 9 and icons[curWeek][2] then
             status.setLoading(true)
             graphics:fadeOutWipe(
                 0.7,
@@ -300,10 +396,26 @@ return {
                     status.setLoading(false)
                 end
             )
-        else
+        elseif curWeek == 9 and SaveData.songs.beatProtag then
             inSubstate = true
             -- TODO
         end
+    end,
+
+    gotoStatePopup = function(self)
+        status.setLoading(true)
+        graphics:fadeOutWipe(
+            0.7,
+            function()
+                songAppend = "-hard"
+                storyMode = true
+                music:stop()
+
+                Gamestate.switch(self.popupStuff.songData[self.popupStuff.curSelected][5], 1, songAppend)
+
+                status.setLoading(false)
+            end
+        )
     end,
 
     draw = function(self)
@@ -402,6 +514,21 @@ return {
             end
 
             ::continue2::
+
+            if inSubstate then
+                love.graphics.setColor(self.popupStuff.bg.col)
+                love.graphics.rectangle("fill", -graphics.getWidth()/2, -graphics.getHeight()/2, graphics.getWidth(), graphics.getHeight())
+                love.graphics.setColor(1, 1, 1)
+                self.popupStuff.menuBG:draw()
+                for i = 1, #self.popupStuff.drawGrp do
+                    self.popupStuff.drawGrp[i]:draw()
+                end
+                if self.popupStuff.cursorType == 1 then
+                    self.popupStuff.cursor:draw()
+                else
+                    self.popupStuff.metacursor:draw()
+                end
+            end
         love.graphics.pop()
     end
 }

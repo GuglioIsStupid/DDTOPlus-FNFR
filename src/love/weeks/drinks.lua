@@ -1,3 +1,6 @@
+local songnames = {
+	"Drinks on Me"
+}
 return {
     enter = function (self, from, songNum, songAppend)
         love.graphics.setDefaultFilter("nearest")
@@ -100,7 +103,15 @@ return {
 			graphics:fadeOutWipe(
 				0.7,
 				function()
-					Gamestate.switch(menu)
+                    highscore:save("Drinks on Me", score, mirrorMode)
+					if storyMode then
+                        Gamestate.switch(menuSelect)
+                        if not leftSong then
+                            SaveData.songs.beatVA11HallA = true
+                        end
+                    else
+                        Gamestate.switch(menuFreeplay)
+                    end
 
 					status.setLoading(false)
 				end

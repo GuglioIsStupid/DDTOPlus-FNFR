@@ -2,6 +2,9 @@ local char
 local firstStart = true
 local optionShit = {}
 local addVally = false
+local shaker
+local shakerPressX, shakerPressY, shakerPressEndX, shakerPressEndY = 1115, 551, 1207, 703
+
 return {
     enter = function(self)
         scrollingBG = {
@@ -145,7 +148,7 @@ return {
             logo.x = -395
         end
 
-        if not SaveData.songs.beatVA11HallA and SaveData.songs.beatSide then
+        if (not SaveData.songs.beatVA11HallA and SaveData.songs.beatSide) or debug then
             addVally = true
         end
 
@@ -155,9 +158,19 @@ return {
         beatHit = false
         beat = 0
         beatTimer = 0
+
+        if addVally then
+            shaker = love.filesystem.load("sprites/menu/shaker.lua")()
+            shaker.x = 525
+            shaker.y = 275
+            shaker:animate("anim", false)
+        end
     end,
 
     update = function(self, dt)
+        if shaker then
+            shaker:update(dt)
+        end
         scrollingBG:update(dt)
         char:update(dt)
         logo:update(dt)
@@ -173,6 +186,9 @@ return {
 
         if beatHit then
             logo:animate("anim")
+            if shaker then
+                shaker:animate("anim")
+            end
         end
 
         if input:pressed("up") then
@@ -223,6 +239,28 @@ return {
     keypressed = function(self, key)
     end,
 
+    mousepressed = function(self, x, y, button)
+        x, y = lovesize.pos(x, y)
+        if button == 1 then
+            if x > shakerPressX and x < shakerPressEndX and y > shakerPressY and y < shakerPressEndY then
+                status.setLoading(true)
+                graphics:fadeOutWipe(
+                    0.7,
+                    function()
+                        songAppend = "-hard"
+                        storyMode = true
+                        music:stop()
+
+                        weeks.SET_WEEK_NUMBER = 13
+                        Gamestate.switch(weekData[13], 1, songAppend)
+
+                        status.setLoading(false)
+                    end
+                )
+            end
+        end
+    end,
+
     draw = function(self)
         love.graphics.push()
             love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
@@ -244,10 +282,14 @@ return {
                 borderedText2(optionShit[i][1], optionShit[i].pos.x, optionShit[i].pos.y, 0, 1, 1, (curOption ~= optionShit[i][1] and {1,134/255,215/255} or {1,200/255,215/255}), (curOption ~= optionShit[i][1] and {1,245/255,245/255} or {1,1,1}))
             end
             love.graphics.setFont(lastFont)
+
+            if shaker then
+                shaker:draw()
+            end
         love.graphics.pop()
     end,
 
     leave = function(self)
-        
+        shaker = nil
     end
 }

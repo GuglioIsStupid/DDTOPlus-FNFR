@@ -50,7 +50,12 @@ return {
 			graphics:fadeOutWipe(
 				0.7,
 				function()
-					Gamestate.switch(menu)
+                    highscore:save("Dual Demise", score, mirrorMode)
+					if storyMode then
+                        Gamestate.switch(menuWeek)
+                    else
+                        Gamestate.switch(menuFreeplay)
+                    end
 
 					status.setLoading(false)
 				end
