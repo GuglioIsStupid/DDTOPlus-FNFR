@@ -170,14 +170,16 @@ return {
 
     update = function(self)
         local song = songs[selectedSong]
-        curScore = fpsBasedLerp(curScore, highscore:getHighestScore(song.title), 10, love.timer.getDelta())
+        local newSongTitle = song.title
+        newSongTitle = newSongTitle:gsub(" %(.-%)", "")
+        curScore = fpsBasedLerp(curScore, highscore:getHighestScore(newSongTitle), 10, love.timer.getDelta())
         if input:pressed("confirm") then
             status.setLoading(true)
             graphics:fadeOutWipe(
                 0.7,
                 function()
                     songAppend = "-hard"
-                    storyMode = falase
+                    storyMode = false
                     music:stop()
 
                     local song = songs[selectedSong]

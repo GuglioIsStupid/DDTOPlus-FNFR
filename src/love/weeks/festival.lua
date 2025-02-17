@@ -50,9 +50,9 @@ return {
             enemyIcon:animate("monika pixel", false)
             boyfriendIcon:animate("boyfriend (pixel)")
             if v == 1 then
-                camera:moveToPoint(0.1, "boyfriend")
+                camera.x, camera.y = -boyfriend2.x + 100, -boyfriend2.y + 75
             else
-                camera:moveToPoint(0.1, "enemy")
+                camera.x, camera.y = -enemy2.x - 100, -enemy2.y + 75
             end
             whoHasPixelNotes = "both"
         end
@@ -65,9 +65,9 @@ return {
             enemyIcon:animate("monika", false)
             boyfriendIcon:animate("boyfriend")
             if v == 1 then
-                camera:moveToPoint(0.1, "boyfriend")
+                camera.x, camera.y = -boyfriend.x + 100, -boyfriend.y + 75
             else
-                camera:moveToPoint(0.1, "enemy")
+                camera.x, camera.y = -enemy.x - 100, -enemy.y + 75
             end
             whoHasPixelNotes = "none"
         end
