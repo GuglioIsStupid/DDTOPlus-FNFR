@@ -1,0 +1,110 @@
+return graphics.newSprite(
+	graphics.imagePath("week6/End1"),
+	{
+		{x = 0, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 1: Endscene0000
+		{x = 0, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 2: Endscene0001
+		{x = 214, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 3: Endscene0002
+		{x = 214, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 4: Endscene0003
+		{x = 428, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 5: Endscene0004
+		{x = 642, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 6: Endscene0005
+		{x = 856, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 7: Endscene0006
+		{x = 856, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 8: Endscene0007
+		{x = 1070, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 9: Endscene0008
+		{x = 1284, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 10: Endscene0009
+		{x = 1498, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 11: Endscene0010
+		{x = 1712, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 12: Endscene0011
+		{x = 0, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 13: Endscene0012
+		{x = 214, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 14: Endscene0013
+		{x = 214, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 15: Endscene0014
+		{x = 428, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 16: Endscene0015
+		{x = 428, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 17: Endscene0016
+		{x = 642, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 18: Endscene0017
+		{x = 642, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 19: Endscene0018
+		{x = 856, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 20: Endscene0019
+		{x = 1070, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 21: Endscene0020
+		{x = 1284, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 22: Endscene0021
+		{x = 1284, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 23: Endscene0022
+		{x = 1498, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 24: Endscene0023
+		{x = 1712, y = 120, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 25: Endscene0024
+		{x = 0, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 26: Endscene0025
+		{x = 0, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 27: Endscene0026
+		{x = 214, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 28: Endscene0027
+		{x = 428, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 29: Endscene0028
+		{x = 642, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 30: Endscene0029
+		{x = 0, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 31: Endscene0030
+		{x = 0, y = 0, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 32: Endscene0031
+		{x = 856, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 33: Endscene0032
+		{x = 856, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 34: Endscene0033
+		{x = 1070, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 35: Endscene0034
+		{x = 1284, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 36: Endscene0035
+		{x = 1498, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 37: Endscene0036
+		{x = 1498, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 38: Endscene0037
+		{x = 1712, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 39: Endscene0038
+		{x = 0, y = 360, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 40: Endscene0039
+		{x = 214, y = 360, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 41: Endscene0040
+		{x = 214, y = 360, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 42: Endscene0041
+		{x = 214, y = 360, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 43: Endscene0042
+		{x = 428, y = 360, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 44: Endscene0043
+		{x = 642, y = 360, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 45: Endscene0044
+		{x = 856, y = 360, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 46: Endscene0045
+		{x = 856, y = 360, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 47: Endscene0046
+		{x = 1070, y = 360, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 48: Endscene0047
+		{x = 1284, y = 360, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 49: Endscene0048
+		{x = 1498, y = 360, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 50: Endscene0049
+		{x = 1712, y = 360, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 51: Endscene0050
+		{x = 0, y = 480, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 52: Endscene0051
+		{x = 214, y = 480, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 53: Endscene0052
+		{x = 428, y = 480, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 54: Endscene0053
+		{x = 642, y = 480, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 55: Endscene0054
+		{x = 428, y = 240, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 56: Endscene0055
+		{x = 856, y = 480, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 57: Endscene0056
+		{x = 856, y = 480, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 58: Endscene0057
+		{x = 1070, y = 480, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 59: Endscene0058
+		{x = 1070, y = 480, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 60: Endscene0059
+		{x = 1284, y = 480, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 61: Endscene0060
+		{x = 1498, y = 480, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 62: Endscene0061
+		{x = 1712, y = 480, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 63: Endscene0062
+		{x = 1712, y = 480, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 64: Endscene0063
+		{x = 0, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 65: Endscene0064
+		{x = 214, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 66: Endscene0065
+		{x = 428, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 67: Endscene0066
+		{x = 642, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 68: Endscene0067
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 69: Endscene0068
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 70: Endscene0069
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 71: Endscene0070
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 72: Endscene0071
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 73: Endscene0072
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 74: Endscene0073
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 75: Endscene0074
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 76: Endscene0075
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 77: Endscene0076
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 78: Endscene0077
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 79: Endscene0078
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 80: Endscene0079
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 81: Endscene0080
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 82: Endscene0081
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 83: Endscene0082
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 84: Endscene0083
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 85: Endscene0084
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 86: Endscene0085
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 87: Endscene0086
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 88: Endscene0087
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 89: Endscene0088
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 90: Endscene0089
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 91: Endscene0090
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 92: Endscene0091
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 93: Endscene0092
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 94: Endscene0093
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 95: Endscene0094
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 96: Endscene0095
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 97: Endscene0096
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 98: Endscene0097
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 99: Endscene0098
+		{x = 856, y = 600, width = 214, height = 120, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0, rotated = false}, -- 100: Endscene0099
+	},
+	{
+		["Endscene"] = {start = 1, stop = 100, speed = 24, offsetX = 0, offsetY = 0},
+	},
+	"Endscene",
+	false
+)

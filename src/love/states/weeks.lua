@@ -277,6 +277,7 @@ return {
 		camera.locked = false
 
 		self.did = false
+		self.canCarryOn = true
 
 		graphics:fadeInWipe(0.6)
 	end,
@@ -366,7 +367,9 @@ return {
 
 	d_update = function(self, dt)
 		for i = 1, #self.d_sprites do
-			self.d_sprites[i]:update(dt)
+			if self.d_sprites[i].update then
+				self.d_sprites[i]:update(dt)
+			end
 		end
 		if self.d_isDone then
 			return
@@ -387,6 +390,7 @@ return {
 		self.d_isCommand = self.dialogueData.dialogue[self.d_cur].isCommand
 		self.d_side = self.dialogueData.dialogue[self.d_cur].side
 		self.d_fullDialogue = self.dialogueData.dialogue[self.d_cur].string
+		self.d_duration = self.dialogueData.dialogue[self.d_cur].duration
 
 		if not self.d_isCommand then
 			if self.speakers[self.d_charSpeaking] then
@@ -448,7 +452,7 @@ return {
 		end
 		local cmd = self.d_charSpeaking
 		local arg = self.d_fullDialogue
-		local duration = self.dialogueData.dialogue[self.d_cur].duration
+		local duration = self.d_duration
 
 		if cmd == "playsound" then
 		elseif cmd == "startmusic" then
@@ -465,10 +469,34 @@ return {
 		elseif cmd == "crash" then
 			-- save data
 			error(":)")
-		elseif cmd == "showbackgroundImage" then
+		elseif cmd == "showbackgroundimage" then
+			local spr = graphics.newImage(graphics.imagePath("dialogue/" .. arg))
+			spr.name = arg
+			table.insert(self.d_sprites, spr)
 		elseif cmd == "hidebackground" then
+			for i = 1, #self.d_sprites do
+				if self.d_sprites[i].name == arg then
+					table.remove(self.d_sprites, i)
+				end
+			end
 		elseif cmd == "fadeout" then
+			self.canCarryOn = false
+			print("FADE OUT")
+			Timer.tween(duration, self.blackscreen, {alpha = 1}, "in-out-cubic", function()
+				self.blackscreen.visible = true
+				self.canCarryOn = true
+				self.displayDialogue = false
+				print("FADED OUT DONE")
+			end)
 		elseif cmd == "fadein" then
+			self.canCarryOn = false
+			print("FADE IN")
+			Timer.tween(duration, self.blackscreen, {alpha = 0}, "in-out-cubic", function()
+				self.blackscreen.visible = false
+				self.canCarryOn = true
+				self.displayDialogue = true
+				print("FADED IN DONE")
+			end)
 		elseif cmd == "hidedialogue" then
 		elseif cmd == "hidebgfade" then
 		elseif cmd == "showbgFade" then
@@ -477,7 +505,9 @@ return {
 		elseif cmd == "fadecg" then
 		elseif cmd == "swapstyle" or cmd == "styleswap" then
 		elseif cmd == "playcutscene" then
+			--[[ if arg == "fakeout" then ]]
 			self.displayDialogue = false
+			--[[ end ]]
 
 			self:playbackCutscene(arg, duration)
 		end
@@ -485,19 +515,62 @@ return {
 		self:d_next(true)
 	end,
 
-	d_next = function(self, dontDoSound)
+	d_next = function(self, wasCommand)
+		if not self.canCarryOn then
+			return
+		end
 		if not self.dialogueData then
 			return
 		end
 		if not self.displayDialogue then
 			return
 		end
+		if wasCommand then
+			if self.d_cur < #self.dialogueData.dialogue then
+				self.d_cur = self.d_cur + 1
+				self.d_timer = 0
+				self.d_progress = 1
+				self.d_output = ""
+
+				if self.speakers[self.d_charSpeaking] then
+					if self.speakers[self.d_charSpeaking].repeatAnim then
+						self.speakers[self.d_charSpeaking]:animate(self.d_curExpression)
+					end
+				end
+
+				if self.boxes[self.d_charSpeaking] then
+					if self.boxes[self.d_charSpeaking].repeatAnim then
+						self.boxes[self.d_charSpeaking]:animate("anim")
+					end
+				else
+					if self.boxes["default"].repeatAnim then
+						self.boxes["default"]:animate("anim")
+					end
+				end
+			else
+				self.d_isDone = true
+
+				if self.d_isEndDialogue then
+					print("FINISHED END")
+					self:dialogueSequenceCallback()
+
+					if music then
+						music:stop()
+					end
+				else
+					print("FINISHED INTRO")
+					self:dialogueSequenceCallback()
+					inCutscene = false
+				end
+			end
+
+			return
+		end
 		if not self.d_fullDialogue then
 			return
 		end
-		if not dontDoSound then
-			self.dialogueSounds.confirm:play()
-		end
+		
+		self.dialogueSounds.confirm:play()
 
 		if self.d_progress < #self.d_fullDialogue then
 			self.d_progress = #self.d_fullDialogue
@@ -575,7 +648,7 @@ return {
 		if self.dialogueData.initStyle == "pixel" then 
 			love.graphics.setFont(pixelFont)
 			scale = 3
-		else 
+		else
 			love.graphics.setFont(font)
 		end
 		local box = self.boxes[self.d_charSpeaking] or self.boxes["default"]
@@ -600,6 +673,21 @@ return {
 					
 					song = 3
 					weekData[1]:load()
+				end)
+			end)
+		elseif id == "pixelend" and not self.did then
+			local endsceneone = love.filesystem.load("sprites/week6/End1.lua")()
+			endsceneone.sizeX, endsceneone.sizeY = 6, 6
+			endsceneone.x = 3
+			endsceneone:animate("idle")
+			table.insert(self.d_sprites, endsceneone)
+			self.canCarryOn = false
+			self.did = true
+
+			Timer.after(2.2, function()
+				love.audio.play(love.audio.newSource("sounds/gameover/dah.ogg", "static"))
+				Timer.after(2.8, function()
+					self.canCarryOn = true
 				end)
 			end)
 		end

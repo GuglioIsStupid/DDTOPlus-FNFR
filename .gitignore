@@ -10,8 +10,8 @@ build/*
 # Dependencies
 resources/macos/love.app/*
 resources/switch/love.elf
-resources/win32/love/*
-resources/win64/love/*
+resources/win32/*
+resources/win64/*
 
 # Legacy Switch dependencies
 resources/switch-old/LOVEPotion.elf

@@ -232,7 +232,7 @@ function love.load() -- Todo, add custom framerate support
 end
 ]]
 
-UNLOCKED_ALL = true
+UNLOCKED_ALL = false
 function love.load()
 	paused = false
 	settings = {}
@@ -658,6 +658,24 @@ function love.load()
 		}
 	}
 
+	local curSave
+	local function recursiveCheck(tbl, save)
+		for i, v in pairs(tbl) do
+			if type(v) == "table" then
+				recursiveCheck(v, save[i])
+			else
+				if save[i] then
+					tbl[i] = save[i]
+				end
+			end
+		end
+	end
+	if love.filesystem.getInfo("save") then
+		curSave = love.filesystem.read("save")
+		curSave = lume.deserialize(curSave)
+		recursiveCheck(SaveData, curSave)
+	end
+
 	if UNLOCKED_ALL then
 		SaveData.weekUnlocked = 10
 		print("Unlocked")
@@ -865,4 +883,12 @@ end
 
 function love.focus(t)
 	Gamestate.focus(t)
+end
+
+function love.quit()
+	-- save SaveData
+	if not UNLOCKED_ALL then
+		local serialized = lume.serialize(SaveData)
+		love.filesystem.write("save", serialized)
+	end
 end

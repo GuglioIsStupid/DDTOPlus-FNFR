@@ -42,7 +42,7 @@ return {
 		weeks:enter("pixel")
 		stages["school"]:enter()
 
-		song = 3
+		song = songNum
 		difficulty = songAppend
 
 		camera.zoom = 0.85
@@ -136,30 +136,33 @@ return {
 		elseif song == 3 then
 			weeks:generateNotes("data/songs/your demise/your demise.json")
 			if storyMode and not died then
-				weeks:setupDialogue(dialogueFiles[song].start)
+				--[[ weeks:setupDialogue(dialogueFiles[song].start)
 				weeks.dialogueSequenceCallback = function()
 					weeks:setupCountdown()
-				end
+				end ]]
+				weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
 		elseif song == 2 then
 			weeks:generateNotes("data/songs/bara no yume/bara no yume.json")
 			if storyMode and not died then
-				weeks:setupDialogue(dialogueFiles[song].start)
+				--[[ weeks:setupDialogue(dialogueFiles[song].start)
 				weeks.dialogueSequenceCallback = function()
 					weeks:setupCountdown()
-				end
+				end ]]
+				weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
 		else
 			weeks:generateNotes("data/songs/high school conflict/high school conflict.json")
 			if storyMode and not died then
-				weeks:setupDialogue(dialogueFiles[song].start)
+				--[[ weeks:setupDialogue(dialogueFiles[song].start)
 				weeks.dialogueSequenceCallback = function()
 					weeks:setupCountdown()
-				end
+				end ]]
+				weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
@@ -225,8 +228,8 @@ return {
 		end
 		if not (countingDown or graphics.isFading()) and not (inst:isPlaying() and voices:isPlaying()) and not paused and not inCutscene then
 			if storyMode and song < 3 then
-				inCutscene = true
-				weeks:setupDialogue(dialogueFiles[song].finish, {
+				--inCutscene = true
+				--[[ weeks:setupDialogue(dialogueFiles[song].finish, {
 					isEndDialogue = true
 				})
 				inCutscene = true
@@ -234,10 +237,13 @@ return {
 					song = song + 1
 
 					self:load()
-				end
+				end ]]
+				song = song + 1
+
+				self:load()
 			else
 				if storyMode then
-					weeks:setupDialogue(dialogueFiles[song].finish, {
+					--[[ weeks:setupDialogue(dialogueFiles[song].finish, {
 						isEndDialogue = true
 					})
 					inCutscene = true
@@ -254,7 +260,19 @@ return {
 								status.setLoading(false)
 							end
 						)
-					end
+					end ]]
+					status.setLoading(true)
+
+					SaveData.songs.beatPrologue = true
+
+					graphics:fadeOutWipe(
+						0.7,
+						function()
+							Gamestate.switch(menu)
+
+							status.setLoading(false)
+						end
+					)
 				else
 					status.setLoading(true)
 

@@ -18,7 +18,7 @@ return {
         weeks:load()
         stages["epiphany"]:load()
 
-        if difficulty == "-hard" then
+        if difficulty == "asdasddas" then
             inst = love.audio.newSource("songs/extra/epiphany/Inst.ogg", "stream")
             voices = love.audio.newSource("songs/extra/epiphany/Voices.ogg", "stream")
         else
@@ -40,7 +40,7 @@ return {
     initUI = function (self)
         weeks:initUI()
         print(difficulty)
-        if difficulty == "-hard" then
+        if difficulty == "asdsaddas" then
             weeks:generateNotes("data/songs/epiphany/epiphany.json")
             hasLyrics = false
         else
@@ -156,7 +156,6 @@ return {
             love.graphics.setColor(1,1,1,1)
             lyrics.draw()
         end
-        print(beatHandler.curStep, hasLyrics)
 
         love.graphics.setColor(0, 0, 0, gameFade.alpha)
         love.graphics.rectangle("fill", -1000, -1000, 3000, 3000)
