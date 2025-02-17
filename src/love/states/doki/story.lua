@@ -331,13 +331,13 @@ return {
             if curWeek == 9 then
                 goto continue
             end
-            if curWeek == 5 and not SaveData.songs.beatFestival then
+            if curWeek == 6 and not SaveData.songs.beatFestival then
                 goto continue
             end
-            if curWeek == 6 and not SaveData.songs.beatEncore then
+            if curWeek == 7 and not SaveData.songs.beatEncore then
                 goto continue
             end
-            if curWeek == 7 and not SaveData.songs.beatProtag then
+            if curWeek == 8 and not SaveData.songs.beatProtag then
                 goto continue
             end
             if not icons[curWeek][2] then
@@ -397,8 +397,9 @@ return {
             end
             love.graphics.setColor(1, 1, 1)
             love.graphics.printf(weekName, posX, posY, 860, "center")
-
-            love.graphics.setFont(last)
+            if last then
+                love.graphics.setFont(last)
+            end
 
             ::continue2::
         love.graphics.pop()

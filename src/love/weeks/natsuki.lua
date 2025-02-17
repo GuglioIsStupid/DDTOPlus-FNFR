@@ -122,7 +122,7 @@ return {
                     stageImages.bakaOverlay:animate("party rock is", true)
                 end
             elseif song == 1 then
-                if b == 260 then 
+                if b == 260 then
                     enemy:animate("hmmph")
                 end
             end
