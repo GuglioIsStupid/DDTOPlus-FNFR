@@ -114,7 +114,7 @@ return {
         songListSpr.x = -430
 
         for i = 1, #grpSprites do
-            if not grpSprites[i].isLocked then
+            if not grpSprites[i].isLocked and i == curWeek then
                 storyCursor.x = icons[i][3]
                 storyCursor.y = icons[i][4]
             end
@@ -150,7 +150,7 @@ return {
             sideIcon.y = self.popupStuff.songData[i][4]
             table.insert(self.popupStuff.drawGrp, sideIcon)
         end
-        self.popupStuff.cursor.x, self.popupStuff.cursor.y = self.popupStuff.songData[1][3], self.popupStuff.songData[1][4]
+        self.popupStuff.cursor.x, self.popupStuff.cursor.y = self.popupStuff.songData[self.popupStuff.curSelected][3], self.popupStuff.songData[self.popupStuff.curSelected][4]
 
         self.popupStuff.metacursor.x, self.popupStuff.metacursor.y = self.popupStuff.songData[#self.popupStuff.songData][3], self.popupStuff.songData[#self.popupStuff.songData][4]
 
@@ -318,6 +318,31 @@ return {
 
         if beatHit then
             logo:animate("anim")
+        end
+
+        if input:pressed("debugZoomIn") and debug then
+            if not inSubstate then
+                if curWeek == 1 then
+                    SaveData.songs.beatPrologue = true
+                elseif curWeek == 2 then
+                    SaveData.songs.beatSayori = true
+                elseif curWeek == 3 then
+                    SaveData.songs.beatNatsuki = true
+                elseif curWeek == 4 then
+                    SaveData.songs.beatYuri = true
+                elseif curWeek == 5 then
+                    SaveData.songs.beatMonika = true
+                elseif curWeek == 6 then
+                    SaveData.songs.beatFestival = true
+                elseif curWeek == 7 then
+                    SaveData.songs.beatEncore = true
+                elseif curWeek == 8 then
+                    SaveData.songs.beatProtag = true
+                end
+
+                self:unlockedWeeks()
+                Gamestate.switch(self)
+            end
         end
 
         if inSubstate then

@@ -232,7 +232,7 @@ function love.load() -- Todo, add custom framerate support
 end
 ]]
 
-UNLOCKED_ALL = true
+UNLOCKED_ALL = false
 function love.load()
 	paused = false
 	settings = {}
@@ -784,7 +784,7 @@ function love.load()
 	if curOS == "Web" then
 		Gamestate.switch(clickStart)
 	else
-		Gamestate.switch(menuWeek)
+		Gamestate.switch(menu)
 	end
 end
 

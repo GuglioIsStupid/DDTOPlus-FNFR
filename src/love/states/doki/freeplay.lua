@@ -75,7 +75,6 @@ return {
 
         for i = 1, #songs do
             local songName = songs[i].title
-            print("data/songs/" .. songName:lower() .. "/meta.json")
             local metadata = json.decode(love.filesystem.read("data/songs/" .. songName:lower() .. "/meta.json"))
             songName = metadata.song.name
             local songText = {
@@ -138,7 +137,10 @@ return {
     changePage = function(self, huh)
         curPage = curPage + huh
 
-        if not SaveData.songs.unlockedEpiphany then
+        if not SaveData.songs.beatProtag then
+            curPage = 1
+            return false
+        elseif not SaveData.songs.unlockedEpiphany then
             if curPage >= 4 then
                 curPage = 1
             end
@@ -152,10 +154,6 @@ return {
             if curPage <= 0 then
                 curPage = 4
             end
-        elseif not SaveData.songs.beatMonika then
-            -- no page changing :fedyfazber:
-            curPage = 1
-            return false
         else
             if curPage >= 6 then
                 curPage = 1

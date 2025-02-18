@@ -183,7 +183,6 @@ return {
                 print(9)
             elseif s == 1008 and countNum == 9 then
                 print("What the fuck")
-                -- awwww now they're singing together <3
                 if not settings.middleScroll then
                     for i = 1, 4 do
                         Timer.tween(1.5, boyfriendArrows[i], {x = -410 + 165 * i}, "out-sine")
@@ -197,7 +196,6 @@ return {
                 countNum = 11
                 print(11)
             elseif s == 1144 and countNum == 11 then
-                -- they're not singing together anymore </3
                 if not settings.middleScroll then
                     for i = 1, 4 do
                         Timer.tween(1.5, boyfriendArrows[i], {x = 100 + 165 * i}, "out-sine")
