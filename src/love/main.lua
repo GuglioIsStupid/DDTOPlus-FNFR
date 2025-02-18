@@ -166,6 +166,7 @@ function saveSettings()
             customBindUp = customBindUp,
             customBindLeft = customBindLeft,
             customBindRight = customBindRight,
+			selfAwareness = settings.selfAwareness,
 
 			mirrorMode = settings.mirrorMode,
 
@@ -203,6 +204,7 @@ function saveSettings()
             hitsoundVol = settings.hitsoundVol,
             noteSkins = settings.noteSkins,
             flashinglights = settings.flashinglights,
+			selfAwareness = settings.selfAwareness,
 
 			mirrorMode = settings.mirrorMode,
 
@@ -316,6 +318,7 @@ function love.load()
 		customBindRight = settingdata.saveSettingsMoment.customBindRight
 
 		settings.mirrorMode = settingdata.saveSettingsMoment.mirrorMode
+		settings.selfAwareness = settingdata.saveSettingsMoment.selfAwareness
 	
 		settingsVer = settingdata.saveSettingsMoment.settingsVer
 	
@@ -338,21 +341,22 @@ function love.load()
 			customBindLeft = customBindLeft,
 			customBindRight = customBindRight,
 			mirrorMode = settings.mirrorMode,
+			selfAwareness = settings.selfAwareness,
 			settingsVer = settingsVer
 		}
 		serialized = lume.serialize(settingdata)
 		love.filesystem.write("settings", serialized)
 	end
-	if settingsVer ~= 8 then
+	if settingsVer ~= 9 then
 		love.window.showMessageBox("Uh Oh!", "Settings have been reset.", "warning")
 		love.filesystem.remove("settings")
 	end
-	if not love.filesystem.getInfo("settings") or settingsVer ~= 8 then
+	if not love.filesystem.getInfo("settings") or settingsVer ~= 9 then
 		settings.hardwareCompression = true
 		graphics.setImageType("dds")
 		settings.downscroll = false
 		settings.middleScroll = false
-		settings.ghostTapping = false
+		settings.ghostTapping = true
 		settings.showDebug = false
 		settings.sideJudgements = false
 		settings.botPlay = false
@@ -369,7 +373,8 @@ function love.load()
 		customBindDown = "s"
 	
 		settings.flashinglights = false
-		settingsVer = 8
+		selfAwareness = true
+		settingsVer = 9
 		settingdata = {}
 		settingdata.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
@@ -390,6 +395,7 @@ function love.load()
 			customBindRight = customBindRight,
 			customBindUp = customBindUp,
 			customBindDown = customBindDown,
+			selfAwareness = settings.selfAwareness,
 			
 			settingsVer = settingsVer
 		}
@@ -429,7 +435,7 @@ function love.load()
 	menu = require "states.doki.menu"
 	menuWeek = require "states.doki.story"
 	menuFreeplay = require "states.doki.freeplay"
-	menuSettings = require "states.menu.menuSettings"
+	menuSettings = require "states.doki.options"
 	menuCredits = require "states.menu.menuCredits"
 	menuSelect = require "states.doki.select"
 	
@@ -761,6 +767,8 @@ function love.load()
 	tracklistFont = love.graphics.newFont("fonts/riffic.ttf", 32)
 	weekTitleFont = love.graphics.newFont("fonts/riffic.ttf", 32 * 1.2)
 	freeplayFont = love.graphics.newFont("fonts/Halogen.otf", 29)
+	optionsFont = love.graphics.newFont("fonts/riffic.ttf", 36)
+	optionDescFont = love.graphics.newFont("fonts/Aller_Rg.ttf", 16)
 
 	weekNum = 1
 	songDifficulty = 2
@@ -784,7 +792,7 @@ function love.load()
 	if curOS == "Web" then
 		Gamestate.switch(clickStart)
 	else
-		Gamestate.switch(menu)
+		Gamestate.switch(menuSettings)
 	end
 end
 
