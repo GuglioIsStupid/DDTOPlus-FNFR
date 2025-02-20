@@ -82,7 +82,6 @@ return {
         logo.sizeX, logo.sizeY = 0.525, 0.525
         logo.x, logo.y = -615, -210
 
-        graphics:fadeInWipe(0.3)
         curOption = "Story"
 
         optionShit = {
@@ -121,7 +120,7 @@ return {
             end
         end
         if not SaveData.songs.beatPrologue then
-            --removeFromName("Freeplay")
+            removeFromName("Freeplay")
         end
         if not SaveData.songs.beatProtag then
             removeFromName("Credits")
@@ -148,7 +147,7 @@ return {
             logo.x = -395
         end
 
-        if (not SaveData.songs.beatVA11HallA and SaveData.songs.beatSide) or debug then
+        if (not SaveData.songs.beatVA11HallA and SaveData.songs.beatSide) then
             addVally = true
         end
 
@@ -165,6 +164,8 @@ return {
             shaker.y = 275
             shaker:animate("anim", false)
         end
+
+        graphics:fadeInWipe(0.3)
     end,
 
     update = function(self, dt)
@@ -241,23 +242,21 @@ return {
 
     mousepressed = function(self, x, y, button)
         x, y = lovesize.pos(x, y)
-        if button == 1 then
-            if x > shakerPressX and x < shakerPressEndX and y > shakerPressY and y < shakerPressEndY then
-                status.setLoading(true)
-                graphics:fadeOutWipe(
-                    0.7,
-                    function()
-                        songAppend = "-hard"
-                        storyMode = true
-                        music:stop()
+        if x > shakerPressX and x < shakerPressEndX and y > shakerPressY and y < shakerPressEndY then
+            status.setLoading(true)
+            graphics:fadeOutWipe(
+                0.7,
+                function()
+                    songAppend = "-hard"
+                    storyMode = true
+                    music:stop()
 
-                        weeks.SET_WEEK_NUMBER = 13
-                        Gamestate.switch(weekData[13], 1, songAppend)
+                    weeks.SET_WEEK_NUMBER = 13
+                    Gamestate.switch(weekData[13], 1, songAppend)
 
-                        status.setLoading(false)
-                    end
-                )
-            end
+                    status.setLoading(false)
+                end
+            )
         end
     end,
 

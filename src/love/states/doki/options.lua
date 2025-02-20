@@ -229,6 +229,8 @@ return {
         logo = love.filesystem.load("sprites/menu/logo2.lua")()
         logo.sizeX, logo.sizeY = 0.525, 0.525
         logo.x, logo.y = -395, -210
+
+        graphics:fadeInWipe(0.3)
     end,
 
     update = function(self, dt)
@@ -310,7 +312,7 @@ return {
             end
         end
 
-        if input:pressed("back") then
+        if input:pressed("back") and not graphics.isFading() then
             selectSound:play()
             if currentSection == "" then
                 Gamestate.switch(menuSelect)
@@ -380,5 +382,9 @@ return {
                 self:borderText(section[curSetting].desc, -635, graphics.getHeight()/2 - 22, 1, optionDescFont, {0, 0, 0}, {1, 1, 1})
             end
         love.graphics.pop()
+    end,
+
+    leave = function(self)
+        saveSettings()
     end
 }

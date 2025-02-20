@@ -140,7 +140,7 @@ return {
             curSelected = 1
         }
 
-        if not checkAllSongsBeaten() and not SaveData.songs.beatLibitina and not (debug and love.keyboard.isDown("f")) then
+        if (not checkAllSongsBeaten() and not SaveData.songs.beatLibitina) or not (debug and love.keyboard.isDown("f")) then
             table.remove(self.popupStuff.songData, 5)
         end
 

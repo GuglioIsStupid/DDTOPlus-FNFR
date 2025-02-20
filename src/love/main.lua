@@ -792,7 +792,7 @@ function love.load()
 	if curOS == "Web" then
 		Gamestate.switch(clickStart)
 	else
-		Gamestate.switch(menuSettings)
+		Gamestate.switch(menu)
 	end
 end
 

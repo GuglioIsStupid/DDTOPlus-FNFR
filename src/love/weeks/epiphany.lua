@@ -18,7 +18,7 @@ return {
         weeks:load()
         stages["epiphany"]:load()
 
-        if difficulty == "asdasddas" then
+        if difficulty == "-hard" then
             inst = love.audio.newSource("songs/extra/epiphany/Inst.ogg", "stream")
             voices = love.audio.newSource("songs/extra/epiphany/Voices.ogg", "stream")
         else
@@ -40,7 +40,7 @@ return {
     initUI = function (self)
         weeks:initUI()
         print(difficulty)
-        if difficulty == "asdsaddas" then
+        if difficulty == "-hard" then
             weeks:generateNotes("data/songs/epiphany/epiphany.json")
             hasLyrics = false
         else
@@ -118,14 +118,11 @@ return {
                 enemy:animate("lastNOTE_start")
                 countNum = 6
             elseif s == 784 and countNum == 6 then
-                --[[
-                    if saveData.songs.epiphany then
-                        enemy:animate("lastNOTE_retry")
-                    else
-                        enemy:animate("lastNOTE_end")
-                    end
-                ]]
-                enemy:animate("lastNOTE_end")
+                if saveData.songs.beatEpiphany then
+                    enemy:animate("lastNOTE_retry")
+                else
+                    enemy:animate("lastNOTE_end")
+                end
                 countNum = 7
             elseif s == 785 and countNum == 7 then
                 --saveData.songs.epiphany = true

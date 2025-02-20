@@ -101,6 +101,9 @@ return {
         costumeSelect.x, costumeSelect.y = 475, -50
         costumeSelect.sizeX, costumeSelect.sizeY = 0.6, 0.6
 
+        images = {
+            icons = love.graphics.newImage(graphics.imagePath("icons"))
+        }
         stupidIcon = love.filesystem.load("sprites/icons.lua")()
         stupidIcon.orientation = math.rad(30)
         stupidIcon.sizeX, stupidIcon.sizeY = 1.6, 1.6
