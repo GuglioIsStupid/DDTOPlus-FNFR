@@ -167,6 +167,8 @@ return graphics.newSprite(
 	false,
 	{
 		sing_duration = 4,
-		isCharacter = true
+		isCharacter = true,
+		icon = "duet",
+		filter = "nearest",
 	}
 )

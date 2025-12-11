@@ -99,7 +99,6 @@ local options = {
             desc = "Determines the speed of the scroll. 1 = Determined by the song."
         },
     },
-    Keybinds = {},
     Save = {
         {
             txt = "Self Awareness %s",
@@ -326,6 +325,86 @@ return {
         end
     end,
 
+    mousemoved = function(self, x, y, dx, dy)
+        x, y = lovesize.pos(x, y)
+
+        if currentSection == "" then
+            for i = 1, #sections do
+                local ox, oy = -180 + (1280 / 2), -300 + (i - 1) * 50 + (720 / 2)+20
+                if x >= ox - 200 and x <= ox + 200 and y >= oy - 20 and y <= oy + 20 then
+                    if curSection ~= i then
+                        selectSound:play()
+                    end
+                    curSection = i
+                    break
+                end
+            end
+        else
+            local section = options[currentSection]
+            if not section then return end
+            for i = 1, #section do
+                local ox, oy = -180 + (1280 / 2), -300 + (i - 1) * 50 + (720 / 2)+20
+                if x >= ox - 200 and x <= ox + 200 and y >= oy - 20 and y <= oy + 20 then
+                    if curSetting ~= i then
+                        selectSound:play()
+                    end
+                    curSetting = i
+                    break
+                end
+            end
+        end
+    end,
+
+    mousepressed = function(self, x, y, button)
+        x, y = lovesize.pos(x, y)
+
+        if button == 1 then
+            if currentSection == "" then
+                -- if hovering keybinds, open keybinds
+                if curSection == 2 then
+                    local ox, oy = -180 + (1280 / 2), -300 + (curSection - 1) * 50 + (720 / 2)+20
+                    if x >= ox - 200 and x <= ox + 200 and y >= oy - 20 and y <= oy + 20 then
+                        confirmSound:play()
+                        Gamestate.switch(settingsKeybinds)
+                    end
+                else
+                    for i = 1, #sections do
+                        local ox, oy = -180 + (1280 / 2), -300 + (i - 1) * 50 + (720 / 2)+20
+                        if x >= ox - 200 and x <= ox + 200 and y >= oy - 20 and y <= oy + 20 then
+                            confirmSound:play()
+                            curSection = i
+                            currentSection = sections[curSection]
+                            break
+                        end
+                    end
+                end
+            else
+                local section = options[currentSection]
+                if not section then return end
+                for i = 1, #section do
+                    local ox, oy = -180 + (1280 / 2), -300 + (i - 1) * 50 + (720 / 2)+20
+                    if x >= ox - 200 and x <= ox + 200 and y >= oy - 20 and y <= oy + 20 then
+                        confirmSound:play()
+                        curSetting = i
+                        local setting = options[currentSection][curSetting]
+                        if setting.type == "boolean" or setting.type == "select" then
+                            setting:onHit()
+                        elseif setting.type == "callTwice" then
+                            if setting.hitOnce then
+                                setting:onHitTwice()
+                                setting.hitOnce = false
+                            else
+                                setting:onHit()
+                                setting.hitOnce = true
+                            end
+                        end
+                        break
+                    end
+                end
+            end
+        end
+    end,
+
     borderText = function(self, txt, x, y, size, font, bCol, inCol)
         local last = love.graphics.getFont()
         love.graphics.setFont(font)
@@ -360,6 +439,7 @@ return {
                 self:borderText("Please select a category.", -635, graphics.getHeight()/2 - 22, 1, optionDescFont, {0, 0, 0}, {1, 1, 1})
             else
                 local section = options[currentSection]
+                if not section then return end
                 for i = 1, #section do
                     local col = {1, 124/255, 1}
                     if i == curSetting then

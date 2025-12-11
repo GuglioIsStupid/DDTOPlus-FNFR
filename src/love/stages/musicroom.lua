@@ -111,6 +111,8 @@ return {
                 enemy3.x, enemy3.y = -175, 100
 
                 numOfChar = 4
+
+                enemy.icon = "our harmony"
             end
         else
             boyfriend = love.filesystem.load("sprites/characters/girlfriend/girlfriend-player.lua")()

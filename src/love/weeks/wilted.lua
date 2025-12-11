@@ -31,7 +31,6 @@ return {
 		difficulty = songAppend
 
 		boyfriendIcon:animate("natsuki", false)
-        enemyIcon:animate("yuri")
 
 		boyfriend.flipX = true
         hasPixelNotes = true
@@ -241,22 +240,8 @@ return {
 			if input:pressed("confirm") then
 				dialogue.next()
 			end
-		end
-
-		if health >= 1.595 then
-			if enemyIcon:getAnimName() == "yuri" then
-				enemyIcon:animate("yuri losing")
-			end
-		elseif health < 0.325 then
-			if enemyIcon:getAnimName() == "yuri" then
-				enemyIcon:animate("yuri winning")
-			end
-		else
-			if enemyIcon:getAnimName() == "yuri losing" or enemyIcon:getAnimName() == "yuri winning" then
-				enemyIcon:animate("yuri")
-			end
-		end
-
+        end
+        
 		weeks:updateUI(dt)
 	end,
 

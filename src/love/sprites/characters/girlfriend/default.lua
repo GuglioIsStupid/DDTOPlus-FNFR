@@ -197,5 +197,6 @@ return graphics.newSprite(
 		danceIdle = true,
 		isCharacter = true,
 		danceSpeed = 1,
+		icon = "girlfriend"
 	}
 )

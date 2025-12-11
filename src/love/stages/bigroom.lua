@@ -8,6 +8,7 @@ return {
             wall = graphics.newImage(graphics.imagePath("week6/FinaleBG_2")),
             FG = graphics.newImage(graphics.imagePath("week6/FinaleFG")),
             school = love.filesystem.load("sprites/week6/evil-school.lua")(),
+            ["Petals"] = love.filesystem.load("sprites/week6/petals.lua")()
         }
 		girlfriend = love.filesystem.load("sprites/pixel/girlfriend.lua")()
 		enemy = love.filesystem.load("sprites/characters/pixel/monika.lua")()
@@ -47,6 +48,8 @@ return {
 
             curStage = "bigroom"
         end
+
+        stageImages.Petals.visible = false
     end,
 
     load = function(self)
@@ -55,6 +58,11 @@ return {
 
     update = function(self, dt)
         stageImages.school:update(dt)
+        stageImages.Petals:update(dt)
+    end,
+
+    treeleavesVisible = function(self, bool)
+        stageImages.Petals.visible = bool
     end,
 
     draw = function()
@@ -88,8 +96,10 @@ return {
                     love.graphics.translate(camera.ex * 0.9, camera.ey * 0.9)
 
                     stageImages.school:udraw()
+                    if stageImages.Petals.visible then
+                        stageImages.Petals:udraw()
+                    end
 
-                    girlfriend:udraw()
                 love.graphics.pop()
                 love.graphics.push()
                     love.graphics.translate(camera.x, camera.y)
@@ -98,6 +108,8 @@ return {
                     enemy:udraw()
                     boyfriend:udraw()
                 love.graphics.pop()
+
+
             end
 		love.graphics.pop()
     end,

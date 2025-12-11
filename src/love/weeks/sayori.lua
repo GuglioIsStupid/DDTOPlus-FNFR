@@ -36,7 +36,6 @@ return {
 
 		camera.defaultZoom = 0.85
 
-		enemyIcon:animate("sayori", false)
 
 		self:load()
 
@@ -200,21 +199,7 @@ return {
 				dialogue.next()
 			end
 		end
-
-		if health >= 1.595 then
-			if enemyIcon:getAnimName() == "sayori" then
-				enemyIcon:animate("sayori losing")
-			end
-		elseif health < 0.325 then
-			if enemyIcon:getAnimName() == "sayori" then
-				enemyIcon:animate("sayori winning")
-			end
-		else
-			if enemyIcon:getAnimName() == "sayori losing" or enemyIcon:getAnimName() == "sayori winning" then
-				enemyIcon:animate("sayori")
-			end
-		end
-
+		
 		weeks:updateUI(dt)
 	end,
 

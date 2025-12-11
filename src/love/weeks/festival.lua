@@ -39,16 +39,14 @@ return {
 
 		camera.defaultZoom = 0.85
 
-		enemyIcon:animate("senpai", false)
-
         function gopixel(v)
             showPixelNotes = true
             curEnemy = "pmonika"
             camera:addPoint("boyfriend", -boyfriend2.x + 100, -boyfriend2.y + 75)
             camera:addPoint("enemy", -enemy2.x - 100, -enemy2.y + 75)
 
-            enemyIcon:animate("monika pixel", false)
-            boyfriendIcon:animate("boyfriend (pixel)")
+            enemy.icon = "monika pixel"
+            boyfriend.icon = "boyfriend (pixel)"
             if v == 1 then
                 camera.x, camera.y = -boyfriend2.x + 100, -boyfriend2.y + 75
             else
@@ -62,8 +60,8 @@ return {
             curEnemy = "monika"
             camera:addPoint("boyfriend", -boyfriend.x + 100, -boyfriend.y + 75)
             camera:addPoint("enemy", -enemy.x - 100, -enemy.y + 75)
-            enemyIcon:animate("monika", false)
-            boyfriendIcon:animate("boyfriend")
+            enemy.icon = "monika"
+            boyfriend.icon = "boyfriend"
             if v == 1 then
                 camera.x, camera.y = -boyfriend.x + 100, -boyfriend.y + 75
             else
@@ -84,17 +82,14 @@ return {
             inst = love.audio.newSource("songs/festival/crucify (yuri mix)/Inst.ogg", "stream")
             voices = love.audio.newSource("songs/festival/crucify (yuri mix)/Voices.ogg", "stream")
             curEnemy = "yuri"
-            enemyIcon:animate("yuri", false)
         elseif song == 2 then
             inst = love.audio.newSource("songs/festival/beathoven (natsuki mix)/Inst.ogg", "stream")
             voices = love.audio.newSource("songs/festival/beathoven (natsuki mix)/Voices.ogg", "stream")
             curEnemy = "natsuki"
-            enemyIcon:animate("natsuki", false)
         elseif song == 3 then
             inst = love.audio.newSource("songs/festival/it's complicated (sayori mix)/Inst.ogg", "stream")
             voices = love.audio.newSource("songs/festival/it's complicated (sayori mix)/Voices.ogg", "stream")
             curEnemy = "sayori"
-            enemyIcon:animate("sayori", false)
         elseif song == 4 then
             inst = love.audio.newSource("songs/festival/glitcher (monika mix)/Inst.ogg", "stream")
             voices = love.audio.newSource("songs/festival/glitcher (monika mix)/Voices.ogg", "stream")
@@ -102,14 +97,12 @@ return {
             hasPixelNotes = true
             whoHasPixelNotes = "none"
             showPixelNotes = false
-            enemyIcon:animate("monika", false)
         elseif song == 5 then
             -- titular
             inst = love.audio.newSource("songs/festival/titular (mc mix)/Inst.ogg", "stream")
             voices = love.audio.newSource("songs/festival/titular (mc mix)/Voices.ogg", "stream")
             curEnemy = "protag"
             hasPixelNotes = false
-            enemyIcon:animate("protag", false)
         end
 
         stages["clubroom-festival"]:load()
@@ -256,44 +249,6 @@ return {
 
 			if input:pressed("confirm") then
 				dialogue.next()
-			end
-		end
-
-        if health >= 1.595 then
-			if enemyIcon:getAnimName() == "yuri" then
-				enemyIcon:animate("yuri losing")
-            elseif enemyIcon:getAnimName() == "natsuki" then
-                enemyIcon:animate("natsuki losing")
-            elseif enemyIcon:getAnimName() == "sayori" then
-                enemyIcon:animate("sayori losing")
-            elseif enemyIcon:getAnimName() == "monika" then
-                enemyIcon:animate("monika losing")
-            elseif enemyIcon:getAnimName() == "monika pixel" then
-                enemyIcon:animate("monika pixel losing")
-			end
-		elseif health < 0.325 then
-			if enemyIcon:getAnimName() == "yuri" then
-				enemyIcon:animate("yuri winning")
-            elseif enemyIcon:getAnimName() == "natsuki" then
-                enemyIcon:animate("natsuki winning")
-            elseif enemyIcon:getAnimName() == "sayori" then
-                enemyIcon:animate("sayori winning")
-            elseif enemyIcon:getAnimName() == "monika" then
-                enemyIcon:animate("monika winning")
-            elseif enemyIcon:getAnimName() == "monika pixel" then
-                enemyIcon:animate("monika pixel winning")
-			end
-		else
-			if enemyIcon:getAnimName() == "yuri losing" or enemyIcon:getAnimName() == "monika winning" then
-				enemyIcon:animate("yuri")
-            elseif enemyIcon:getAnimName() == "natsuki losing" or enemyIcon:getAnimName() == "sayori winning" then
-                enemyIcon:animate("natsuki")
-            elseif enemyIcon:getAnimName() == "sayori losing" or enemyIcon:getAnimName() == "natsuki winning" then
-                enemyIcon:animate("sayori")
-            elseif enemyIcon:getAnimName() == "monika losing" or enemyIcon:getAnimName() == "yuri winning" then
-                enemyIcon:animate("monika")
-            elseif enemyIcon:getAnimName() == "monika pixel losing" then
-                enemyIcon:animate("monika pixel")
 			end
 		end
 

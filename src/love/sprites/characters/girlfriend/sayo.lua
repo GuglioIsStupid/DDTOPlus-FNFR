@@ -222,5 +222,6 @@ return graphics.newSprite(
 		danceIdle = false,
 		isCharacter = true,
 		danceSpeed = 1,
+		icon = "sayori"
 	}
 )

@@ -58,6 +58,8 @@ local useAltAnims
 local notMissed = {}
 local option = "normal"
 
+FORCE_WINNING = false
+
 return {
 	enter = function(self, option)
 		FORCEP2NOMATTERWHAT = false
@@ -199,6 +201,8 @@ return {
 	end,
 
 	load = function(self)
+		FORCE_WINNING = false
+		camera = require "modules.camera"
 		self.blackscreen = {
 			alpha = 0,
 			visible = false
@@ -1614,13 +1618,13 @@ return {
 			if input:pressed("confirm") then
 				love.audio.stop(sounds.breakfast) -- since theres only 3 options, we can make the sound stop without an else statement
 				if pauseMenuSelection == 1 then
-					if inst then inst:play() end
-					voices:play()
+					if inst then inst:play(true) end
+					voices:play(true)
 					if voices_Monika and choosen == "monika" then voices_Monika:play() end
 					if voices_Natsuki and choosen == "natsuki" then voices_Natsuki:play() end
 					if voices_Sayori and choosen == "sayori" then voices_Sayori:play() end
 					if voices_Yuri and choosen == "yuri" then voices_Yuri:play() end
-					paused = false 
+					paused = false
 				elseif pauseMenuSelection == 2 then
 					pauseRestart = true
 					Gamestate.push(gameOver)
@@ -2466,49 +2470,24 @@ return {
 
 		if health > 2 then
 			health = 2
-		elseif health > 0.325 and health < 1.595 and (boyfriendIcon:getAnimName() == "boyfriend losing" or boyfriendIcon:getAnimName() == "boyfriend winning") then
-			if changeIcons then
-				if not pixel then 
-					boyfriendIcon:animate("boyfriend", false)
-				else
-					boyfriendIcon:animate("boyfriend (pixel)", false)
-				end
-			end
-		elseif health > 0.325 and health < 1.595 and (boyfriendIcon:getAnimName() == "protag losing" or boyfriendIcon:getAnimName() == "protag winning") then
-			if changeIcons then
-				boyfriendIcon:animate("protag", false)
-			end
 		elseif health <= 0 then -- Game over
 			--if not settings.practiceMode then Gamestate.push(gameOver) end
 			health = 0
-		elseif health <= 0.325 and boyfriendIcon:getAnimName() == "boyfriend" then
-			if changeIcons then
-				if not pixel then 
-					boyfriendIcon:animate("boyfriend losing", false)
-				else
-					boyfriendIcon:animate("boyfriend losing (pixel)", false)
-				end
-			end
-		elseif health <= 0.325 and boyfriendIcon:getAnimName() == "protag" then
-			if changeIcons then
-				boyfriendIcon:animate("protag losing", false)
-			end
-		elseif health >= 1.595 and boyfriendIcon:getAnimName() == "boyfriend" then
-			if changeIcons then
-				if not pixel then 
-					boyfriendIcon:animate("boyfriend winning", false)
-				else
-					boyfriendIcon:animate("boyfriend winning (pixel)", false)
-				end
-			end
-		elseif health >= 1.595 and boyfriendIcon:getAnimName() == "protag" then
-			if changeIcons then
-				boyfriendIcon:animate("protag winning", false)
-			end
 		end
 
 		enemyIcon.x = 425 - health * 500
 		boyfriendIcon.x = 585 - health * 500
+
+		if health >= 1.595 then
+			enemyIcon:animate(enemy.icon .. " losing", false)
+			boyfriendIcon:animate(boyfriend.icon .. " winning", false)
+		elseif health < 0.325 then
+			enemyIcon:animate(enemy.icon .. " winning", false)
+			boyfriendIcon:animate(boyfriend.icon .. " losing", false)
+		else
+			enemyIcon:animate(enemy.icon, false)
+			boyfriendIcon:animate(boyfriend.icon, false)
+		end
 
 		if beatHandler.onBeat() then
 			if enemyIconTimer then Timer.cancel(enemyIconTimer) end

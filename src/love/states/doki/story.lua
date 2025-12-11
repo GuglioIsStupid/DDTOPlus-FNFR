@@ -276,7 +276,7 @@ return {
             if curWeek == 13 then
                 curWeek = 9
             end
-            
+
             if curWeek >= 13 then
                 curWeek = 1
             end
@@ -443,6 +443,112 @@ return {
         )
     end,
 
+    mousemoved = function(self, x, y, dx, dy)
+        x, y = lovesize.pos(x, y)
+        if inSubstate then
+            for i = 1, #self.popupStuff.songData do
+                local ox, oy = self.popupStuff.songData[i][3]+(1280/2)-100, self.popupStuff.songData[i][4]+(720/2)
+                if x >= ox - 100 and x <= ox + 200 and y >= oy - 100 and y <= oy + 100 then
+                    if self.popupStuff.curSelected ~= i then
+                        audio.playSound(selectSound)
+                    end
+                    self.popupStuff.curSelected = i
+
+                    self.popupStuff.cursor.x = self.popupStuff.songData[i][3]
+                    self.popupStuff.cursor.y = self.popupStuff.songData[i][4]
+
+                    if self.popupStuff.songData[i][1] == "meta" then
+                        self.popupStuff.cursorType = 2
+                    else
+                        self.popupStuff.cursorType = 1
+                    end
+                    break
+                end
+            end
+        else
+            for i = 1, #icons do
+                local ox, oy = icons[i][3]+(1280/2)-80, icons[i][4]+(720/2)
+                if x >= ox - 100 and x <= ox + 200 and y >= oy - 100 and y <= oy + 100 then
+                    if not inSubstate then
+                        if curWeek ~= i then
+                            audio.playSound(selectSound)
+                        end
+                        curWeek = i
+
+                        if curWeek == 9 then
+                            sideStories:animate("highlighted", true)
+                            storyCursor.visible = false
+                        else
+                            sideStories:animate("idle", true)
+                            storyCursor.visible = true
+                        end
+
+                        storyCursor.x = icons[i][3]
+                        storyCursor.y = icons[i][4]
+                    end
+                    break
+                end
+            end
+
+            local ox, oy = sideStories.x+(1280/2)-10, sideStories.y+(720/2)
+            local sw, sh = sideStories:getFrameWidth(), sideStories:getFrameHeight()
+            ox = ox - sw / 2
+            oy = oy - sh / 2
+            sw = sw / 2
+            sh = sh / 2
+            if x >= ox and x <= ox + sw and y >= oy and y <= oy + sh then
+                if not inSubstate then
+                    if curWeek ~= 9 then
+                        audio.playSound(selectSound)
+                    end
+                    curWeek = 9
+                    sideStories:animate("highlighted", true)
+                    storyCursor.visible = false
+                end
+            end
+        end
+    end,
+
+    mousepressed = function(self, x, y, button)
+        if button == 1 then
+            x, y = lovesize.pos(x, y)
+            if inSubstate then
+                for i = 1, #self.popupStuff.songData do
+                    local ox, oy = self.popupStuff.songData[i][3]+(1280/2)-100, self.popupStuff.songData[i][4]+(720/2)-100
+                    if x >= ox - 100 and x <= ox + 200 and y >= oy - 100 and y <= oy + 100 then
+                        self.popupStuff.curSelected = i
+                        self:gotoStatePopup()
+                        break
+                    end
+                end
+            else
+                for i = 1, #icons do
+                    local ox, oy = icons[i][3]+(1280/2)-80, icons[i][4]+(720/2)-100
+                    if not icons[i][2] then
+                        goto continue
+                    end
+                    if x >= ox - 100 and x <= ox + 200 and y >= oy - 100 and y <= oy + 100 then
+                        curWeek = i
+                        self:gotoState()
+                        break
+                    end
+                    ::continue::
+                end
+
+                local ox, oy = sideStories.x+(1280/2)-10, sideStories.y+(720/2)
+                local sw, sh = sideStories:getFrameWidth(), sideStories:getFrameHeight()
+                ox = ox - sw / 2
+                oy = oy - sh / 2
+                sw = sw / 2
+                sh = sh / 2
+                if x >= ox and x <= ox + sw and y >= oy and y <= oy + sh then
+                    curWeek = 9
+                    self:gotoState()
+                end
+            end
+        end
+    end,
+
     draw = function(self)
         love.graphics.push()
             love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
@@ -523,7 +629,7 @@ return {
             end
 
             love.graphics.setFont(weekTitleFont)
-            
+
             weekName = weekNames["week" .. curWeek]
             love.graphics.setColor(248/255, 96/255, 176/255)
             posX, posY = -300, -200

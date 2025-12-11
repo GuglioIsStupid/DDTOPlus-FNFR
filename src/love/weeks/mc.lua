@@ -39,7 +39,7 @@ return {
 
 		camera.defaultZoom = 0.85
 
-		enemyIcon:animate("protag", false)
+		enemy.icon = "protag"
 
         spotlight = love.audio.newSource("sounds/spotlight.ogg", "static")
 
@@ -118,7 +118,7 @@ return {
             stages["clubroom"]:leave()
 
             changeIcons = true
-            enemyIcon:animate("none")
+            enemy.icon = "none"
             showEnemyIcon = false
             boyfriendIcon:animate("protag")
         else
@@ -226,8 +226,8 @@ return {
            Timer.tween(beatHandler.calcSectionLength(0.1), flashLol, {alpha = 0}, "out-sine")
             curEnemy = char
             showEnemyIcon = true
-            if char == "pmonika" then enemyIcon:animate("monika pixel")
-            else enemyIcon:animate(char) end
+            if char == "pmonika" then enemy.icon = "monika pixel"
+            else enemy.icon = char end
             if curEnemy == "pmonika" then
                 enemy = monikap
             elseif curEnemy == "monika" then
@@ -244,7 +244,7 @@ return {
             enemy.alpha = 1
         end
 
-        enemyIcon:animate("protag")
+        enemy.icon = "protag"
 
 		self:initUI()
 
@@ -407,6 +407,10 @@ return {
                     YuriCard:animate("anim", false)
                     countNum = 9
                 elseif s == 1246 and countNum == 9 then
+                    -- if they didnt choose, just KILLLLLLL THEM
+                    if chooseDoki then
+                        health = 0
+                    end
                     Timer.tween(1, uiAlpha, {1}, "in-sine")
                     for i = 1, 4 do
                         Timer.tween(1, boyfriendArrows[i], {alpha = 1}, "in-sine")
@@ -719,7 +723,6 @@ return {
                 voices_Yuri:seek(voices:tell("seconds"))
                 chooseDoki = false
                 enemy = yuri
-                enemyIcon:animate("yuri winning")
             elseif input:pressed("gameDown") then
                 -- Sayori
                 choosen = "sayori"
@@ -758,7 +761,6 @@ return {
                 voices_Sayori:seek(voices:tell("seconds"))
                 chooseDoki = false
                 enemy = sayo
-                enemyIcon:animate("sayori winning")
             elseif input:pressed("gameRight") then
                 -- Natsuki
                 choosen = "natsuki"
@@ -797,7 +799,6 @@ return {
                 voices_Natsuki:seek(voices:tell("seconds"))
                 chooseDoki = false
                 enemy = natsu
-                enemyIcon:animate("natsuki winning")
             elseif input:pressed("gameUp") then
                 -- Monika
                 choosen = "monika"
@@ -836,55 +837,10 @@ return {
                 voices_Monika:seek(voices:tell("seconds"))
                 chooseDoki = false
                 enemy = moni
-                enemyIcon:animate("monika winning")
             end
         end
 
         typeWriterText:update(dt)
-
-        if health > 0.325 and health < 1.595 then
-            if enemyIcon:getAnimName() == "protag losing" or enemyIcon:getAnimName() == "protag winning" then
-                enemyIcon:animate("protag")
-            elseif enemyIcon:getAnimName() == "yuri losing" or enemyIcon:getAnimName() == "yuri winning" then
-                enemyIcon:animate("yuri")
-            elseif enemyIcon:getAnimName() == "sayori losing" or enemyIcon:getAnimName() == "sayori winning" then
-                enemyIcon:animate("sayori")
-            elseif enemyIcon:getAnimName() == "natsuki losing" or enemyIcon:getAnimName() == "natsuki winning" then
-                enemyIcon:animate("natsuki")
-            elseif enemyIcon:getAnimName() == "monika losing" or enemyIcon:getAnimName() == "monika winning" then
-                enemyIcon:animate("monika")
-            elseif enemyIcon:getAnimName() == "monika pixel losing" or enemyIcon:getAnimName() == "monika pixel winning" then
-                enemyIcon:animate("monika pixel")
-            end
-        elseif health < 0.325 then
-            if enemyIcon:getAnimName() == "protag" then
-                enemyIcon:animate("protag winning")
-            elseif enemyIcon:getAnimName() == "yuri" then
-                enemyIcon:animate("yuri winning")
-            elseif enemyIcon:getAnimName() == "sayori" then
-                enemyIcon:animate("sayori winning")
-            elseif enemyIcon:getAnimName() == "natsuki" then
-                enemyIcon:animate("natsuki winning")
-            elseif enemyIcon:getAnimName() == "monika" then
-                enemyIcon:animate("monika winning")
-            elseif enemyIcon:getAnimName() == "monika pixel" then
-                enemyIcon:animate("monika pixel winning")
-            end
-        elseif health > 1.595 then
-            if enemyIcon:getAnimName() == "protag" then
-                enemyIcon:animate("protag losing")
-            elseif enemyIcon:getAnimName() == "yuri" then
-                enemyIcon:animate("yuri losing")
-            elseif enemyIcon:getAnimName() == "sayori" then
-                enemyIcon:animate("sayori losing")
-            elseif enemyIcon:getAnimName() == "natsuki" then
-                enemyIcon:animate("natsuki losing")
-            elseif enemyIcon:getAnimName() == "monika" then
-                enemyIcon:animate("monika losing")
-            elseif enemyIcon:getAnimName() == "monika pixel" then
-                enemyIcon:animate("monika pixel losing")
-            end
-        end
 	end,
 
 	draw = function(self)

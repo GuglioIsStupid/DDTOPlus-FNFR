@@ -229,6 +229,8 @@ return {
 			filter = optionsTable and optionsTable.filter,
 			maxHoldTimer = optionsTable and optionsTable.maxHoldTimer or 0.1,
 
+			icon = optionsTable and optionsTable.icon or "boyfriend",
+
 			alpha = 1,
 
 			danced = false,
@@ -375,20 +377,19 @@ return {
 				if self.isCharacter then
 					if beatHandler.onBeat() then
 						if not self.danceIdle then
-							if (not self:isAnimated() and util.startsWith(self:getAnimName(), "sing")) or (self:getAnimName() == "idle" or self:getAnimName() == "idle loop") then
+							if (not self:isAnimated() and util.startsWith(self:getAnimName(), "sing")) or util.startsWith(self:getAnimName(), "idle") then
 								if beat % self.danceSpeed == 0 then 
 									if self.lastHit > 0 then
 										if self.lastHit + beatHandler.getStepCrochet() * self.singDuration <= musicTime then
 											if self.altIdle then
-												print("alt idle")
 												self:animate("idle alt", false, function()
-													if self:isAnimName("idle alt loop") then 
+													if self:isAnimName("idle alt loop") then
 														self:animate("idle alt loop", true)
 													end
 												end)
 											else
 												self:animate("idle", false, function()
-													if self:isAnimName("idle loop") then 
+													if self:isAnimName("idle loop") then
 														self:animate("idle loop", true)
 													end
 												end)
@@ -396,15 +397,15 @@ return {
 											self.lastHit = 0
 										end
 									else
-										if self.altIdle then 
+										if self.altIdle then
 											self:animate("idle alt", false, function()
-												if self:isAnimName("idle alt loop") then 
+												if self:isAnimName("idle alt loop") then
 													self:animate("idle alt loop", true)
 												end
 											end)
 										else
 											self:animate("idle", false, function()
-												if self:isAnimName("idle loop") then 
+												if self:isAnimName("idle loop") then
 													self:animate("idle loop", true)
 												end
 											end)

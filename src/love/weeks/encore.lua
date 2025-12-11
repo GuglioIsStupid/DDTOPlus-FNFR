@@ -49,7 +49,6 @@ return {
 
 		camera.defaultZoom = 1
 
-		enemyIcon:animate("natsuki", false)
         boyfriendIcon:animate("monika", false)
 
         whiteflash = {alpha=0}
@@ -110,17 +109,14 @@ return {
             inst = love.audio.newSource("songs/encore/shrinking violet/Inst.ogg", "stream")
             voices = love.audio.newSource("songs/encore/shrinking violet/Voices.ogg", "stream")
             curEnemy = "natsuki"
-            enemyIcon:animate("yuri")
         elseif song == 3 then
             inst = love.audio.newSource("songs/encore/joyride/Inst.ogg", "stream")
             voices = love.audio.newSource("songs/encore/joyride/Voices.ogg", "stream")
             curEnemy = "sayori"
-            enemyIcon:animate("sayori")
         elseif song == 4 then
             inst = love.audio.newSource("songs/encore/our harmony/Inst.ogg", "stream")
             voices = love.audio.newSource("songs/encore/our harmony/Voices.ogg", "stream")
             curEnemy = "monika"
-            enemyIcon:animate("our harmony")
             hasPixelNotes = true
         end
 
@@ -330,38 +326,6 @@ return {
         if beatHandler.curStep >= 2456 then
             lyrics.dolyrics(dt)
         end
-
-        if health >= 1.595 then
-			if enemyIcon:getAnimName() == "yuri" then
-				enemyIcon:animate("yuri losing")
-            elseif enemyIcon:getAnimName() == "natsuki" then
-                enemyIcon:animate("natsuki losing")
-            elseif enemyIcon:getAnimName() == "sayori" then
-                enemyIcon:animate("sayori losing")
-            elseif enemyIcon:getAnimName() == "our harmony" then
-                enemyIcon:animate("our harmony losing")
-			end
-		elseif health < 0.325 then
-			if enemyIcon:getAnimName() == "yuri" then
-				enemyIcon:animate("yuri winning")
-            elseif enemyIcon:getAnimName() == "natsuki" then
-                enemyIcon:animate("natsuki winning")
-            elseif enemyIcon:getAnimName() == "sayori" then
-                enemyIcon:animate("sayori winning")
-            elseif enemyIcon:getAnimName() == "our harmony" then
-                enemyIcon:animate("our harmony winning")
-			end
-		else
-			if enemyIcon:getAnimName() == "yuri losing" or enemyIcon:getAnimName() == "monika winning" then
-				enemyIcon:animate("yuri")
-            elseif enemyIcon:getAnimName() == "natsuki losing" or enemyIcon:getAnimName() == "sayori winning" then
-                enemyIcon:animate("natsuki")
-            elseif enemyIcon:getAnimName() == "sayori losing" or enemyIcon:getAnimName() == "natsuki winning" then
-                enemyIcon:animate("sayori")
-            elseif enemyIcon:getAnimName() == "our harmony losing" or enemyIcon:getAnimName() == "our harmony winning" then
-                enemyIcon:animate("our harmony")
-			end
-		end
 
 		weeks:updateUI(dt)
 	end,

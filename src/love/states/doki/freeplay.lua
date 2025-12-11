@@ -107,7 +107,7 @@ return {
         stupidIcon = love.filesystem.load("sprites/icons.lua")()
         stupidIcon.orientation = math.rad(30)
         stupidIcon.sizeX, stupidIcon.sizeY = 1.6, 1.6
-        
+
         stupidIcon.x, stupidIcon.y = 470, 255
 
         local currentSong = grpSongs[selectedSong]
@@ -184,7 +184,8 @@ return {
                     music:stop()
 
                     local song = songs[selectedSong]
-                    print(song.weekIndex, weekData[song.weekIndex])
+                    print(song.weekIndex, weekData[song.weekIndex], song.songNum)
+                    if song.weekIndex == 8 and song.songNum == 5 then song.songNum = 3 end
                     weeks.SET_WEEK_NUMBER = song.week
                     Gamestate.switch(weekData[song.weekIndex], song.songNum, songAppend)
 
@@ -270,11 +271,13 @@ return {
             love.graphics.setFont(lastFont)
             love.graphics.setColor(1, 1, 1)
 
-            previewSong:draw()
-            modifiers:draw()
-            costumeSelect:draw()
+            --previewSong:draw()
+            --modifiers:draw()
+            --costumeSelect:draw()
 
-            stupidIcon:draw()
+            if curPage ~= 5 then
+                stupidIcon:draw()
+            end
         love.graphics.pop()
     end
 }

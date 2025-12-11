@@ -4,6 +4,8 @@ return {
 		weeks:enter("pixel")
         stages["bigroom"]:enter(2)
 
+        enemy.icon = "dual demise"
+
         song = songNum
 
         self:load()

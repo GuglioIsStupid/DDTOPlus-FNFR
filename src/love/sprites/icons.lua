@@ -76,7 +76,56 @@ return graphics.newSprite(
 		{x = 600, y = 600, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 41: Dual Demise Losing
 		{x = 750, y = 600, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 42: Dual Demise Winning
 
-		{x = 1350, y = 0, width = 1, height = 1, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 43: None
+		{x = 1350, y = 0, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 43: Catfight
+		{x = 1350, y = 150, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 44: File
+		{x = 1350, y = 300, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 45: Shaker
+		{x = 1350, y = 450, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 46: Pen
+		{x = 1350, y = 600, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 47: Pen Demise
+		{x = 1350, y = 750, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 48: Pen
+		{x = 1350, y = 900, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 49: Mic
+		{x = 1350, y = 1050, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 50: Libitina
+
+		{x = 900, y = 600, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 51: Senpai
+		{x = 1050, y = 600, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 52: Senpai Losing
+		{x = 1200, y = 600, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 53: Senpai Winning
+
+		{x = 900, y = 750, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 54: Senpai real
+		{x = 1050, y = 750, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 55: Senpai real Losing
+		{x = 1200, y = 750, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 56: Senpai real Winning
+
+		{x = 900, y = 900, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 57: Soft
+		{x = 1050, y = 900, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 58: Soft Losing
+		{x = 1200, y = 900, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 59: Soft Winning
+
+		{x = 450, y = 750, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 60: Zipper
+		{x = 600, y = 750, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 61: Zipper Losing
+		{x = 750, y = 750, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 62: Zipper Winning
+
+		{x = 450, y = 900, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 63: MrCow
+		{x = 600, y = 900, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 64: MrCow Losing
+		{x = 750, y = 900, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 65: MrCow Winning
+
+		{x = 450, y = 1050, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 66: Minus
+		{x = 600, y = 1050, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 67: Minus Losing
+		{x = 750, y = 1050, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 68: Minus Winning
+
+		{x = 900, y = 1050, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 69: Minus Yellow
+		{x = 1050, y = 1050, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 70: Minus Yellow Losing
+		{x = 1200, y = 1050, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 71: Minus Yellow Winning
+
+		{x = 0, y = 750, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 72: Bigika
+		{x = 150, y = 750, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 73: Bigika Losing
+		{x = 300, y = 750, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 74: Bigika Winning
+
+		{x = 0, y = 900, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 75: Jill
+		{x = 150, y = 900, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 76: Jill Losing
+		{x = 300, y = 900, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 77: Jill Winning
+
+		{x = 0, y = 1050, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 78: Holofunk
+		{x = 150, y = 1050, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 79: Holofunk Losing
+		{x = 300, y = 1050, width = 150, height = 150, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 80: Holofunk Winning
+
+		{x = 1350, y = 0, width = 1, height = 1, offsetX = 0, offsetY = 0, offsetWidth = 0, offsetHeight = 0}, -- 61: None
 	},
 	{
 		["boyfriend"] = {start = 1, stop = 1, speed = 0, offsetX = 0, offsetY = 0},
@@ -135,7 +184,56 @@ return graphics.newSprite(
 		["dual demise losing"] = {start = 41, stop = 41, speed = 0, offsetX = 0, offsetY = 0},
 		["dual demise winning"] = {start = 42, stop = 42, speed = 0, offsetX = 0, offsetY = 0},
 
-		["none"] = {start = 43, stop = 43, speed = 0, offsetX = 0, offsetY = 0},
+		["senpai"] = {start = 51, stop = 51, speed = 0, offsetX = 0, offsetY = 0},
+		["senpai losing"] = {start = 52, stop = 52, speed = 0, offsetX = 0, offsetY = 0},
+		["senpai winning"] = {start = 53, stop = 53, speed = 0, offsetX = 0, offsetY = 0},
+
+		["senpai real"] = {start = 54, stop = 54, speed = 0, offsetX = 0, offsetY = 0},
+		["senpai real losing"] = {start = 55, stop = 55, speed = 0, offsetX = 0, offsetY = 0},
+		["senpai real winning"] = {start = 56, stop = 56, speed = 0, offsetX = 0, offsetY = 0},
+
+		["soft"] = {start = 57, stop = 57, speed = 0, offsetX = 0, offsetY = 0},
+		["soft losing"] = {start = 58, stop = 58, speed = 0, offsetX = 0, offsetY = 0},
+		["soft winning"] = {start = 59, stop = 59, speed = 0, offsetX = 0, offsetY = 0},
+
+		["zipper"] = {start = 60, stop = 60, speed = 0, offsetX = 0, offsetY = 0},
+		["zipper losing"] = {start = 61, stop = 61, speed = 0, offsetX = 0, offsetY = 0},
+		["zipper winning"] = {start = 62, stop = 62, speed = 0, offsetX = 0, offsetY = 0},
+
+		["mrcow"] = {start = 63, stop = 63, speed = 0, offsetX = 0, offsetY = 0},
+		["mrcow losing"] = {start = 64, stop = 64, speed = 0, offsetX = 0, offsetY = 0},
+		["mrcow winning"] = {start = 65, stop = 65, speed = 0, offsetX = 0, offsetY = 0},
+
+		["minus"] = {start = 66, stop = 66, speed = 0, offsetX = 0, offsetY = 0},
+		["minus losing"] = {start = 67, stop = 67, speed = 0, offsetX = 0, offsetY = 0},
+		["minus winning"] = {start = 68, stop = 68, speed = 0, offsetX = 0, offsetY = 0},
+
+		["minus yellow"] = {start = 69, stop = 69, speed = 0, offsetX = 0, offsetY = 0},
+		["minus yellow losing"] = {start = 70, stop = 70, speed = 0, offsetX = 0, offsetY = 0},
+		["minus yellow winning"] = {start = 71, stop = 71, speed = 0, offsetX = 0, offsetY = 0},
+
+		["bigika"] = {start = 72, stop = 72, speed = 0, offsetX = 0, offsetY = 0},
+		["bigika losing"] = {start = 73, stop = 73, speed = 0, offsetX = 0, offsetY = 0},
+		["bigika winning"] = {start = 74, stop = 74, speed = 0, offsetX = 0, offsetY = 0},
+
+		["jill"] = {start = 75, stop = 75, speed = 0, offsetX = 0, offsetY = 0},
+		["jill losing"] = {start = 76, stop = 76, speed = 0, offsetX = 0, offsetY = 0},
+		["jill winning"] = {start = 77, stop = 77, speed = 0, offsetX = 0, offsetY = 0},
+
+		["holofunk"] = {start = 78, stop = 78, speed = 0, offsetX = 0, offsetY = 0},
+		["holofunk losing"] = {start = 79, stop = 79, speed = 0, offsetX = 0, offsetY = 0},
+		["holofunk winning"] = {start = 80, stop = 80, speed = 0, offsetX = 0, offsetY = 0},
+
+		["catfight"] = {start = 43, stop = 43, speed = 0, offsetX = 0, offsetY = 0},
+		["file"] = {start = 44, stop = 44, speed = 0, offsetX = 0, offsetY = 0},
+		["shaker"] = {start = 45, stop = 45, speed = 0, offsetX = 0, offsetY = 0},
+		["pen"] = {start = 46, stop = 46, speed = 0, offsetX = 0, offsetY = 0},
+		["pen demise"] = {start = 47, stop = 47, speed = 0, offsetX = 0, offsetY = 0},
+		["pen alt"] = {start = 48, stop = 48, speed = 0, offsetX = 0, offsetY = 0},
+		["mic"] = {start = 49, stop = 49, speed = 0, offsetX = 0, offsetY = 0},
+		["libitina"] = {start = 50, stop = 50, speed = 0, offsetX = 0, offsetY = 0},
+
+		["none"] = {start = 81, stop = 81, speed = 0, offsetX = 0, offsetY = 0},
 	},
 	"boyfriend",
 	false

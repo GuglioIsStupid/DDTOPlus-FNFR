@@ -115,5 +115,6 @@ return graphics.newSprite(
 		danceSpeed = 2,
 		sing_duration = 4,
         filter = "nearest",
+		icon = "jill"
 	}
 )

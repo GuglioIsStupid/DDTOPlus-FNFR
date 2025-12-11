@@ -258,6 +258,7 @@ return graphics.newSprite(
 	{
 		sing_duration = 4,
 		isCharacter = true,
-		filter = "nearest"
+		filter = "nearest",
+		icon = "monika"
 	}
 )

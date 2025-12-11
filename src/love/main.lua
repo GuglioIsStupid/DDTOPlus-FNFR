@@ -16,6 +16,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
+require("modules.overrides")
+require("modules.saveFuncs")
 if love.filesystem.isFused() then function print() end end -- print functions tend the make the game lag when in update functions, so we do this to prevent that
 function math.randomI(min, max, ignore)
 	local val = love.math.random(min, max)
@@ -234,6 +236,18 @@ function love.load() -- Todo, add custom framerate support
 end
 ]]
 
+CURSOR = {
+	image = love.graphics.newImage("images/cursor.png"),
+	x = 0,
+	y = 0,
+	visible = true
+}
+love.mouse.setVisible(false)
+---@diagnostic disable-next-line: duplicate-set-field
+function love.mouse.setVisible(visible)
+	CURSOR.visible = visible
+end
+
 UNLOCKED_ALL = false
 function love.load()
 	paused = false
@@ -298,7 +312,7 @@ function love.load()
 	if love.filesystem.getInfo("settings") then 
 		settingdata = love.filesystem.read("settings")
 		settingdata = lume.deserialize(settingdata)
-	
+
 		settings.hardwareCompression = settingdata.saveSettingsMoment.hardwareCompression
 		settings.downscroll = settingdata.saveSettingsMoment.downscroll
 		settings.ghostTapping = settingdata.saveSettingsMoment.ghostTapping
@@ -319,9 +333,9 @@ function love.load()
 
 		settings.mirrorMode = settingdata.saveSettingsMoment.mirrorMode
 		settings.selfAwareness = settingdata.saveSettingsMoment.selfAwareness
-	
+
 		settingsVer = settingdata.saveSettingsMoment.settingsVer
-	
+
 		settingdata.saveSettingsMoment = {
 			hardwareCompression = settings.hardwareCompression,
 			downscroll = settings.downscroll,
@@ -373,7 +387,7 @@ function love.load()
 		customBindDown = "s"
 	
 		settings.flashinglights = false
-		selfAwareness = true
+		settings.selfAwareness = true
 		settingsVer = 9
 		settingdata = {}
 		settingdata.saveSettingsMoment = {
@@ -682,7 +696,6 @@ function love.load()
 		curSave = lume.deserialize(curSave)
 		recursiveCheck(SaveData, curSave)
 	end
-
 	if UNLOCKED_ALL then
 		SaveData.weekUnlocked = 10
 		print("Unlocked")
@@ -843,11 +856,16 @@ function love.textinput(t)
 	Gamestate.textinput(t)
 end
 
+function love.mousemoved(x, y, dx, dy, istouch)
+	Gamestate.mousemoved(x, y, dx, dy, istouch)
+end
+
 function love.mousepressed(x, y, button, istouch, presses)
 	Gamestate.mousepressed(x, y, button, istouch, presses)
 end
 
 function love.update(dt)
+	CURSOR.x, CURSOR.y = love.mouse.getPosition()
 	dt = math.min(dt, 1 / 30)
 	if volFade > 0 then
 		volFade = volFade - 1 * dt
@@ -907,6 +925,11 @@ function love.draw()
 			graphics.setColor(1,1,1)
 			love.graphics.draw(fade.mesh, 0, fade.y, 0, lovesize.getWidth(), fade.height)
 		end
+
+		if CURSOR.visible then
+			love.graphics.setColor(1, 1, 1)
+			love.graphics.draw(CURSOR.image, CURSOR.x, CURSOR.y)
+		end
 	lovesize.finish()
 
 	graphics.screenBase(love.graphics.getWidth(), love.graphics.getHeight())
@@ -923,9 +946,9 @@ end
 
 function love.quit()
 	-- save SaveData
-	if not UNLOCKED_ALL then
+	--if not UNLOCKED_ALL then
 		local serialized = lume.serialize(SaveData)
 		love.filesystem.write("save", serialized)
-	end
+	--end
 	highscore:saveFile()
 end

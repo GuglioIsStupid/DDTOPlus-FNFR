@@ -29,8 +29,6 @@ return {
 		song = songNum
 		difficulty = songAppend
 
-		enemyIcon:animate("sayori", false)
-
 		poemVideo = love.graphics.newVideo("videos/lnf.ogv")
 		poemVideoAlpha = 0
 
@@ -157,20 +155,6 @@ return {
 
 			if input:pressed("confirm") then
 				dialogue.next()
-			end
-		end
-
-		if health >= 1.595 then
-			if enemyIcon:getAnimName() == "monika" then
-				enemyIcon:animate("monika losing")
-			end
-		elseif health < 0.325 then
-			if enemyIcon:getAnimName() == "monika" then
-				enemyIcon:animate("monika winning")
-			end
-		else
-			if enemyIcon:getAnimName() == "monika losing" or enemyIcon:getAnimName() == "monika winning" then
-				enemyIcon:animate("monika")
 			end
 		end
 

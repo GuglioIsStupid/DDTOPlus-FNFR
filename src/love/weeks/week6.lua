@@ -36,6 +36,10 @@ local dialogueFiles = {
 	}
 }
 
+local redStatic = {0}
+local redStaticTimer
+local redStaticSprite
+
 local songList = {
 	"High School Conflict",
 	"Bara no Yume",
@@ -48,6 +52,7 @@ return {
 		love.graphics.setDefaultFilter("nearest")
 		weeks:enter("pixel")
 		stages["school"]:enter()
+		redStaticSprite = love.filesystem.load("sprites/HomeStatic.lua")()
 
 		song = songNum
 		difficulty = songAppend
@@ -57,9 +62,6 @@ return {
 		fakeBoyfriend = love.filesystem.load("sprites/pixel/boyfriend-dead.lua")()
 
 		fakeBoyfriend.x, fakeBoyfriend.y = 300, 190
-
-		boyfriendIcon:animate("boyfriend (pixel)", false)
-		enemyIcon:animate("monika pixel", false)
 
 		pixelFont = love.graphics.newFont("fonts/pixel.fnt")
 
@@ -84,12 +86,11 @@ return {
 			school = love.filesystem.load("sprites/week6/evil-school.lua")()
 			enemy = love.filesystem.load("sprites/week6/spirit.lua")()
 			stages["school"]:leave()
-			enemyIcon:animate("demise", false)
 			stages["bigroom"]:enter()
 			stages["bigroom"]:load()
+			enemy:animate("idle alt")
 		elseif song == 2 then
 			enemy = love.filesystem.load("sprites/week6/senpai-angry.lua")()
-			enemyIcon:animate("duet")
 			stages["school"]:load()
 		else
 			enemy = love.filesystem.load("sprites/characters/pixel/monika.lua")()
@@ -118,16 +119,28 @@ return {
 		blackScreenAlpha = {1}
 
 		function evilswap(num)
-			if num == 0 or num == 2 then
+			if num == 1 then
+				if redStaticTimer then
+					Timer.cancel(redStaticTimer)
+				end
+				redStatic[1] = 1
+				redStaticTimer = Timer.tween(0.2, redStatic, {0})
 				curStage = "bigroom"
 				boyfriend.x, boyfriend.y = 345, 240
 				camera:addPoint("enemy", -enemy2.x, -enemy2.y + 75)
 				camera:addPoint("boyfriend", -boyfriend.x + 100, -boyfriend.y + 75)
-			elseif num == 1 then
+			elseif num == 0 then
+				if redStaticTimer then
+					Timer.cancel(redStaticTimer)
+				end
+				redStatic[1] = 1
+				redStaticTimer = Timer.tween(0.2, redStatic, {0})
 				boyfriend.x, boyfriend.y = 300, 190
 				curStage = "haunted"
 				camera:addPoint("enemy", -enemy.x - 100, -enemy.y + 75)
 				camera:addPoint("boyfriend", -boyfriend.x + 100, -boyfriend.y + 75)
+			elseif num == 2 then
+				--stages["bigroom"]:treeleavesVisible(true)
 			end
 		end
 
@@ -143,33 +156,35 @@ return {
 		elseif song == 3 then
 			weeks:generateNotes("data/songs/your demise/your demise.json")
 			if storyMode and not died then
-				--[[ weeks:setupDialogue(dialogueFiles[song].start)
+				weeks:setupDialogue(dialogueFiles[song].start)
 				weeks.dialogueSequenceCallback = function()
 					weeks:setupCountdown()
-				end ]]
-				weeks:setupCountdown()
+				end
+				--weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
+
+			enemy.icon = "demise"
 		elseif song == 2 then
 			weeks:generateNotes("data/songs/bara no yume/bara no yume.json")
 			if storyMode and not died then
-				--[[ weeks:setupDialogue(dialogueFiles[song].start)
+				weeks:setupDialogue(dialogueFiles[song].start)
 				weeks.dialogueSequenceCallback = function()
 					weeks:setupCountdown()
-				end ]]
-				weeks:setupCountdown()
+				end
+				--weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
 		else
 			weeks:generateNotes("data/songs/high school conflict/high school conflict.json")
 			if storyMode and not died then
-				--[[ weeks:setupDialogue(dialogueFiles[song].start)
+				weeks:setupDialogue(dialogueFiles[song].start)
 				weeks.dialogueSequenceCallback = function()
 					weeks:setupCountdown()
-				end ]]
-				weeks:setupCountdown()
+				end
+				--weeks:setupCountdown()
 			else
 				weeks:setupCountdown()
 			end
@@ -177,6 +192,7 @@ return {
 	end,
 
 	update = function(self, dt)
+		redStaticSprite:update(dt)
 		weeks:update(dt)
 		if song ~= 3 then
 			stages["school"]:update(dt)
@@ -198,6 +214,7 @@ return {
 					blackScreenAlpha = {1}
 				elseif s == 328 then
 					blackScreenAlpha = {0}
+					evilswap(1)
 				elseif s == 585 then
 					camera.defaultZoom = 1.15
 					evilswap(2)
@@ -309,31 +326,6 @@ return {
 			end
 		end
 
-		if health >= 1.595 then
-			if enemyIcon:getAnimName() == "monika pixel" then
-				enemyIcon:animate("monika pixel losing")
-			elseif enemyIcon:getAnimName() == "duet" then
-				enemyIcon:animate("duet losing")
-			elseif enemyIcon:getAnimName() == "demise" then 
-				enemyIcon:animate("demise losing")
-			end
-		elseif health < 0.325 then
-			if enemyIcon:getAnimName() == "monika pixel" then
-				enemyIcon:animate("monika pixel winning")
-			elseif enemyIcon:getAnimName() == "duet" then
-				enemyIcon:animate("duet winning")
-			elseif enemyIcon:getAnimName() == "demise" then	
-				enemyIcon:animate("demise winning")
-			end
-		else
-			if enemyIcon:getAnimName() == "monika pixel losing" or enemyIcon:getAnimName() == "monika pixel winning" then
-				enemyIcon:animate("monika pixel")
-			elseif enemyIcon:getAnimName() == "duet losing" or enemyIcon:getAnimName() == "duet winning" then
-				enemyIcon:animate("duet")
-			elseif enemyIcon:getAnimName() == "demise losing" or enemyIcon:getAnimName() == "demise winning" then
-				enemyIcon:animate("demise")
-			end
-		end
 		weeks:updateUI(dt)
 	end,
 
@@ -350,6 +342,13 @@ return {
 				love.graphics.rectangle("fill", -2000, -2000, 10000, 10000)
 				love.graphics.setColor(1,1,1,1)
 			end
+		love.graphics.pop()
+
+		love.graphics.push()
+			love.graphics.translate(graphics.getWidth()/2, graphics.getHeight()/2)
+			love.graphics.setColor(1, 1, 1, redStatic[1])
+			redStaticSprite:draw()
+			love.graphics.setColor(1, 1, 1, 1)
 		love.graphics.pop()
 
 		weeks:drawUI()

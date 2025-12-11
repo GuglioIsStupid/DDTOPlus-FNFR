@@ -62,5 +62,6 @@ return graphics.newSprite(
 		isCharacter = true,
 		danceSpeed = 2,
 		sing_duration = 4,
+		icon = "zipper"
 	}
 )

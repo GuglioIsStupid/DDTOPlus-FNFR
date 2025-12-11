@@ -44,5 +44,6 @@ return graphics.newSprite(
 		isCharacter = true,
 		danceSpeed = 1,
         filter = "nearest",
+		icon = "girlfriend"
 	}
 )

@@ -36,8 +36,6 @@ return {
 
 		camera.defaultZoom = 0.85
 
-		enemyIcon:animate("yuri", false)
-
         exhale = love.audio.newSource("sounds/exhale.ogg", "static")
         shutoff = love.audio.newSource("sounds/Lights_Shut_off.ogg", "static")
 
@@ -221,26 +219,6 @@ return {
 
 			if input:pressed("confirm") then
 				dialogue.next()
-			end
-		end
-
-        if health >= 1.595 then
-			if enemyIcon:getAnimName() == "yuri" then
-				enemyIcon:animate("yuri losing")
-            elseif enemyIcon:getAnimName() == "yuri insane" then
-                enemyIcon:animate("yuri insane losing")
-			end
-		elseif health < 0.325 then
-			if enemyIcon:getAnimName() == "yuri" then
-				enemyIcon:animate("yuri winning")
-            elseif enemyIcon:getAnimName() == "yuri insane" then
-                enemyIcon:animate("yuri insane winning")
-			end
-		else
-			if enemyIcon:getAnimName() == "yuri losing" or enemyIcon:getAnimName() == "yuri winning" then
-				enemyIcon:animate("yuri")
-            elseif enemyIcon:getAnimName() == "yuri winning" or enemyIcon:getAnimName() == "yuri insane losing" then
-                enemyIcon:animate("yuri insane")
 			end
 		end
 

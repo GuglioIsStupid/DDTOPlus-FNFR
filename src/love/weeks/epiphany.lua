@@ -118,7 +118,7 @@ return {
                 enemy:animate("lastNOTE_start")
                 countNum = 6
             elseif s == 784 and countNum == 6 then
-                if saveData.songs.beatEpiphany then
+                if SaveData.songs.beatEpiphany then
                     enemy:animate("lastNOTE_retry")
                 else
                     enemy:animate("lastNOTE_end")
@@ -126,6 +126,7 @@ return {
                 countNum = 7
             elseif s == 785 and countNum == 7 then
                 --saveData.songs.epiphany = true
+                SaveData.songs.beatEpiphany = true
                 countNum = 8
             elseif s == 788 and countNum == 8 then
                 -- fade shit

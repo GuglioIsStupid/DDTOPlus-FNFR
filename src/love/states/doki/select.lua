@@ -5,6 +5,10 @@ local addVally = false
 local shaker
 local shakerPressX, shakerPressY, shakerPressEndX, shakerPressEndY = 1115, 551, 1207, 703
 
+local selectSound = love.audio.newSource("sounds/menu/select.ogg", "static")
+local shakerConfirmSound = love.audio.newSource("sounds/menu/va11hallaSelect.ogg", "static")
+local confirmSound = love.audio.newSource("sounds/menu/confirm.ogg", "static")
+
 return {
     enter = function(self)
         scrollingBG = {
@@ -42,7 +46,7 @@ return {
         local twenty = {"dokitogether", "yuri", "natsuki", "sayori", "pixelmonika", "senpai"}
         local ten = {"sunnat", "yuritabi", "minusmonikapixel", "yuriken", "sayominus", "cyrixstatic", "zipori", "nathaachama"}
         local two = {"fumo"}
-        
+
         if SaveData.songs.beatFestival then
             table.insert(twenty, "protag")
         end
@@ -222,6 +226,8 @@ return {
             curOption = optionShit[curIndex][1]
         end
 
+        local mx, my = lovesize.pos(CURSOR.x, CURSOR.y)
+
         if input:pressed("confirm") then
             if curOption == "Story" then
                 graphics:fadeOutWipe(0.5, function() Gamestate.switch(menuWeek) end)
@@ -240,15 +246,31 @@ return {
     keypressed = function(self, key)
     end,
 
+    mousemoved = function(self, x, y)
+        x, y = lovesize.pos(x, y)
+        for i = 1, #optionShit do
+            local option = optionShit[i]
+            local ox, oy = option.pos.x+(1280/2), option.pos.y+(720/2)+10
+            if x >= ox - 100 and x <= ox + 200 and y >= oy - 20 and y <= oy + 20 then
+                if curOption ~= option[1] then
+                    selectSound:play()
+                end
+                curOption = option[1]
+                break
+            end
+        end
+    end,
+
     mousepressed = function(self, x, y, button)
         x, y = lovesize.pos(x, y)
-        if x > shakerPressX and x < shakerPressEndX and y > shakerPressY and y < shakerPressEndY then
+        if x > shakerPressX and x < shakerPressEndX and y > shakerPressY and y < shakerPressEndY and addVally then
             status.setLoading(true)
             graphics:fadeOutWipe(
                 0.7,
                 function()
                     songAppend = "-hard"
                     storyMode = true
+                    shakerConfirmSound:play()
                     music:stop()
 
                     weeks.SET_WEEK_NUMBER = 13
@@ -257,6 +279,25 @@ return {
                     status.setLoading(false)
                 end
             )
+        else
+            for i = 1, #optionShit do
+                local option = optionShit[i]
+                local ox, oy = option.pos.x+(1280/2), option.pos.y+(720/2)+10
+                if x >= ox - 100 and x <= ox + 200 and y >= oy - 20 and y <= oy + 20 then
+                    confirmSound:play()
+                    curOption = option[1]
+                    if curOption == "Story" then
+                        graphics:fadeOutWipe(0.5, function() Gamestate.switch(menuWeek) end)
+                    elseif curOption == "Freeplay" then
+                        graphics:fadeOutWipe(0.5, function() Gamestate.switch(menuFreeplay) end)
+                    elseif curOption == "Options" then
+                        graphics:fadeOutWipe(0.5, function() Gamestate.switch(menuSettings) end)
+                    elseif curOption == "Exit Game" then
+                        graphics.fadeOut(0.5, function() love.event.quit() end)
+                    end
+                    break
+                end
+            end
         end
     end,
 
